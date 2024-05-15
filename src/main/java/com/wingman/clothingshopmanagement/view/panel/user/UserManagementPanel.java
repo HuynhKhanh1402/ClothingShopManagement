@@ -5,29 +5,9 @@
 package com.wingman.clothingshopmanagement.view.panel.user;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.wingman.clothingshopmanagement.util.ImageUtil;
-import com.wingman.clothingshopmanagement.view.components.render.ButtonRenderer;
-import com.wingman.clothingshopmanagement.view.components.render.PanelRenderer;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import java.awt.Dimension;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -41,86 +21,117 @@ public class UserManagementPanel extends javax.swing.JPanel {
     public UserManagementPanel() {
         initComponents();
         
-        initTable();
-    }
-    
-    private void initTable() {
-        jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
+        jPanel1.setPreferredSize(new Dimension(971, 1000));
         
-        jTable1.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                setBorder(null);
-                setBackground(new Color(250, 250, 250));
-                return this;
-            }
-        });
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
+        addUserPanel(new UserPanelDesign());
         
-        jTable1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int row = jTable1.rowAtPoint(e.getPoint());
-                int col = jTable1.columnAtPoint(e.getPoint());
-                if (row >= 0 && col >= 0) {
-                    if (jTable1.getValueAt(row, col) instanceof CellButton button) {
-                        button.getConsumer().accept(jTable1);
-                    }
-                }
-            }
-        });
-        
-        jTable1.setRowHeight(50);
-        jTable1.getColumnModel().getColumn(0).setCellRenderer(new PanelRenderer());
-        jTable1.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
-        jTable1.getColumnModel().getColumn(4).setMaxWidth(30);
-        jTable1.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
-        jTable1.getColumnModel().getColumn(5).setMaxWidth(30);
-        
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        
-        JButton button = new CellButton("", (t) -> {
-            System.out.println("Hello"); 
-        });
-        button.setBorder(new EmptyBorder(3, 3, 3, 3));
-        button.setIcon(new ImageIcon(getClass().getResource("/images/delete.png")));
-        
-       
-        JButton button1 = new CellButton("", (t) -> {
-            System.out.println("Hello2"); 
-        });
-        button1.setBorder(new EmptyBorder(3, 3, 3, 3));
-        button1.setIcon(new ImageIcon(getClass().getResource("/images/pencil.png")));
 
-        model.addRow(new Object [] {getUserColumPanel("Huynh Quoc Khanh", "admin@mail.com"), "Administrator", "13/05/2024", "13/05/2024", button, button1});       
-        model.addRow(new Object [] {getUserColumPanel("Huynh Quoc Khanh", "admin@mail.com"), "Administrator", "13/05/2024", "13/05/2024", button, button1});
+        
+//        initTable();
     }
     
-    private JPanel getUserColumPanel(String fullName, String email) {
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(2, 1));
-        centerPanel.setBackground(jTable1.getBackground());
+    private void addUserPanel(JPanel panel) {
+        jPanel1.add(panel);
         
-        JLabel fullNameLabel = new JLabel(fullName);
-        fullNameLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        JLabel emailLabel = new JLabel(email);
+        int width = (int) jPanel1.getPreferredSize().getWidth();
+        int height = (int) jPanel1.getPreferredSize().getHeight();
         
-        centerPanel.add(fullNameLabel);
-        centerPanel.add(emailLabel);
+        height += panel.getHeight();
         
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-        mainPanel.setBackground(jTable1.getBackground());
-        
-        ImageIcon icon = new ImageIcon(getClass().getResource("/images/user_color.png"));
-        JLabel iconLabel = new JLabel(ImageUtil.resize(icon, 32, 32));
-        iconLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
-        mainPanel.add(iconLabel, BorderLayout.WEST);
-        
-        mainPanel.add(centerPanel, BorderLayout.CENTER);
-        
-        return mainPanel;
+        jPanel1.setPreferredSize(new Dimension(width, height));
     }
+    
+//    private void initTable() {
+//        jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
+//        
+//        jTable1.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
+//            @Override
+//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+//                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//                setBorder(null);
+//                setBackground(new Color(250, 250, 250));
+//                return this;
+//            }
+//        });
+//        
+//        jTable1.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                int row = jTable1.rowAtPoint(e.getPoint());
+//                int col = jTable1.columnAtPoint(e.getPoint());
+//                if (row >= 0 && col >= 0) {
+//                    if (jTable1.getValueAt(row, col) instanceof CellButton button) {
+//                        button.getConsumer().accept(jTable1);
+//                    }
+//                }
+//            }
+//        });
+//        
+//        jTable1.setRowHeight(50);
+//        jTable1.getColumnModel().getColumn(0).setCellRenderer(new PanelRenderer());
+//        jTable1.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+//        jTable1.getColumnModel().getColumn(4).setMaxWidth(30);
+//        jTable1.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+//        jTable1.getColumnModel().getColumn(5).setMaxWidth(30);
+//        
+//        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+//        
+//        JButton button = new CellButton("", (t) -> {
+//            System.out.println("Hello"); 
+//        });
+//        button.setBorder(new EmptyBorder(3, 3, 3, 3));
+//        button.setIcon(new ImageIcon(getClass().getResource("/images/delete.png")));
+//        
+//       
+//        JButton button1 = new CellButton("", (t) -> {
+//            System.out.println("Hello2"); 
+//        });
+//        button1.setBorder(new EmptyBorder(3, 3, 3, 3));
+//        button1.setIcon(new ImageIcon(getClass().getResource("/images/pencil.png")));
+//
+//        model.addRow(new Object [] {getUserColumPanel("Huynh Quoc Khanh", "admin@mail.com"), "Administrator", "13/05/2024", "13/05/2024", button, button1});       
+//        model.addRow(new Object [] {getUserColumPanel("Huynh Quoc Khanh", "admin@mail.com"), "Administrator", "13/05/2024", "13/05/2024", button, button1});
+//    }
+//    
+//    private JPanel getUserColumPanel(String fullName, String email) {
+//        JPanel centerPanel = new JPanel();
+//        centerPanel.setLayout(new GridLayout(2, 1));
+//        centerPanel.setBackground(jTable1.getBackground());
+//        
+//        JLabel fullNameLabel = new JLabel(fullName);
+//        fullNameLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
+//        JLabel emailLabel = new JLabel(email);
+//        
+//        centerPanel.add(fullNameLabel);
+//        centerPanel.add(emailLabel);
+//        
+//        JPanel mainPanel = new JPanel();
+//        mainPanel.setLayout(new BorderLayout());
+//        mainPanel.setBackground(jTable1.getBackground());
+//        
+//        ImageIcon icon = new ImageIcon(getClass().getResource("/images/user_color.png"));
+//        JLabel iconLabel = new JLabel(ImageUtil.resize(icon, 32, 32));
+//        iconLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
+//        mainPanel.add(iconLabel, BorderLayout.WEST);
+//        
+//        mainPanel.add(centerPanel, BorderLayout.CENTER);
+//        
+//        return mainPanel;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -137,8 +148,13 @@ public class UserManagementPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         customButton1 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         customTextField2 = new com.wingman.clothingshopmanagement.view.components.CustomTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -176,49 +192,92 @@ public class UserManagementPanel extends javax.swing.JPanel {
         customTextField2.setRadius(16);
         customTextField2.setSelectionColor(new java.awt.Color(155, 50, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-            },
-            new String [] {
-                "User", "Permission", "Last active", "Date added", "", ""
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
+        jPanel2.setBackground(new java.awt.Color(250, 250, 250));
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
+        jTextField1.setBackground(new java.awt.Color(250, 250, 250));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTextField1.setForeground(java.awt.Color.gray);
+        jTextField1.setText("User");
+        jTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
+        jTextField2.setBackground(new java.awt.Color(250, 250, 250));
+        jTextField2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTextField2.setForeground(java.awt.Color.gray);
+        jTextField2.setText("Permission");
+        jTextField2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jTextField3.setBackground(new java.awt.Color(250, 250, 250));
+        jTextField3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTextField3.setForeground(java.awt.Color.gray);
+        jTextField3.setText("Last active");
+        jTextField3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jTextField4.setBackground(new java.awt.Color(250, 250, 250));
+        jTextField4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTextField4.setForeground(java.awt.Color.gray);
+        jTextField4.setText("Date added");
+        jTextField4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jTextField1)
+                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addComponent(jTextField3)
+                .addComponent(jTextField4))
+        );
+
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setMaximumSize(new java.awt.Dimension(971, 515));
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(971, 515));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(971, 515));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(971, 515));
+        jPanel1.setMinimumSize(new java.awt.Dimension(971, 515));
+        jScrollPane2.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 427, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 425, Short.MAX_VALUE)
                         .addComponent(customTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(customButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1)
-                    .addComponent(userManagementLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userManagementLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,9 +294,11 @@ public class UserManagementPanel extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -256,8 +317,13 @@ public class UserManagementPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel userManagementLabel;
     // End of variables declaration//GEN-END:variables
 }

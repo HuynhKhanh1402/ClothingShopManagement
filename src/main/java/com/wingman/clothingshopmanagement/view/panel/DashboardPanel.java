@@ -5,8 +5,10 @@
 package com.wingman.clothingshopmanagement.view.panel;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.wingman.clothingshopmanagement.view.panel.user.UserManagementPanel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import lombok.Getter;
 
 /**
@@ -44,7 +46,6 @@ public class DashboardPanel extends javax.swing.JPanel {
         customButton7 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         customButton9 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
 
-        setAlignmentY(0.5F);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(244, 243, 243));
@@ -111,6 +112,11 @@ public class DashboardPanel extends javax.swing.JPanel {
         customButton1.setIconTextGap(12);
         customButton1.setPreferredSize(new java.awt.Dimension(112, 44));
         customButton1.setRadius(10);
+        customButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customButton1ActionPerformed(evt);
+            }
+        });
 
         customButton3.setBackground(new java.awt.Color(125, 44, 224));
         customButton3.setForeground(new java.awt.Color(255, 255, 255));
@@ -126,6 +132,11 @@ public class DashboardPanel extends javax.swing.JPanel {
         customButton3.setIconTextGap(12);
         customButton3.setPreferredSize(new java.awt.Dimension(112, 44));
         customButton3.setRadius(10);
+        customButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customButton3ActionPerformed(evt);
+            }
+        });
 
         customButton4.setBackground(new java.awt.Color(125, 44, 224));
         customButton4.setForeground(new java.awt.Color(255, 255, 255));
@@ -263,6 +274,14 @@ public class DashboardPanel extends javax.swing.JPanel {
     private void customButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton9ActionPerformed
 
     }//GEN-LAST:event_customButton9ActionPerformed
+
+    private void customButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_customButton1ActionPerformed
+
+    private void customButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton3ActionPerformed
+        setConentPanel(new UserManagementPanel());
+    }//GEN-LAST:event_customButton3ActionPerformed
     
     public void setConentPanel(JPanel panel) {
         if (contentPanel != null) {
@@ -270,6 +289,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         }
         contentPanel = panel;
         add(contentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 55, 1006, 684));
+        revalidate();
     }
     
     public static void main(String[] args) {
