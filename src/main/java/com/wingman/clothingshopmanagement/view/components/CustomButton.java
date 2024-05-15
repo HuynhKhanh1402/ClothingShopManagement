@@ -6,6 +6,7 @@ package com.wingman.clothingshopmanagement.view.components;
 
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -32,6 +33,8 @@ public class CustomButton extends JButton{
         colorOver = Color.LIGHT_GRAY;
         colorClick = Color.LIGHT_GRAY;
         borderColor = Color.BLACK;
+        
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         
         setContentAreaFilled(false);
         addMouseListener(new MouseAdapter() {

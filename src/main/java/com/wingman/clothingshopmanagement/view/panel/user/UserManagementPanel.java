@@ -149,10 +149,10 @@ public class UserManagementPanel extends javax.swing.JPanel {
         customButton1 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         customTextField2 = new com.wingman.clothingshopmanagement.view.components.CustomTextField();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        userNameLabel = new javax.swing.JTextField();
+        permissionLabel = new javax.swing.JTextField();
+        lastActiveLabel = new javax.swing.JTextField();
+        dateAddedLabel = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
 
@@ -194,51 +194,55 @@ public class UserManagementPanel extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));
 
-        jTextField1.setBackground(new java.awt.Color(250, 250, 250));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jTextField1.setForeground(java.awt.Color.gray);
-        jTextField1.setText("User");
-        jTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        userNameLabel.setEditable(false);
+        userNameLabel.setBackground(new java.awt.Color(250, 250, 250));
+        userNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        userNameLabel.setForeground(java.awt.Color.gray);
+        userNameLabel.setText("User");
+        userNameLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jTextField2.setBackground(new java.awt.Color(250, 250, 250));
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jTextField2.setForeground(java.awt.Color.gray);
-        jTextField2.setText("Permission");
-        jTextField2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        permissionLabel.setEditable(false);
+        permissionLabel.setBackground(new java.awt.Color(250, 250, 250));
+        permissionLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        permissionLabel.setForeground(java.awt.Color.gray);
+        permissionLabel.setText("Permission");
+        permissionLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jTextField3.setBackground(new java.awt.Color(250, 250, 250));
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jTextField3.setForeground(java.awt.Color.gray);
-        jTextField3.setText("Last active");
-        jTextField3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lastActiveLabel.setEditable(false);
+        lastActiveLabel.setBackground(new java.awt.Color(250, 250, 250));
+        lastActiveLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lastActiveLabel.setForeground(java.awt.Color.gray);
+        lastActiveLabel.setText("Last active");
+        lastActiveLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jTextField4.setBackground(new java.awt.Color(250, 250, 250));
-        jTextField4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jTextField4.setForeground(java.awt.Color.gray);
-        jTextField4.setText("Date added");
-        jTextField4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        dateAddedLabel.setEditable(false);
+        dateAddedLabel.setBackground(new java.awt.Color(250, 250, 250));
+        dateAddedLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        dateAddedLabel.setForeground(java.awt.Color.gray);
+        dateAddedLabel.setText("Date added");
+        dateAddedLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(permissionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lastActiveLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(dateAddedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jTextField1)
-                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                .addComponent(jTextField3)
-                .addComponent(jTextField4))
+                .addComponent(userNameLabel)
+                .addComponent(permissionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addComponent(lastActiveLabel)
+                .addComponent(dateAddedLabel))
         );
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
@@ -314,16 +318,16 @@ public class UserManagementPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.wingman.clothingshopmanagement.view.components.CustomButton customButton1;
     private com.wingman.clothingshopmanagement.view.components.CustomTextField customTextField2;
+    private javax.swing.JTextField dateAddedLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField lastActiveLabel;
+    private javax.swing.JTextField permissionLabel;
     private javax.swing.JLabel userManagementLabel;
+    private javax.swing.JTextField userNameLabel;
     // End of variables declaration//GEN-END:variables
 }

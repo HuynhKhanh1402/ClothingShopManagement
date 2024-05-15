@@ -18,6 +18,7 @@ com\wingman\clothingshopmanagement\view\MainFrame.class
 com\wingman\clothingshopmanagement\view\components\CustomPanel.class
 com\wingman\clothingshopmanagement\view\panel\DashboardPanel$3.class
 com\wingman\clothingshopmanagement\view\components\CustomButton$1.class
+com\wingman\clothingshopmanagement\view\panel\NewJFrame$4.class
 com\wingman\clothingshopmanagement\view\panel\user\CellButton.class
 com\wingman\clothingshopmanagement\view\panel\NewJFrame$1.class
 com\wingman\clothingshopmanagement\view\panel\user\UserManagementPanel.class
