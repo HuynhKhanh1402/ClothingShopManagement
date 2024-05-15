@@ -1,7 +1,6 @@
 package com.wingman.clothingshopmanagement.view.components.render;
 
 import java.awt.Component;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;

@@ -2,8 +2,7 @@ com\wingman\clothingshopmanagement\view\MainFrame$1.class
 com\wingman\clothingshopmanagement\view\panel\DashboardPanel.class
 com\wingman\clothingshopmanagement\Bootstrap.class
 com\wingman\clothingshopmanagement\view\panel\DashboardPanel$2.class
-com\wingman\clothingshopmanagement\view\panel\UserManagementPanel$1.class
-com\wingman\clothingshopmanagement\view\panel\UserManagementPanel$2.class
+com\wingman\clothingshopmanagement\view\panel\user\UserManagementPanel$2.class
 com\wingman\clothingshopmanagement\view\panel\NewJFrame$3.class
 com\wingman\clothingshopmanagement\util\ImageUtil.class
 com\wingman\clothingshopmanagement\view\panel\NewJFrame$2.class
@@ -12,9 +11,13 @@ com\wingman\clothingshopmanagement\view\components\CustomButton.class
 com\wingman\clothingshopmanagement\view\panel\DashboardPanel$1.class
 com\wingman\clothingshopmanagement\view\components\CustomTextField.class
 com\wingman\clothingshopmanagement\view\panel\NewJFrame.class
-com\wingman\clothingshopmanagement\view\panel\UserManagementPanel.class
+com\wingman\clothingshopmanagement\view\panel\user\UserManagementPanel$3.class
+com\wingman\clothingshopmanagement\view\panel\user\UserManagementPanel$1.class
+com\wingman\clothingshopmanagement\view\components\render\ButtonRenderer.class
 com\wingman\clothingshopmanagement\view\MainFrame.class
 com\wingman\clothingshopmanagement\view\components\CustomPanel.class
 com\wingman\clothingshopmanagement\view\panel\DashboardPanel$3.class
 com\wingman\clothingshopmanagement\view\components\CustomButton$1.class
+com\wingman\clothingshopmanagement\view\panel\user\CellButton.class
 com\wingman\clothingshopmanagement\view\panel\NewJFrame$1.class
+com\wingman\clothingshopmanagement\view\panel\user\UserManagementPanel.class

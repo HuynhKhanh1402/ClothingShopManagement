@@ -2,16 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.wingman.clothingshopmanagement.view.panel;
+package com.wingman.clothingshopmanagement.view.panel.user;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
+import com.wingman.clothingshopmanagement.view.components.render.ButtonRenderer;
 import com.wingman.clothingshopmanagement.view.components.render.PanelRenderer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +22,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -50,19 +57,43 @@ public class UserManagementPanel extends javax.swing.JPanel {
             }
         });
         
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = jTable1.rowAtPoint(e.getPoint());
+                int col = jTable1.columnAtPoint(e.getPoint());
+                if (row >= 0 && col >= 0) {
+                    if (jTable1.getValueAt(row, col) instanceof CellButton button) {
+                        button.getConsumer().accept(jTable1);
+                    }
+                }
+            }
+        });
+        
         jTable1.setRowHeight(50);
         jTable1.getColumnModel().getColumn(0).setCellRenderer(new PanelRenderer());
-        jTable1.getColumnModel().getColumn(4).setCellRenderer(new PanelRenderer());
+        jTable1.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+        jTable1.getColumnModel().getColumn(4).setMaxWidth(30);
+        jTable1.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        jTable1.getColumnModel().getColumn(5).setMaxWidth(30);
         
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         
-        JButton button = new JButton("Edit");
-        button.addActionListener((e) -> {
-            System.out.println("Hello");
+        JButton button = new CellButton("", (t) -> {
+            System.out.println("Hello"); 
         });
+        button.setBorder(new EmptyBorder(3, 3, 3, 3));
+        button.setIcon(new ImageIcon(getClass().getResource("/images/delete.png")));
+        
+       
+        JButton button1 = new CellButton("", (t) -> {
+            System.out.println("Hello2"); 
+        });
+        button1.setBorder(new EmptyBorder(3, 3, 3, 3));
+        button1.setIcon(new ImageIcon(getClass().getResource("/images/pencil.png")));
 
-        model.addRow(new Object [] {getUserColumPanel("Huynh Quoc Khanh", "admin@mail.com"), "Administrator", "13/05/2024", "13/05/2024", button});       
-        model.addRow(new Object [] {getUserColumPanel("Huynh Quoc Khanh", "admin@mail.com"), "Administrator", "13/05/2024", "13/05/2024", button});
+        model.addRow(new Object [] {getUserColumPanel("Huynh Quoc Khanh", "admin@mail.com"), "Administrator", "13/05/2024", "13/05/2024", button, button1});       
+        model.addRow(new Object [] {getUserColumPanel("Huynh Quoc Khanh", "admin@mail.com"), "Administrator", "13/05/2024", "13/05/2024", button, button1});
     }
     
     private JPanel getUserColumPanel(String fullName, String email) {
@@ -149,14 +180,14 @@ public class UserManagementPanel extends javax.swing.JPanel {
             new Object [][] {
             },
             new String [] {
-                "User", "Permission", "Last active", "Date added", ""
+                "User", "Permission", "Last active", "Date added", "", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, javax.swing.JButton.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
