@@ -4,16 +4,23 @@
  */
 package com.wingman.clothingshopmanagement.view.panel.user;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import com.wingman.clothingshopmanagement.model.dao.DAOManager;
+import com.wingman.clothingshopmanagement.model.dao.UserDAO;
+import com.wingman.clothingshopmanagement.model.user.User;
+import com.wingman.clothingshopmanagement.view.MainFrame;
 import java.awt.Dimension;
-import javax.swing.JFrame;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
+import lombok.Getter;
 
 /**
  *
  * @author Administrator
  */
+@Getter
 public class UserManagementPanel extends javax.swing.JPanel {
+    private final List<User> cachedUsers = new ArrayList<>();
 
     /**
      * Creates new form UserManagementPanel
@@ -21,27 +28,37 @@ public class UserManagementPanel extends javax.swing.JPanel {
     public UserManagementPanel() {
         initComponents();
         
-        jPanel1.setPreferredSize(new Dimension(971, 1000));
+        initData("");
+    }
+    
+    private void initData(String filter) {
+        jPanel1.removeAll();
+        cachedUsers.clear();
         
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
-        addUserPanel(new UserPanelDesign());
+        MainFrame.getInstance().getLoading().showLoading();
+        MainFrame.getInstance().getLoading().hideLoading();
         
-
+        UserDAO userDAO = DAOManager.getInstance().getUserDAO();
         
-//        initTable();
+        userDAO.getAll().join().forEach((t) -> {
+            System.out.println(t);
+        });
+        
+//        userDAO.getAll().thenAccept((users) -> {
+//            for (User user : users) {
+//                if (user.getEmail().toLowerCase().contains(filter) ||
+//                    user.getFullName().toLowerCase().contains(filter)) {
+//                    cachedUsers.add(user);
+//                    addUserPanel(new UserPanel(user));
+//                }
+//            }
+//            
+//            System.out.println("Done");
+//            
+//        }).thenRun(() -> {
+//            System.out.println("Done2");
+//        });
+        
     }
     
     private void addUserPanel(JPanel panel) {
@@ -54,84 +71,6 @@ public class UserManagementPanel extends javax.swing.JPanel {
         
         jPanel1.setPreferredSize(new Dimension(width, height));
     }
-    
-//    private void initTable() {
-//        jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
-//        
-//        jTable1.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
-//            @Override
-//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-//                setBorder(null);
-//                setBackground(new Color(250, 250, 250));
-//                return this;
-//            }
-//        });
-//        
-//        jTable1.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                int row = jTable1.rowAtPoint(e.getPoint());
-//                int col = jTable1.columnAtPoint(e.getPoint());
-//                if (row >= 0 && col >= 0) {
-//                    if (jTable1.getValueAt(row, col) instanceof CellButton button) {
-//                        button.getConsumer().accept(jTable1);
-//                    }
-//                }
-//            }
-//        });
-//        
-//        jTable1.setRowHeight(50);
-//        jTable1.getColumnModel().getColumn(0).setCellRenderer(new PanelRenderer());
-//        jTable1.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
-//        jTable1.getColumnModel().getColumn(4).setMaxWidth(30);
-//        jTable1.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
-//        jTable1.getColumnModel().getColumn(5).setMaxWidth(30);
-//        
-//        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-//        
-//        JButton button = new CellButton("", (t) -> {
-//            System.out.println("Hello"); 
-//        });
-//        button.setBorder(new EmptyBorder(3, 3, 3, 3));
-//        button.setIcon(new ImageIcon(getClass().getResource("/images/delete.png")));
-//        
-//       
-//        JButton button1 = new CellButton("", (t) -> {
-//            System.out.println("Hello2"); 
-//        });
-//        button1.setBorder(new EmptyBorder(3, 3, 3, 3));
-//        button1.setIcon(new ImageIcon(getClass().getResource("/images/pencil.png")));
-//
-//        model.addRow(new Object [] {getUserColumPanel("Huynh Quoc Khanh", "admin@mail.com"), "Administrator", "13/05/2024", "13/05/2024", button, button1});       
-//        model.addRow(new Object [] {getUserColumPanel("Huynh Quoc Khanh", "admin@mail.com"), "Administrator", "13/05/2024", "13/05/2024", button, button1});
-//    }
-//    
-//    private JPanel getUserColumPanel(String fullName, String email) {
-//        JPanel centerPanel = new JPanel();
-//        centerPanel.setLayout(new GridLayout(2, 1));
-//        centerPanel.setBackground(jTable1.getBackground());
-//        
-//        JLabel fullNameLabel = new JLabel(fullName);
-//        fullNameLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
-//        JLabel emailLabel = new JLabel(email);
-//        
-//        centerPanel.add(fullNameLabel);
-//        centerPanel.add(emailLabel);
-//        
-//        JPanel mainPanel = new JPanel();
-//        mainPanel.setLayout(new BorderLayout());
-//        mainPanel.setBackground(jTable1.getBackground());
-//        
-//        ImageIcon icon = new ImageIcon(getClass().getResource("/images/user_color.png"));
-//        JLabel iconLabel = new JLabel(ImageUtil.resize(icon, 32, 32));
-//        iconLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
-//        mainPanel.add(iconLabel, BorderLayout.WEST);
-//        
-//        mainPanel.add(centerPanel, BorderLayout.CENTER);
-//        
-//        return mainPanel;
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -306,14 +245,6 @@ public class UserManagementPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String[] args) {
-        FlatLightLaf.setup();
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        frame.add(new UserManagementPanel());
-        frame.pack();
-        frame.setVisible(true);
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.wingman.clothingshopmanagement.view.components.CustomButton customButton1;

@@ -8,7 +8,6 @@ import com.formdev.flatlaf.FlatLightLaf;
 import com.wingman.clothingshopmanagement.view.panel.user.UserManagementPanel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import lombok.Getter;
 
 /**
@@ -16,7 +15,7 @@ import lombok.Getter;
  * @author Administrator
  */
 @Getter
-public class DashboardPanel extends javax.swing.JPanel {
+public class DashboardPanel extends javax.swing.JLayeredPane {
     private JPanel contentPanel;
     /**
      * Creates new form Temp

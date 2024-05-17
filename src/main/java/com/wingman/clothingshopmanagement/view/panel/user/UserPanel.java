@@ -4,17 +4,45 @@
  */
 package com.wingman.clothingshopmanagement.view.panel.user;
 
+import com.wingman.clothingshopmanagement.model.image.Image;
+import com.wingman.clothingshopmanagement.model.user.User;
+import com.wingman.clothingshopmanagement.util.DateFormatter;
+import com.wingman.clothingshopmanagement.util.ImageUtil;
+import java.text.SimpleDateFormat;
+import lombok.Getter;
+
 /**
  *
  * @author Administrator
  */
-public class UserPanelDesign extends javax.swing.JPanel {
-
-    /**
-     * Creates new form UserPanel
-     */
-    public UserPanelDesign() {
+@Getter
+public class UserPanel extends javax.swing.JPanel {
+    private final User user;
+    
+    public UserPanel(User user) {
+        this.user = user;
         initComponents();
+        
+        Image avatar = user.getAvatar();
+        if (avatar != null) {
+            userAvatar.setIcon(ImageUtil.resize(avatar.getImage(), 64, 64));
+        }
+        
+        emailLabel.setText(user.getEmail());
+        fullNameLabel.setText(user.getFullName());
+        permissionLabel.setText(user.getPermission().getText());
+        
+        if (user.getLastActive() != null) {
+            lastActiveLabel.setText(DateFormatter.formatDate(user.getLastActive()));
+        } else {
+            lastActiveLabel.setText("No data");
+        }
+        
+        if (user.getAddedDate()!= null) {
+            lastActiveLabel.setText(DateFormatter.formatDate(user.getAddedDate()));
+        } else {
+            lastActiveLabel.setText("No data");
+        }
     }
 
     /**
@@ -27,12 +55,12 @@ public class UserPanelDesign extends javax.swing.JPanel {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        userAvatar = new javax.swing.JLabel();
+        fullNameLabel = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        permissionLabel = new javax.swing.JLabel();
+        lastActiveLabel = new javax.swing.JLabel();
+        addedDateLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         customButton2 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         customButton3 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
@@ -41,18 +69,18 @@ public class UserPanelDesign extends javax.swing.JPanel {
 
         jSeparator1.setBackground(java.awt.Color.gray);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user_color.png"))); // NOI18N
+        userAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user_color.png"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Username");
+        fullNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fullNameLabel.setText("Username");
 
-        jLabel2.setText("email");
+        emailLabel.setText("email");
 
-        jLabel4.setText("Administrator");
+        permissionLabel.setText("Administrator");
 
-        jLabel5.setText("01/01/2024");
+        lastActiveLabel.setText("01/01/2024");
 
-        jLabel6.setText("01/01/2024");
+        addedDateLabel.setText("01/01/2024");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(122, 64));
@@ -94,17 +122,17 @@ public class UserPanelDesign extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel3)
+                .addComponent(userAvatar)
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fullNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(permissionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lastActiveLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addedDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -118,17 +146,17 @@ public class UserPanelDesign extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
+                            .addComponent(userAvatar)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fullNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addComponent(jLabel2))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(emailLabel))
+                            .addComponent(permissionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(lastActiveLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(addedDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(12, 12, 12))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,15 +167,15 @@ public class UserPanelDesign extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addedDateLabel;
     private com.wingman.clothingshopmanagement.view.components.CustomButton customButton2;
     private com.wingman.clothingshopmanagement.view.components.CustomButton customButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JLabel fullNameLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lastActiveLabel;
+    private javax.swing.JLabel permissionLabel;
+    private javax.swing.JLabel userAvatar;
     // End of variables declaration//GEN-END:variables
 }
