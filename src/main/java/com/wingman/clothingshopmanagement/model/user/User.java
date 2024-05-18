@@ -47,6 +47,6 @@ public class User {
     private Date addedDate;
     
     @JoinColumn(name = "ImageID", nullable = true)
-    @ManyToOne(targetEntity=Image.class, fetch=FetchType.LAZY)
+    @ManyToOne(targetEntity=Image.class, fetch=FetchType.EAGER)
     private Image avatar;
 }

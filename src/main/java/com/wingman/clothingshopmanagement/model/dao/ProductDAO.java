@@ -23,8 +23,6 @@ public class ProductDAO implements IDAO<Product, Long>{
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 return session.get(Product.class, key);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
 
@@ -49,8 +47,6 @@ public class ProductDAO implements IDAO<Product, Long>{
                 HibernateUtil.roolbackTransaction(transaction);
                 throw new RuntimeException(e);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
 
@@ -66,8 +62,6 @@ public class ProductDAO implements IDAO<Product, Long>{
                 HibernateUtil.roolbackTransaction(transaction);
                 throw new RuntimeException(e);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
 
@@ -86,8 +80,6 @@ public class ProductDAO implements IDAO<Product, Long>{
                 HibernateUtil.roolbackTransaction(transaction);
                 throw new RuntimeException(e);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
     

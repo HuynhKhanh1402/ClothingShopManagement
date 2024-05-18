@@ -20,19 +20,20 @@ import lombok.Setter;
 @Entity
 @Table(name = "Image")
 public class Image {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ImageID")
     private Long imageID;
 
     @Lob
-    @Column(name = "Content", columnDefinition="BLOB")
+    @Column(name = "Content", columnDefinition = "BLOB")
     private byte[] content;
 
     public ImageIcon getImage() {
         return new ImageIcon(content);
     }
-    
+
     public void setImage(ImageIcon image) {
         if (image == null) {
             throw new IllegalArgumentException("Image iss null");

@@ -6,12 +6,17 @@ package com.wingman.clothingshopmanagement.view.panel.user;
 
 import com.wingman.clothingshopmanagement.model.dao.DAOManager;
 import com.wingman.clothingshopmanagement.model.dao.UserDAO;
+import com.wingman.clothingshopmanagement.model.user.Permission;
 import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.view.MainFrame;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import lombok.Getter;
 
 /**
@@ -20,6 +25,7 @@ import lombok.Getter;
  */
 @Getter
 public class UserManagementPanel extends javax.swing.JPanel {
+
     private final List<User> cachedUsers = new ArrayList<>();
 
     /**
@@ -28,47 +34,70 @@ public class UserManagementPanel extends javax.swing.JPanel {
     public UserManagementPanel() {
         initComponents();
         
-        initData("");
+        prepareData();
+        
+        searchBox.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                displayUsers(searchBox.getText());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                displayUsers(searchBox.getText());
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                displayUsers(searchBox.getText());
+            }
+        });
     }
-    
-    private void initData(String filter) {
+
+    public final void prepareData() {
         jPanel1.removeAll();
         cachedUsers.clear();
         
         MainFrame.getInstance().getLoading().showLoading();
-        MainFrame.getInstance().getLoading().hideLoading();
-        
+
         UserDAO userDAO = DAOManager.getInstance().getUserDAO();
-        
-        userDAO.getAll().join().forEach((t) -> {
-            System.out.println(t);
+
+        userDAO.getAll().thenAccept((users) -> {
+            cachedUsers.addAll(users);
+        }).thenRun(() -> {
+            displayUsers("");
+        }).whenComplete((result, e) -> {
+            MainFrame.getInstance().getLoading().hideLoading();
+            if (e != null) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
         });
-        
-//        userDAO.getAll().thenAccept((users) -> {
-//            for (User user : users) {
-//                if (user.getEmail().toLowerCase().contains(filter) ||
-//                    user.getFullName().toLowerCase().contains(filter)) {
-//                    cachedUsers.add(user);
-//                    addUserPanel(new UserPanel(user));
-//                }
-//            }
-//            
-//            System.out.println("Done");
-//            
-//        }).thenRun(() -> {
-//            System.out.println("Done2");
-//        });
-        
     }
-    
+
+    private void displayUsers(String filter) {
+        int count = 0;
+        jPanel1.removeAll();
+        for (User user : cachedUsers) {
+            if (user.getEmail().toLowerCase().contains(filter.toLowerCase()) || 
+                user.getFullName().toLowerCase().contains(filter.toLowerCase()) ||
+                user.getPermission().getText().toLowerCase().contains(filter.toLowerCase())) {
+                addUserPanel(new UserPanel(this, user));
+                count++;
+            }
+        }
+        userCountLabel.setText(String.valueOf(count));
+    }
+
     private void addUserPanel(JPanel panel) {
         jPanel1.add(panel);
-        
+
         int width = (int) jPanel1.getPreferredSize().getWidth();
         int height = (int) jPanel1.getPreferredSize().getHeight();
-        
+
         height += panel.getHeight();
-        
+
         jPanel1.setPreferredSize(new Dimension(width, height));
     }
 
@@ -84,9 +113,9 @@ public class UserManagementPanel extends javax.swing.JPanel {
         userManagementLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        customButton1 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
-        customTextField2 = new com.wingman.clothingshopmanagement.view.components.CustomTextField();
+        userCountLabel = new javax.swing.JLabel();
+        addUserBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        searchBox = new com.wingman.clothingshopmanagement.view.components.CustomTextField();
         jPanel2 = new javax.swing.JPanel();
         userNameLabel = new javax.swing.JTextField();
         permissionLabel = new javax.swing.JTextField();
@@ -107,29 +136,34 @@ public class UserManagementPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel2.setText("All users");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setForeground(java.awt.Color.gray);
-        jLabel3.setText("1");
+        userCountLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        userCountLabel.setForeground(java.awt.Color.gray);
+        userCountLabel.setText("1");
 
-        customButton1.setBackground(new java.awt.Color(125, 44, 224));
-        customButton1.setForeground(new java.awt.Color(255, 255, 255));
-        customButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
-        customButton1.setText("Add user");
-        customButton1.setBorderColor(new java.awt.Color(125, 44, 224));
-        customButton1.setColor(new java.awt.Color(125, 44, 224));
-        customButton1.setColorClick(new java.awt.Color(75, 3, 163));
-        customButton1.setColorOver(new java.awt.Color(96, 33, 173));
-        customButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        customButton1.setIconTextGap(12);
-        customButton1.setPreferredSize(new java.awt.Dimension(118, 36));
-        customButton1.setRadius(16);
+        addUserBtn.setBackground(new java.awt.Color(125, 44, 224));
+        addUserBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addUserBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
+        addUserBtn.setText("Add user");
+        addUserBtn.setBorderColor(new java.awt.Color(125, 44, 224));
+        addUserBtn.setColor(new java.awt.Color(125, 44, 224));
+        addUserBtn.setColorClick(new java.awt.Color(75, 3, 163));
+        addUserBtn.setColorOver(new java.awt.Color(96, 33, 173));
+        addUserBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        addUserBtn.setIconTextGap(12);
+        addUserBtn.setPreferredSize(new java.awt.Dimension(118, 36));
+        addUserBtn.setRadius(16);
+        addUserBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUserBtnActionPerformed(evt);
+            }
+        });
 
-        customTextField2.setBoderColor(new java.awt.Color(125, 44, 224));
-        customTextField2.setHint("Search");
-        customTextField2.setPreferredSize(new java.awt.Dimension(64, 36));
-        customTextField2.setPrefixIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search-interface-symbol.png"))); // NOI18N
-        customTextField2.setRadius(16);
-        customTextField2.setSelectionColor(new java.awt.Color(155, 50, 255));
+        searchBox.setBoderColor(new java.awt.Color(125, 44, 224));
+        searchBox.setHint("Search");
+        searchBox.setPreferredSize(new java.awt.Dimension(64, 36));
+        searchBox.setPrefixIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search-interface-symbol.png"))); // NOI18N
+        searchBox.setRadius(16);
+        searchBox.setSelectionColor(new java.awt.Color(155, 50, 255));
 
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -207,11 +241,11 @@ public class UserManagementPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(userCountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 425, Short.MAX_VALUE)
-                        .addComponent(customTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(customButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(addUserBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userManagementLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
@@ -232,11 +266,11 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(customButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(customTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(addUserBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(userCountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -245,19 +279,28 @@ public class UserManagementPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void addUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBtnActionPerformed
+        JDialog dialog = new JDialog(MainFrame.getInstance(), "Add user", true);
+        dialog.setContentPane(new UserCreatePanel(dialog));
+        dialog.pack();
+        dialog.setLocationRelativeTo(MainFrame.getInstance());
+        dialog.setVisible(true);
+        dialog.setResizable(false);
+    }//GEN-LAST:event_addUserBtnActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.wingman.clothingshopmanagement.view.components.CustomButton customButton1;
-    private com.wingman.clothingshopmanagement.view.components.CustomTextField customTextField2;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton addUserBtn;
     private javax.swing.JTextField dateAddedLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField lastActiveLabel;
     private javax.swing.JTextField permissionLabel;
+    private com.wingman.clothingshopmanagement.view.components.CustomTextField searchBox;
+    private javax.swing.JLabel userCountLabel;
     private javax.swing.JLabel userManagementLabel;
     private javax.swing.JTextField userNameLabel;
     // End of variables declaration//GEN-END:variables

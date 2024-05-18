@@ -16,17 +16,20 @@ import org.hibernate.Transaction;
  *
  * @author Administrator
  */
-public class ImageDAO {
-    public CompletableFuture<Image> get(long id) {
+public class ImageDAO implements IDAO<Image, Long> {
+
+    @Override
+    public CompletableFuture<Image> get(Long key) {
         return CompletableFuture.supplyAsync(() -> {
             Image image;
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-                image = session.get(Image.class, id);
+                image = session.get(Image.class, key);
             }
             return image;
         });
     }
 
+    @Override
     public CompletableFuture<List<Image>> getAll() {
         return CompletableFuture.supplyAsync(() -> {
             List<Image> images;
@@ -39,6 +42,7 @@ public class ImageDAO {
         });
     }
 
+    @Override
     public CompletableFuture<Void> save(Image image) {
         return CompletableFuture.runAsync(() -> {
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -49,6 +53,7 @@ public class ImageDAO {
         });
     }
 
+    @Override
     public CompletableFuture<Void> update(Image image) {
         return CompletableFuture.runAsync(() -> {
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -59,13 +64,22 @@ public class ImageDAO {
         });
     }
 
-    public CompletableFuture<Void> delete(Image image) {
+    @Override
+    public CompletableFuture<Void> delete(Long key) {
         return CompletableFuture.runAsync(() -> {
+            Transaction transaction = null;
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-                Transaction transaction = session.beginTransaction();
-                session.remove(image);
-                transaction.commit();
+                transaction = session.beginTransaction();
+                Image image = session.get(Image.class, key);
+                if (image != null) {
+                    session.remove(image);
+                    transaction.commit();
+                }
+            } catch (Exception e) {
+                HibernateUtil.roolbackTransaction(transaction);
+                throw new RuntimeException(e);
             }
         });
     }
+
 }

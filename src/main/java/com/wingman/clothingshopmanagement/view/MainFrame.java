@@ -31,6 +31,8 @@ public class MainFrame extends JFrame {
     private MainFrame() {
         loading = new Loading(this);
         
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        
         setResizable(false);
         setTitle("Clothing Shop Sale Management");
 

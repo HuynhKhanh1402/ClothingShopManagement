@@ -4,11 +4,15 @@
  */
 package com.wingman.clothingshopmanagement.view.panel.user;
 
+import com.wingman.clothingshopmanagement.model.dao.DAOManager;
+import com.wingman.clothingshopmanagement.model.dao.UserDAO;
 import com.wingman.clothingshopmanagement.model.image.Image;
 import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.util.DateFormatter;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
-import java.text.SimpleDateFormat;
+import com.wingman.clothingshopmanagement.view.MainFrame;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import lombok.Getter;
 
 /**
@@ -17,9 +21,14 @@ import lombok.Getter;
  */
 @Getter
 public class UserPanel extends javax.swing.JPanel {
+
+    private final UserManagementPanel parentPanel;
+
+
     private final User user;
     
-    public UserPanel(User user) {
+    public UserPanel(UserManagementPanel panel, User user) {
+        this.parentPanel = panel;
         this.user = user;
         initComponents();
         
@@ -62,8 +71,8 @@ public class UserPanel extends javax.swing.JPanel {
         lastActiveLabel = new javax.swing.JLabel();
         addedDateLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        customButton2 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
-        customButton3 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        editBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        deleteBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -85,26 +94,36 @@ public class UserPanel extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(122, 64));
 
-        customButton2.setBorder(null);
-        customButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pencil .png"))); // NOI18N
-        customButton2.setBorderColor(new java.awt.Color(255, 255, 255));
-        customButton2.setColorClick(new java.awt.Color(255, 255, 255));
-        customButton2.setColorOver(new java.awt.Color(255, 255, 255));
+        editBtn.setBorder(null);
+        editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pencil .png"))); // NOI18N
+        editBtn.setBorderColor(new java.awt.Color(255, 255, 255));
+        editBtn.setColorClick(new java.awt.Color(255, 255, 255));
+        editBtn.setColorOver(new java.awt.Color(255, 255, 255));
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
 
-        customButton3.setBorder(null);
-        customButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete .png"))); // NOI18N
-        customButton3.setBorderColor(new java.awt.Color(255, 255, 255));
-        customButton3.setColorClick(new java.awt.Color(255, 255, 255));
-        customButton3.setColorOver(new java.awt.Color(255, 255, 255));
+        deleteBtn.setBorder(null);
+        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete .png"))); // NOI18N
+        deleteBtn.setBorderColor(new java.awt.Color(255, 255, 255));
+        deleteBtn.setColorClick(new java.awt.Color(255, 255, 255));
+        deleteBtn.setColorOver(new java.awt.Color(255, 255, 255));
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(customButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(customButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -112,8 +131,8 @@ public class UserPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(customButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(customButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -165,11 +184,31 @@ public class UserPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        JDialog dialog = new JDialog(MainFrame.getInstance(), "Edit user", true);
+        dialog.setContentPane(new UserEditPanel(dialog, user));
+        dialog.pack();
+        dialog.setLocationRelativeTo(MainFrame.getInstance());
+        dialog.setVisible(true);
+        dialog.setResizable(false);        
+    }//GEN-LAST:event_editBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        int response = JOptionPane.showConfirmDialog(MainFrame.getInstance(), "Do you want to delete this user?", "Confirm", JOptionPane.YES_NO_OPTION);
+        if (response == JOptionPane.YES_OPTION) {
+            UserDAO userDAO = DAOManager.getInstance().getUserDAO();
+            userDAO.delete(user.getEmail()).thenAcceptAsync((t) -> {
+                parentPanel.prepareData();
+                JOptionPane.showMessageDialog(this, "User deleted", "Success", JOptionPane.INFORMATION_MESSAGE);
+            });
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addedDateLabel;
-    private com.wingman.clothingshopmanagement.view.components.CustomButton customButton2;
-    private com.wingman.clothingshopmanagement.view.components.CustomButton customButton3;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton deleteBtn;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton editBtn;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel fullNameLabel;
     private javax.swing.JPanel jPanel1;

@@ -15,64 +15,71 @@ import org.hibernate.Transaction;
  *
  * @author Administrator
  */
-public class UserDAO {
+public class UserDAO implements IDAO<User, String>{
+
+    @Override
+    public CompletableFuture<User> get(String key) {
+        return CompletableFuture.supplyAsync(() -> {
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                return session.get(User.class, key);
+            }
+        });
+    }
+
+    @Override
     public CompletableFuture<List<User>> getAll() {
         return CompletableFuture.supplyAsync(() -> {
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 return session.createQuery("from User", User.class).list();
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
-    
-    public User get(String email) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(User.class, email);
-        }
-    }
-    
-    public CompletableFuture<Void> save(User user) {
+
+    @Override
+    public CompletableFuture<Void> save(User obj) {
         return CompletableFuture.runAsync(() -> {
             Transaction transaction = null;
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 transaction = session.beginTransaction();
-                session.persist(user);
+                session.persist(obj);
                 transaction.commit();
             } catch (Exception e) {
                 HibernateUtil.roolbackTransaction(transaction);
-                throw new RuntimeException("An error occurred while saving user", e);
+                throw new RuntimeException(e);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
-    
-    public void update(User user) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.merge(user);
-            transaction.commit();
-        } catch (Exception e) {
-            HibernateUtil.roolbackTransaction(transaction);
-            throw new RuntimeException("An error occurred while updating user", e);
-        }
-    }
-    
-    public void delete(String email) {
 
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            User user = session.get(User.class, email);
-            if (user != null) {
-                session.remove(user);
+    @Override
+    public CompletableFuture<Void> update(User obj) {
+        return CompletableFuture.runAsync(() -> {
+            Transaction transaction = null;
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                transaction = session.beginTransaction();
+                session.merge(obj);
+                transaction.commit();
+            } catch (Exception e) {
+                HibernateUtil.roolbackTransaction(transaction);
+                throw new RuntimeException(e);
             }
-            transaction.commit();
-        } catch (Exception e) {
-            HibernateUtil.roolbackTransaction(transaction);
-            throw new RuntimeException("An error occurred while deleting user", e);
-        }
+        });
+    }
+
+    @Override
+    public CompletableFuture<Void> delete(String key) {
+        return CompletableFuture.runAsync(() -> {
+            Transaction transaction = null;
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                transaction = session.beginTransaction();
+                User user = session.get(User.class, key);
+                if (user != null) {
+                    session.remove(user);
+                    transaction.commit();
+                }
+            } catch (Exception e) {
+                HibernateUtil.roolbackTransaction(transaction);
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

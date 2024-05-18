@@ -24,8 +24,6 @@ public class OrderDetailDAO implements IDAO<OrderDetail, OrderDetailId>{
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 return session.get(OrderDetail.class, key);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
 
@@ -50,8 +48,6 @@ public class OrderDetailDAO implements IDAO<OrderDetail, OrderDetailId>{
                 HibernateUtil.roolbackTransaction(transaction);
                 throw new RuntimeException(e);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
 
@@ -67,8 +63,6 @@ public class OrderDetailDAO implements IDAO<OrderDetail, OrderDetailId>{
                 HibernateUtil.roolbackTransaction(transaction);
                 throw new RuntimeException(e);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
 
@@ -87,8 +81,6 @@ public class OrderDetailDAO implements IDAO<OrderDetail, OrderDetailId>{
                 HibernateUtil.roolbackTransaction(transaction);
                 throw new RuntimeException(e);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
     

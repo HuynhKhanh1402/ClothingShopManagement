@@ -6,6 +6,7 @@ C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\mai
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\view\components\CustomTextField.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\Bootstrap.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\view\components\CustomButton.java
+C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\util\BCryptUtil.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\model\dao\UserDAO.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\model\image\Image.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\model\dao\order\OrderDetailId.java
@@ -16,7 +17,6 @@ C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\mai
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\view\panel\user\UserManagementPanel.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\util\HibernateUtil.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\view\components\CustomPasswordField.java
-C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\view\panel\user\NewJFrame.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\view\components\render\PanelRenderer.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\view\panel\user\UserCreatePanel.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\model\dao\order\OrderDetail.java
@@ -31,3 +31,4 @@ C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\mai
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\model\dao\OrderDAO.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\model\dao\DAOManager.java
 C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\view\panel\DashboardPanel.java
+C:\Users\Administrator\Documents\NetBeansProjects\ClothingShopManagement\src\main\java\com\wingman\clothingshopmanagement\view\panel\user\UserEditPanel.java

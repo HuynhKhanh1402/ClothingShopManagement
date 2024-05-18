@@ -23,8 +23,6 @@ public class OrderDAO implements IDAO<Order, Long> {
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 return session.get(Order.class, key);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
 
@@ -34,8 +32,6 @@ public class OrderDAO implements IDAO<Order, Long> {
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 return session.createQuery("from Order", Order.class).list();
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
 
@@ -51,8 +47,6 @@ public class OrderDAO implements IDAO<Order, Long> {
                 HibernateUtil.roolbackTransaction(transaction);
                 throw new RuntimeException(e);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
 
@@ -68,8 +62,6 @@ public class OrderDAO implements IDAO<Order, Long> {
                 HibernateUtil.roolbackTransaction(transaction);
                 throw new RuntimeException(e);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
 
@@ -88,8 +80,6 @@ public class OrderDAO implements IDAO<Order, Long> {
                 HibernateUtil.roolbackTransaction(transaction);
                 throw new RuntimeException(e);
             }
-        }).exceptionally((t) -> {
-            throw new RuntimeException(t);
         });
     }
 

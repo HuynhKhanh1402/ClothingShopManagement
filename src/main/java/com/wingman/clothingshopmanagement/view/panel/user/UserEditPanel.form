@@ -27,14 +27,19 @@
                   <Component id="imgLabel" pref="166" max="32767" attributes="0"/>
                   <Component id="chooseImgBtn" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="emailTextField" pref="306" max="32767" attributes="0"/>
+                  <Component id="emailTextField" max="32767" attributes="0"/>
                   <Component id="fullNameTextField" alignment="0" max="32767" attributes="0"/>
                   <Component id="jLabel3" max="32767" attributes="0"/>
                   <Component id="jLabel4" max="32767" attributes="0"/>
                   <Component id="permissionDropdown" max="32767" attributes="0"/>
-                  <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel5" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" attributes="0">
                       <Component id="jLabel2" min="-2" pref="44" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -61,7 +66,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="fullNameTextField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -198,9 +206,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                  <Component id="cancelBtn" pref="172" max="32767" attributes="0"/>
+                  <Component id="cancelBtn" pref="174" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                  <Component id="createBtn" pref="172" max="32767" attributes="0"/>
+                  <Component id="saveBtn" pref="175" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -211,7 +219,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="cancelBtn" pref="43" max="32767" attributes="0"/>
-                      <Component id="createBtn" max="32767" attributes="0"/>
+                      <Component id="saveBtn" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -243,7 +251,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="createBtn">
+        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="saveBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="2c" red="7d" type="rgb"/>
@@ -251,7 +259,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Create"/>
+            <Property name="text" type="java.lang.String" value="Save"/>
             <Property name="borderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="2c" red="7d" type="rgb"/>
             </Property>
@@ -270,7 +278,7 @@
             <Property name="radius" type="int" value="12"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createBtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveBtnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -288,11 +296,18 @@
     </Component>
     <Component class="com.wingman.clothingshopmanagement.view.components.CustomPasswordField" name="passwordField">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" value="Password"/>
         <Property name="borderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
         </Property>
         <Property name="radius" type="int" value="12"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

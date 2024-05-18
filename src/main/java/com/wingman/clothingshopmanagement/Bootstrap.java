@@ -4,6 +4,7 @@
 package com.wingman.clothingshopmanagement;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.wingman.clothingshopmanagement.util.HibernateUtil;
 import com.wingman.clothingshopmanagement.view.MainFrame;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,6 +19,8 @@ public class Bootstrap {
     public static void main(String[] args) {
         try {
             FlatLightLaf.setup();
+            
+            HibernateUtil.getSessionFactory();
 
             SwingUtilities.invokeLater(() -> {
                 MainFrame.getInstance().setVisible(true);

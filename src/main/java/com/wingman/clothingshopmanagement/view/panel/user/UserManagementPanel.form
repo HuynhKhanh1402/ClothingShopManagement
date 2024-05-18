@@ -27,11 +27,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" pref="71" max="-2" attributes="0"/>
+                      <Component id="userCountLabel" min="-2" pref="71" max="-2" attributes="0"/>
                       <EmptySpace pref="425" max="32767" attributes="0"/>
-                      <Component id="customTextField2" min="-2" pref="281" max="-2" attributes="0"/>
+                      <Component id="searchBox" min="-2" pref="281" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="customButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="addUserBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="userManagementLabel" alignment="0" max="32767" attributes="0"/>
@@ -58,12 +58,12 @@
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="customButton1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="customTextField2" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="addUserBtn" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="searchBox" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="userCountLabel" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -99,7 +99,7 @@
         <Property name="text" type="java.lang.String" value="All users"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="userCountLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -110,7 +110,7 @@
         <Property name="text" type="java.lang.String" value="1"/>
       </Properties>
     </Component>
-    <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="customButton1">
+    <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="addUserBtn">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e0" green="2c" red="7d" type="rgb"/>
@@ -143,8 +143,11 @@
         </Property>
         <Property name="radius" type="int" value="16"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addUserBtnActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="com.wingman.clothingshopmanagement.view.components.CustomTextField" name="customTextField2">
+    <Component class="com.wingman.clothingshopmanagement.view.components.CustomTextField" name="searchBox">
       <Properties>
         <Property name="boderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e0" green="2c" red="7d" type="rgb"/>
