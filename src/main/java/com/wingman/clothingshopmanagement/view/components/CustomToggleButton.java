@@ -12,26 +12,17 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.RoundRectangle2D;
-import javax.swing.JPasswordField;
-import lombok.Getter;
-import lombok.Setter;
+import javax.swing.JToggleButton;
 
 /**
  *
  * @author Administrator
  */
-public class CustomPasswordField extends JPasswordField {
-    private int radius;
-    private int borderSize;
-    private Color borderColor;
-
-    public CustomPasswordField() {
-        this.radius = 0;
-        this.borderSize = 1;
-        this.borderColor = Color.BLACK;
-        setOpaque(false);
-    }
-
+public class CustomToggleButton extends JToggleButton {
+    private int radius = 0;
+    private int borderSize = 1;
+    private Color borderColor = Color.BLACK;
+    
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;

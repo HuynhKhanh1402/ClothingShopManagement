@@ -41,6 +41,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="orderByDropbox" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="customToggleButton1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="customButton1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -59,11 +61,12 @@
                   <Component id="customButton1" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="orderByDropbox" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="searchBox" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="customToggleButton1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="537" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="539" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="deleteAllBtn" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
@@ -204,7 +207,7 @@
                   <Component id="jLabel7" min="-2" pref="106" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" pref="107" max="-2" attributes="0"/>
-                  <EmptySpace pref="112" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -376,6 +379,23 @@
         </Property>
         <Property name="radius" type="int" value="16"/>
       </Properties>
+    </Component>
+    <Component class="com.wingman.clothingshopmanagement.view.components.CustomToggleButton" name="customToggleButton1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/sort-asc.png"/>
+        </Property>
+        <Property name="borderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="e0" green="2c" red="7d" type="rgb"/>
+        </Property>
+        <Property name="radius" type="int" value="16"/>
+        <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/sort-des.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customToggleButton1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
