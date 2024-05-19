@@ -6,7 +6,6 @@ package com.wingman.clothingshopmanagement.view.panel.user;
 
 import com.wingman.clothingshopmanagement.model.dao.DAOManager;
 import com.wingman.clothingshopmanagement.model.dao.UserDAO;
-import com.wingman.clothingshopmanagement.model.user.Permission;
 import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.view.MainFrame;
 import java.awt.Dimension;
@@ -34,7 +33,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
     public UserManagementPanel() {
         initComponents();
         
-        prepareData();
+        refreshData();
         
         searchBox.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -55,7 +54,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         });
     }
 
-    public final void prepareData() {
+    public final void refreshData() {
         jPanel1.removeAll();
         cachedUsers.clear();
         
@@ -88,6 +87,9 @@ public class UserManagementPanel extends javax.swing.JPanel {
             }
         }
         userCountLabel.setText(String.valueOf(count));
+        SwingUtilities.invokeLater(() -> {
+            SwingUtilities.updateComponentTreeUI(this);
+        });
     }
 
     private void addUserPanel(JPanel panel) {
@@ -173,6 +175,11 @@ public class UserManagementPanel extends javax.swing.JPanel {
         userNameLabel.setForeground(java.awt.Color.gray);
         userNameLabel.setText("User");
         userNameLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        userNameLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userNameLabelActionPerformed(evt);
+            }
+        });
 
         permissionLabel.setEditable(false);
         permissionLabel.setBackground(new java.awt.Color(250, 250, 250));
@@ -281,12 +288,16 @@ public class UserManagementPanel extends javax.swing.JPanel {
 
     private void addUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBtnActionPerformed
         JDialog dialog = new JDialog(MainFrame.getInstance(), "Add user", true);
-        dialog.setContentPane(new UserCreatePanel(dialog));
+        dialog.setContentPane(new AddUserPanel(dialog, this));
         dialog.pack();
         dialog.setLocationRelativeTo(MainFrame.getInstance());
         dialog.setVisible(true);
         dialog.setResizable(false);
     }//GEN-LAST:event_addUserBtnActionPerformed
+
+    private void userNameLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameLabelActionPerformed
+
+    }//GEN-LAST:event_userNameLabelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

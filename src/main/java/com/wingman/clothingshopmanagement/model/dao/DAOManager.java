@@ -9,10 +9,12 @@ public class DAOManager {
 
     private final UserDAO userDAO;
     private final ImageDAO imageDAO;
+    private final ProductDAO productDAO;
 
     private DAOManager() {
         this.userDAO = new UserDAO();
         this.imageDAO = new ImageDAO();
+        this.productDAO = new ProductDAO();
     }
 
     public static DAOManager getInstance() {

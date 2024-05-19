@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.wingman.clothingshopmanagement.model.dao.order;
+package com.wingman.clothingshopmanagement.model.order;
 
-import com.wingman.clothingshopmanagement.model.dao.product.Product;
+import com.wingman.clothingshopmanagement.model.product.Product;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
@@ -26,13 +27,13 @@ import lombok.Setter;
 @Setter
 public class OrderDetail {
     @Id
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "OrderID", nullable = false)
     private Order order;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "ProductID", nullable = false)
+    @JoinColumn(name = "ProductID", nullable = false, foreignKey = @ForeignKey(name = "fk_product_id"))
     private Product product;
 
     @Column(name = "Quantity", nullable = false)

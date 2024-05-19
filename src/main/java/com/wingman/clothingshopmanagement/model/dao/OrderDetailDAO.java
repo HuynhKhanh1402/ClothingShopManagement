@@ -4,8 +4,8 @@
  */
 package com.wingman.clothingshopmanagement.model.dao;
 
-import com.wingman.clothingshopmanagement.model.dao.order.OrderDetail;
-import com.wingman.clothingshopmanagement.model.dao.order.OrderDetailId;
+import com.wingman.clothingshopmanagement.model.order.OrderDetail;
+import com.wingman.clothingshopmanagement.model.order.OrderDetailId;
 import com.wingman.clothingshopmanagement.util.HibernateUtil;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

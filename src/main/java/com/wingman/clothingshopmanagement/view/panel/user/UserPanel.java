@@ -22,13 +22,13 @@ import lombok.Getter;
 @Getter
 public class UserPanel extends javax.swing.JPanel {
 
-    private final UserManagementPanel parentPanel;
+    private final UserManagementPanel panel;
 
 
     private final User user;
     
     public UserPanel(UserManagementPanel panel, User user) {
-        this.parentPanel = panel;
+        this.panel = panel;
         this.user = user;
         initComponents();
         
@@ -186,7 +186,7 @@ public class UserPanel extends javax.swing.JPanel {
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         JDialog dialog = new JDialog(MainFrame.getInstance(), "Edit user", true);
-        dialog.setContentPane(new UserEditPanel(dialog, user));
+        dialog.setContentPane(new EditUserPanel(dialog, panel, user));
         dialog.pack();
         dialog.setLocationRelativeTo(MainFrame.getInstance());
         dialog.setVisible(true);
@@ -198,7 +198,7 @@ public class UserPanel extends javax.swing.JPanel {
         if (response == JOptionPane.YES_OPTION) {
             UserDAO userDAO = DAOManager.getInstance().getUserDAO();
             userDAO.delete(user.getEmail()).thenAcceptAsync((t) -> {
-                parentPanel.prepareData();
+                panel.refreshData();
                 JOptionPane.showMessageDialog(this, "User deleted", "Success", JOptionPane.INFORMATION_MESSAGE);
             });
         }

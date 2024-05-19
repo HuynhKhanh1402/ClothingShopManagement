@@ -4,6 +4,9 @@
  */
 package com.wingman.clothingshopmanagement.util;
 
+import com.wingman.clothingshopmanagement.model.order.Order;
+import com.wingman.clothingshopmanagement.model.order.OrderDetail;
+import com.wingman.clothingshopmanagement.model.product.Product;
 import com.wingman.clothingshopmanagement.model.image.Image;
 import com.wingman.clothingshopmanagement.model.user.User;
 import org.hibernate.SessionFactory;
@@ -27,6 +30,9 @@ public class HibernateUtil {
                 .configure()
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Image.class)
+                .addAnnotatedClass(Product.class)
+                .addAnnotatedClass(Order.class)
+                .addAnnotatedClass(OrderDetail.class)
                 .buildSessionFactory();
 
     }
@@ -46,7 +52,7 @@ public class HibernateUtil {
         try {
             transaction.rollback();
         } catch (Exception e1) {
-            throw new RuntimeException("An error occurred while rollback", e1);
+            e1.printStackTrace();
         }
     }
 }

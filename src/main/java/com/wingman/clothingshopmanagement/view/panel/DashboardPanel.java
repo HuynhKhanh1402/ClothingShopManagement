@@ -5,6 +5,7 @@
 package com.wingman.clothingshopmanagement.view.panel;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.wingman.clothingshopmanagement.view.panel.product.ProductManagementPanel;
 import com.wingman.clothingshopmanagement.view.panel.user.UserManagementPanel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -151,6 +152,11 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         customButton4.setIconTextGap(12);
         customButton4.setPreferredSize(new java.awt.Dimension(112, 44));
         customButton4.setRadius(10);
+        customButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customButton4ActionPerformed(evt);
+            }
+        });
 
         customButton5.setBackground(new java.awt.Color(125, 44, 224));
         customButton5.setForeground(new java.awt.Color(255, 255, 255));
@@ -281,6 +287,10 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
     private void customButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton3ActionPerformed
         setConentPanel(new UserManagementPanel());
     }//GEN-LAST:event_customButton3ActionPerformed
+
+    private void customButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton4ActionPerformed
+        setConentPanel(new ProductManagementPanel());
+    }//GEN-LAST:event_customButton4ActionPerformed
     
     public void setConentPanel(JPanel panel) {
         if (contentPanel != null) {

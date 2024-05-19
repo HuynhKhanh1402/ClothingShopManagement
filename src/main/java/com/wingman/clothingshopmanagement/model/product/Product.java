@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.wingman.clothingshopmanagement.model.dao.product;
+package com.wingman.clothingshopmanagement.model.product;
 
 import com.wingman.clothingshopmanagement.model.image.Image;
 import com.wingman.clothingshopmanagement.model.user.User;
@@ -18,6 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,15 +34,14 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ProductID")
-    private int productId;
+    private Long productId;
     
     @Column(name = "Name")
     private String name;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Email", nullable = false, 
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "AddedBy", nullable = true, 
         foreignKey = @ForeignKey(name = "AddedBy"))
-    @Column(name = "AddedBy")
     private User addedBy;
     
     @Column(name = "Description")
@@ -66,10 +66,12 @@ public class Product {
     @Column(name = "Color")
     private String color;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ImageID", nullable = false, 
+    @Column(name = "AddedDate")
+    private Date addedDate;
+    
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "ImageID", nullable = true, 
         foreignKey = @ForeignKey(name = "ProductImage"))
-    @Column(name="ProductImage", nullable = true)
     private Image productImage;
     
 }

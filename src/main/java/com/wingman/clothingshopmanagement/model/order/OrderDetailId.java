@@ -1,4 +1,4 @@
-package com.wingman.clothingshopmanagement.model.dao.order;
+package com.wingman.clothingshopmanagement.model.order;
 import java.io.Serializable;
 import java.util.Objects;
 

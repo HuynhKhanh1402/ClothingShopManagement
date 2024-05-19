@@ -27,20 +27,38 @@ import lombok.Getter;
  * @author Administrator
  */
 @Getter
-public class UserCreatePanel extends javax.swing.JPanel {
+public class EditUserPanel extends javax.swing.JPanel {
 
     private final JDialog parent;
+    private final UserManagementPanel panel;
+    private final User user;
     private boolean isChangedAvatar = false;
 
     /**
      * Creates new form UserCreatePanel
+     *
      * @param parent
+     * @param panel
+     * @param user
      */
-    public UserCreatePanel(JDialog parent) {
+    public EditUserPanel(JDialog parent, UserManagementPanel panel, User user) {
         initComponents();
         this.parent = parent;
-        
-        imgLabel.setIcon(ImageUtil.resize(new ImageIcon(getClass().getResource("/images/user_color.png")), 166, 166));
+        this.panel = panel;
+        this.user = user;
+
+        if (user.getAvatar() != null) {
+            imgLabel.setIcon(ImageUtil.resize(user.getAvatar().getImage(), 166, 166));
+        } else {
+            imgLabel.setIcon(ImageUtil.resize(new ImageIcon(getClass().getResource("/images/user_color.png")), 166, 166));
+        }
+
+        emailTextField.setText(user.getEmail());
+        emailTextField.setEditable(false);
+
+        fullNameTextField.setText(user.getFullName());
+
+        permissionDropdown.setSelectedItem(user.getPermission().getText());
     }
 
     /**
@@ -62,9 +80,10 @@ public class UserCreatePanel extends javax.swing.JPanel {
         permissionDropdown = new com.wingman.clothingshopmanagement.view.components.CustomComboBox();
         jPanel1 = new javax.swing.JPanel();
         cancelBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
-        createBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        saveBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         jLabel5 = new javax.swing.JLabel();
         passwordField = new com.wingman.clothingshopmanagement.view.components.CustomPasswordField();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -129,18 +148,18 @@ public class UserCreatePanel extends javax.swing.JPanel {
             }
         });
 
-        createBtn.setBackground(new java.awt.Color(125, 44, 224));
-        createBtn.setForeground(new java.awt.Color(255, 255, 255));
-        createBtn.setText("Create");
-        createBtn.setBorderColor(new java.awt.Color(125, 44, 224));
-        createBtn.setColor(new java.awt.Color(125, 44, 224));
-        createBtn.setColorClick(new java.awt.Color(75, 3, 163));
-        createBtn.setColorOver(new java.awt.Color(96, 33, 173));
-        createBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        createBtn.setRadius(12);
-        createBtn.addActionListener(new java.awt.event.ActionListener() {
+        saveBtn.setBackground(new java.awt.Color(125, 44, 224));
+        saveBtn.setForeground(new java.awt.Color(255, 255, 255));
+        saveBtn.setText("Save");
+        saveBtn.setBorderColor(new java.awt.Color(125, 44, 224));
+        saveBtn.setColor(new java.awt.Color(125, 44, 224));
+        saveBtn.setColorClick(new java.awt.Color(75, 3, 163));
+        saveBtn.setColorOver(new java.awt.Color(96, 33, 173));
+        saveBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        saveBtn.setRadius(12);
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createBtnActionPerformed(evt);
+                saveBtnActionPerformed(evt);
             }
         });
 
@@ -150,9 +169,9 @@ public class UserCreatePanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                 .addGap(74, 74, 74)
-                .addComponent(createBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                .addComponent(saveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                 .addGap(42, 42, 42))
         );
         jPanel1Layout.setVerticalGroup(
@@ -161,7 +180,7 @@ public class UserCreatePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                    .addComponent(createBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(saveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -169,8 +188,16 @@ public class UserCreatePanel extends javax.swing.JPanel {
         jLabel5.setForeground(java.awt.Color.darkGray);
         jLabel5.setText("Password");
 
+        passwordField.setEditable(false);
+        passwordField.setText("Password");
         passwordField.setBorderColor(java.awt.Color.lightGray);
         passwordField.setRadius(12);
+
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -181,14 +208,18 @@ public class UserCreatePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(imgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                     .addComponent(chooseImgBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(emailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                    .addComponent(emailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(fullNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(permissionDropdown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox1)
+                        .addGap(219, 219, 219))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -211,7 +242,9 @@ public class UserCreatePanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fullNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel5)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(jCheckBox1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(chooseImgBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,60 +263,60 @@ public class UserCreatePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_fullNameTextFieldActionPerformed
 
-    private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         if (!validdateTextField(emailTextField, "Email is empty!")) {
             return;
         }
-        
+
         if (!validdateTextField(fullNameTextField, "Full name is empty!")) {
             return;
         }
-        
+
         if (!validdateTextField(passwordField, "Password is empty!")) {
             return;
         }
-        
-        String email = emailTextField.getText();
+
         String fullName = fullNameTextField.getText();
         String password = new String(passwordField.getPassword());
         Permission permission = Permission.valueOf(((String) permissionDropdown.getSelectedItem()).toUpperCase());
-        
-        User user = new User();
-        user.setEmail(email);
+
         user.setFullName(fullName);
-        user.setHashedPassword(BCryptUtil.hash(password));
         user.setPermission(permission);
-                
+
+        if (jCheckBox1.isSelected() && !password.equals(user.getHashedPassword())) {
+            user.setHashedPassword(BCryptUtil.hash(password));
+        }
+
         UserDAO userDAO = DAOManager.getInstance().getUserDAO();
         ImageDAO imageDAO = DAOManager.getInstance().getImageDAO();
-        
+
         MainFrame.getInstance().getLoading().showLoading();
-        
-        userDAO.get(email).thenAcceptAsync((t) -> {
-            if (t != null) {
-                JOptionPane.showMessageDialog(this, "Email " + email + " already exists!", "Warning", JOptionPane.WARNING_MESSAGE);
+        userDAO.update(user).thenAcceptAsync((t) -> {
+            if (!isChangedAvatar) {
                 return;
             }
-            
-            Image image = new Image();
-            image.setImage((ImageIcon) imgLabel.getIcon());
-            
-            imageDAO.save(image).join();
-            
-            user.setAvatar(image);
-            
-            userDAO.save(user).thenRun(() -> {
-                JOptionPane.showMessageDialog(this, "User created successfully", "Successfully", JOptionPane.INFORMATION_MESSAGE);
-            }).join();
+            if (user.getAvatar() == null) {
+                Image image = new Image();
+                image.setImage((ImageIcon) imgLabel.getIcon());
+                imageDAO.save(image).join();
+            } else {
+                Image image = user.getAvatar();
+                image.setImage((ImageIcon) imgLabel.getIcon());
+                imageDAO.update(image).join();
+            }
+            JOptionPane.showMessageDialog(this, "User saved successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
         }).whenComplete((t, u) -> {
             MainFrame.getInstance().getLoading().hideLoading();
             parent.dispose();
+            panel.refreshData();
             if (u != null) {
                 u.printStackTrace();
                 throw new RuntimeException(u);
             }
         });
-    }//GEN-LAST:event_createBtnActionPerformed
+
+
+    }//GEN-LAST:event_saveBtnActionPerformed
 
     private void chooseImgBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseImgBtnActionPerformed
         JFileChooser fileChooser = new JFileChooser();
@@ -303,7 +336,18 @@ public class UserCreatePanel extends javax.swing.JPanel {
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         parent.dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
-    
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if (jCheckBox1.isSelected()) {
+            passwordField.setEditable(true);
+            passwordField.setText("");
+            passwordField.requestFocus();
+        } else {
+            passwordField.setEditable(false);
+            passwordField.setText("Password");
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
     private boolean validdateTextField(JTextField field, String message) {
         if (field.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
@@ -311,14 +355,14 @@ public class UserCreatePanel extends javax.swing.JPanel {
         }
         return true;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.wingman.clothingshopmanagement.view.components.CustomButton cancelBtn;
     private com.wingman.clothingshopmanagement.view.components.CustomButton chooseImgBtn;
-    private com.wingman.clothingshopmanagement.view.components.CustomButton createBtn;
     private com.wingman.clothingshopmanagement.view.components.CustomTextField emailTextField;
     private com.wingman.clothingshopmanagement.view.components.CustomTextField fullNameTextField;
     private javax.swing.JLabel imgLabel;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -326,5 +370,6 @@ public class UserCreatePanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private com.wingman.clothingshopmanagement.view.components.CustomPasswordField passwordField;
     private com.wingman.clothingshopmanagement.view.components.CustomComboBox permissionDropdown;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton saveBtn;
     // End of variables declaration//GEN-END:variables
 }

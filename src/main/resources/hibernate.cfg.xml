@@ -14,6 +14,9 @@
       
         <mapping class = "com.wingman.clothingshopmanagement.model.user.User"/>
         <mapping class = "com.wingman.clothingshopmanagement.model.image.Image"/>
-      
+        <mapping class = "com.wingman.clothingshopmanagement.model.product.Product"/>
+        <mapping class = "com.wingman.clothingshopmanagement.model.order.Order"/>
+        <mapping class = "com.wingman.clothingshopmanagement.model.order.OrderDetail"/>
+
     </session-factory>
 </hibernate-configuration>
