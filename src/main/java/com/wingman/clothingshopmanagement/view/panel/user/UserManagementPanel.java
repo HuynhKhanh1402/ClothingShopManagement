@@ -52,10 +52,17 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 displayUsers(searchBox.getText());
             }
         });
+        
+        setScrollSpeed(20);
+    }
+    
+    private  void setScrollSpeed(int speed) {
+        jScrollPane2.getVerticalScrollBar().setUnitIncrement(speed);
     }
 
     public final void refreshData() {
         jPanel1.removeAll();
+        jPanel1.setPreferredSize(new Dimension(971, 0));
         cachedUsers.clear();
         
         MainFrame.getInstance().getLoading().showLoading();
@@ -86,6 +93,11 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 count++;
             }
         }
+        
+        int width = (int) jPanel1.getPreferredSize().getWidth();
+        int height = (int) jPanel1.getPreferredSize().getHeight();
+        jPanel1.setPreferredSize(new Dimension(width, height + 40));
+        
         userCountLabel.setText(String.valueOf(count));
         SwingUtilities.invokeLater(() -> {
             SwingUtilities.updateComponentTreeUI(this);
@@ -97,8 +109,8 @@ public class UserManagementPanel extends javax.swing.JPanel {
 
         int width = (int) jPanel1.getPreferredSize().getWidth();
         int height = (int) jPanel1.getPreferredSize().getHeight();
-
-        height += panel.getHeight();
+        
+        height += panel.getPreferredSize().getHeight();
 
         jPanel1.setPreferredSize(new Dimension(width, height));
     }
@@ -127,20 +139,25 @@ public class UserManagementPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         userManagementLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         userManagementLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         userManagementLabel.setText("User Management");
         userManagementLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(userManagementLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 6, 971, 36));
 
         jLabel1.setText("Manage users and their permissions here.");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 48, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel2.setText("All users");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 95, -1, 41));
 
         userCountLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         userCountLabel.setForeground(java.awt.Color.gray);
         userCountLabel.setText("1");
+        add(userCountLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 93, 71, 43));
 
         addUserBtn.setBackground(new java.awt.Color(125, 44, 224));
         addUserBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -159,6 +176,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 addUserBtnActionPerformed(evt);
             }
         });
+        add(addUserBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(878, 93, -1, 41));
 
         searchBox.setBoderColor(new java.awt.Color(125, 44, 224));
         searchBox.setHint("Search");
@@ -166,6 +184,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         searchBox.setPrefixIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search-interface-symbol.png"))); // NOI18N
         searchBox.setRadius(16);
         searchBox.setSelectionColor(new java.awt.Color(155, 50, 255));
+        add(searchBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(591, 94, 281, 41));
 
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -225,65 +244,23 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 .addComponent(dateAddedLabel))
         );
 
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 142, 971, -1));
+
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setMaximumSize(new java.awt.Dimension(971, 515));
         jScrollPane2.setMinimumSize(new java.awt.Dimension(971, 515));
         jScrollPane2.setPreferredSize(new java.awt.Dimension(971, 515));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMaximumSize(new java.awt.Dimension(971, 515));
+        jPanel1.setMaximumSize(new java.awt.Dimension(971, 10000));
         jPanel1.setMinimumSize(new java.awt.Dimension(971, 515));
+        jPanel1.setPreferredSize(new java.awt.Dimension(971, 0));
         jScrollPane2.setViewportView(jPanel1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(userCountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 425, Short.MAX_VALUE)
-                        .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addUserBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userManagementLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(15, 15, 15))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(20, 20, 20))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(userManagementLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(addUserBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(userCountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 480));
     }// </editor-fold>//GEN-END:initComponents
 
     private void addUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBtnActionPerformed

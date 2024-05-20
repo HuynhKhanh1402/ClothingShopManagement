@@ -12,13 +12,14 @@ import com.wingman.clothingshopmanagement.util.NumberFormatter;
 import com.wingman.clothingshopmanagement.view.MainFrame;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import lombok.Getter;
 
 /**
  *
  * @author Administrator
  */
-@Getter 
+@Getter
 public class ProductPanel extends javax.swing.JPanel {
 
     private final ProductManagementPanel panel;
@@ -26,6 +27,7 @@ public class ProductPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ProductPanel
+     *
      * @param panel
      * @param product
      */
@@ -33,11 +35,11 @@ public class ProductPanel extends javax.swing.JPanel {
         initComponents();
         this.panel = panel;
         this.product = product;
-        
+
         if (product.getProductImage() != null) {
             imgLabel.setIcon(ImageUtil.resize(product.getProductImage().getImage(), 64, 64));
         }
-        
+
         idLabel.setText(String.valueOf(product.getProductId()));
         nameLabel.setText(String.format("<html><p width=\"150px\">%s</p></html>", product.getName()));
         colorAndSizeLabel.setText(String.format("%s | %s", product.getColor(), product.getSize()));
@@ -57,7 +59,7 @@ public class ProductPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        checkBox = new javax.swing.JCheckBox();
         imgLabel = new javax.swing.JLabel();
         idLabel = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
@@ -73,6 +75,12 @@ public class ProductPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jSeparator1.setBackground(java.awt.Color.gray);
+
+        checkBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxActionPerformed(evt);
+            }
+        });
 
         imgLabel.setBackground(new java.awt.Color(102, 255, 102));
         imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/no-pictures.png"))); // NOI18N
@@ -147,7 +155,7 @@ public class ProductPanel extends javax.swing.JPanel {
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jCheckBox1)
+                        .addComponent(checkBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -177,7 +185,7 @@ public class ProductPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jCheckBox1)
+                                .addComponent(checkBox)
                                 .addGap(29, 29, 29))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -225,16 +233,38 @@ public class ProductPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_deleteBtn1ActionPerformed
 
+    private void checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxActionPerformed
+        if (!checkBox.isSelected()) {
+            panel.getSelectAllCheckBox().setSelected(false);
+            SwingUtilities.updateComponentTreeUI(this);
+        } 
+        
+        boolean flag = false;
+        for (ProductPanel productPanel: panel.getCurrentProductPanels()) {
+            if (productPanel.getCheckBox().isSelected()) {
+                flag = true;
+                break;
+            }
+        }
+        if (flag) {
+            panel.getDeleteAllBtn().setVisible(true);
+        } else {
+            panel.getDeleteAllBtn().setVisible(false);
+        }
+        
+        SwingUtilities.updateComponentTreeUI(panel);
+    }//GEN-LAST:event_checkBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel brandLabel;
+    private javax.swing.JCheckBox checkBox;
     private javax.swing.JLabel colorAndSizeLabel;
     private com.wingman.clothingshopmanagement.view.components.CustomButton deleteBtn1;
     private com.wingman.clothingshopmanagement.view.components.CustomButton editBtn1;
     private javax.swing.JLabel genderLabel;
     private javax.swing.JLabel idLabel;
     private javax.swing.JLabel imgLabel;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel nameLabel;

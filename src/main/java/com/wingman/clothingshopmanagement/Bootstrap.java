@@ -25,9 +25,9 @@ public class Bootstrap {
             SwingUtilities.invokeLater(() -> {
                 MainFrame.getInstance().setVisible(true);
             });
-        } catch (Exception e) {
+        } catch (Throwable t) {
             JFrame frame = new JFrame();
-            showErrorDialog(frame, e);
+            showErrorDialog(frame, t);
         }
     }
     
@@ -35,11 +35,11 @@ public class Bootstrap {
      * Displays an error dialog containing the exception details.
      *
      * @param parent the parent JFrame for the dialog
-     * @param ex the exception to display
+     * @param t the exception to display
      */
-    private static void showErrorDialog(JFrame parent, Exception ex) {
+    private static void showErrorDialog(JFrame parent, Throwable t) {
         StringBuilder sb = new StringBuilder();
-        collectExceptionInfo(ex, sb);
+        collectExceptionInfo(t, sb);
         JOptionPane.showMessageDialog(parent, sb.toString(), "Exception", JOptionPane.ERROR_MESSAGE);
     }
 

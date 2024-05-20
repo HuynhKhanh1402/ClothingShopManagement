@@ -121,7 +121,7 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         customButton3.setBackground(new java.awt.Color(125, 44, 224));
         customButton3.setForeground(new java.awt.Color(255, 255, 255));
         customButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
-        customButton3.setText("Manage User");
+        customButton3.setText("Manage Users");
         customButton3.setActionCommand("  Home");
         customButton3.setBorderColor(new java.awt.Color(125, 44, 224));
         customButton3.setColor(new java.awt.Color(125, 44, 224));
