@@ -18,6 +18,7 @@ import lombok.Getter;
 public class MainFrame extends JFrame {
     private static MainFrame instance;
     private final Loading loading;
+    private final DashboardPanel dashboardPanel;
 
     public static MainFrame getInstance() {
         if (instance == null) {
@@ -36,7 +37,8 @@ public class MainFrame extends JFrame {
         setResizable(false);
         setTitle("Clothing Shop Sale Management");
 
-        setContentPane(new DashboardPanel());
+        dashboardPanel = new DashboardPanel();
+        setContentPane(dashboardPanel);
         pack();
         
         setLocationRelativeTo(null);

@@ -11,9 +11,13 @@ import java.text.DecimalFormat;
  * @author Administrator
  */
 public class NumberFormatter {
-    private static DecimalFormat FORMAT = new DecimalFormat("###,###.##");
+    private static DecimalFormat FORMAT = new DecimalFormat("#,##0.##");
     
     public static String format(double num) {
         return FORMAT.format(num);
+    }
+    
+    public static String formatWithoutComma(double num) {
+        return new DecimalFormat("#.##").format(num);
     }
 }

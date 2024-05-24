@@ -9,6 +9,7 @@ import com.wingman.clothingshopmanagement.model.order.OrderDetailId;
 import com.wingman.clothingshopmanagement.util.HibernateUtil;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -39,15 +40,28 @@ public class OrderDetailDAO implements IDAO<OrderDetail, OrderDetailId>{
     @Override
     public CompletableFuture<Void> save(OrderDetail obj) {
         return CompletableFuture.runAsync(() -> {
-            Transaction transaction = null;
-            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Session session = null;
+            Transaction transaction;
+            try {
+                session = HibernateUtil.getSessionFactory().openSession();
                 transaction = session.beginTransaction();
-                session.persist(obj);
+                session.saveOrUpdate(obj);
                 transaction.commit();
-            } catch (Exception e) {
-                HibernateUtil.roolbackTransaction(transaction);
+            } catch (HibernateException e) {
                 throw new RuntimeException(e);
+            } finally {
+                if (session != null) {
+                    session.close();
+                }
             }
+//            Transaction transaction = null;
+//            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+//                transaction = session.beginTransaction();
+//                
+//            } catch (Exception e) {
+//                HibernateUtil.roolbackTransaction(transaction);
+//                throw new RuntimeException(e);
+//            }
         });
     }
 
