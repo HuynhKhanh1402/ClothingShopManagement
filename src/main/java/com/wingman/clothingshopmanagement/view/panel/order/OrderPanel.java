@@ -407,6 +407,16 @@ public class OrderPanel extends javax.swing.JPanel {
         if (!validdateTextField(customerPhoneTextField, "Customer phone is empty!")) {
             return;
         }
+        
+        if (orderProductMap.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please add products!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        int response = JOptionPane.showConfirmDialog(MainFrame.getInstance(), "Are you sure to order these products?", "Confirm", JOptionPane.YES_NO_OPTION);
+        if (response != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         String customerName = customerNameTextField.getText();
         String customerPhone = customerPhoneTextField.getText();
