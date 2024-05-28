@@ -5,6 +5,9 @@
 package com.wingman.clothingshopmanagement.view.panel;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.wingman.clothingshopmanagement.model.user.User;
+import com.wingman.clothingshopmanagement.view.MainFrame;
+import com.wingman.clothingshopmanagement.view.panel.order.OrderManagementPanel;
 import com.wingman.clothingshopmanagement.view.panel.order.OrderPanel;
 import com.wingman.clothingshopmanagement.view.panel.product.ProductManagementPanel;
 import com.wingman.clothingshopmanagement.view.panel.user.UserManagementPanel;
@@ -19,11 +22,14 @@ import lombok.Getter;
 @Getter
 public class DashboardPanel extends javax.swing.JLayeredPane {
     private JPanel contentPanel;
+    private final User user;
     /**
      * Creates new form Temp
+     * @param user
      */
-    public DashboardPanel() {
+    public DashboardPanel(User user) {
         initComponents();
+        this.user = user;
     }
 
     /**
@@ -45,7 +51,7 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         customButton5 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         customButton6 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         customButton7 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
-        customButton9 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        logoutBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -193,6 +199,11 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         customButton6.setIconTextGap(12);
         customButton6.setPreferredSize(new java.awt.Dimension(112, 44));
         customButton6.setRadius(10);
+        customButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customButton6ActionPerformed(evt);
+            }
+        });
 
         customButton7.setBackground(new java.awt.Color(125, 44, 224));
         customButton7.setForeground(new java.awt.Color(255, 255, 255));
@@ -214,24 +225,24 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
             }
         });
 
-        customButton9.setBackground(new java.awt.Color(125, 44, 224));
-        customButton9.setForeground(new java.awt.Color(255, 255, 255));
-        customButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
-        customButton9.setText("Log out");
-        customButton9.setActionCommand("  Home");
-        customButton9.setAlignmentY(0.0F);
-        customButton9.setBorderColor(new java.awt.Color(125, 44, 224));
-        customButton9.setColor(new java.awt.Color(125, 44, 224));
-        customButton9.setColorClick(new java.awt.Color(75, 3, 163));
-        customButton9.setColorOver(new java.awt.Color(96, 33, 173));
-        customButton9.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        customButton9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        customButton9.setIconTextGap(12);
-        customButton9.setPreferredSize(new java.awt.Dimension(112, 44));
-        customButton9.setRadius(10);
-        customButton9.addActionListener(new java.awt.event.ActionListener() {
+        logoutBtn.setBackground(new java.awt.Color(125, 44, 224));
+        logoutBtn.setForeground(new java.awt.Color(255, 255, 255));
+        logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
+        logoutBtn.setText("Log out");
+        logoutBtn.setActionCommand("  Home");
+        logoutBtn.setAlignmentY(0.0F);
+        logoutBtn.setBorderColor(new java.awt.Color(125, 44, 224));
+        logoutBtn.setColor(new java.awt.Color(125, 44, 224));
+        logoutBtn.setColorClick(new java.awt.Color(75, 3, 163));
+        logoutBtn.setColorOver(new java.awt.Color(96, 33, 173));
+        logoutBtn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        logoutBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        logoutBtn.setIconTextGap(12);
+        logoutBtn.setPreferredSize(new java.awt.Dimension(112, 44));
+        logoutBtn.setRadius(10);
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customButton9ActionPerformed(evt);
+                logoutBtnActionPerformed(evt);
             }
         });
 
@@ -248,7 +259,7 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
                     .addComponent(customButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(customButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(customButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(customButton9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(logoutBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         customPanel1Layout.setVerticalGroup(
@@ -267,7 +278,7 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(customButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
-                .addComponent(customButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -282,9 +293,9 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         
     }//GEN-LAST:event_customButton7ActionPerformed
 
-    private void customButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton9ActionPerformed
-
-    }//GEN-LAST:event_customButton9ActionPerformed
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        MainFrame.getInstance().showLoginPanel();
+    }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void customButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton1ActionPerformed
         // TODO add your handling code here:
@@ -301,6 +312,10 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
     private void customButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton5ActionPerformed
         setConentPanel(new OrderPanel());
     }//GEN-LAST:event_customButton5ActionPerformed
+
+    private void customButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton6ActionPerformed
+        setConentPanel(new OrderManagementPanel());
+    }//GEN-LAST:event_customButton6ActionPerformed
     
     public void setConentPanel(JPanel panel) {
         if (contentPanel != null) {
@@ -309,14 +324,6 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         contentPanel = panel;
         add(contentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 55, 1006, 684));
         revalidate();
-    }
-    
-    public static void main(String[] args) {
-        FlatLightLaf.setup();
-        JFrame frame = new JFrame();
-        frame.add(new DashboardPanel());
-        frame.pack();
-        frame.setVisible(true);
     }
     
 
@@ -328,9 +335,9 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
     private com.wingman.clothingshopmanagement.view.components.CustomButton customButton5;
     private com.wingman.clothingshopmanagement.view.components.CustomButton customButton6;
     private com.wingman.clothingshopmanagement.view.components.CustomButton customButton7;
-    private com.wingman.clothingshopmanagement.view.components.CustomButton customButton9;
     private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton logoutBtn;
     // End of variables declaration//GEN-END:variables
 }

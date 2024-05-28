@@ -4,6 +4,7 @@
  */
 package com.wingman.clothingshopmanagement.model.dao;
 
+import com.wingman.clothingshopmanagement.model.order.Order;
 import com.wingman.clothingshopmanagement.model.order.OrderDetail;
 import com.wingman.clothingshopmanagement.model.order.OrderDetailId;
 import com.wingman.clothingshopmanagement.util.HibernateUtil;
@@ -12,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -34,6 +36,24 @@ public class OrderDetailDAO implements IDAO<OrderDetail, OrderDetailId>{
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 return session.createQuery("from OrderDetial", OrderDetail.class).list();
             }
+        });
+    }
+    
+    public CompletableFuture<List<OrderDetail>> getAll(Order order) {
+        return CompletableFuture.supplyAsync(() -> {
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                Query<OrderDetail> query = session.createQuery("from OrderDetail O WHERE O.order.orderId = :oid", OrderDetail.class);
+                query.setParameter("oid", order.getOrderId());
+                return query.list();
+            }
+        });
+    }
+    
+    public CompletableFuture<Double> getTotal(Order order) {
+        return CompletableFuture.supplyAsync(() -> {
+            return getAll(order).join().stream().map((t) -> {
+                return t.getQuantity() * t.getUnitPrice();
+            }).reduce(0D, (a, b) -> a + b);
         });
     }
 

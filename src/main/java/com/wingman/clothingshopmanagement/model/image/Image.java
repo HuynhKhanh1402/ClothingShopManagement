@@ -36,7 +36,7 @@ public class Image {
 
     public void setImage(ImageIcon image) {
         if (image == null) {
-            throw new IllegalArgumentException("Image iss null");
+            throw new IllegalArgumentException("Image is null");
         }
         try {
             content = ImageUtil.convertImageToByteArray(image.getImage());

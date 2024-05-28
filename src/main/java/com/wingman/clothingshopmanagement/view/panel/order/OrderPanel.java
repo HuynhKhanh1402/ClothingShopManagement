@@ -146,10 +146,11 @@ public class OrderPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         totalLabel = new javax.swing.JLabel();
         orderBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Order");
         jLabel1.setPreferredSize(new java.awt.Dimension(75, 32));
 
@@ -201,6 +202,8 @@ public class OrderPanel extends javax.swing.JPanel {
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen_24.png"))); // NOI18N
         editBtn.setBorderColor(new java.awt.Color(38, 161, 244));
         editBtn.setColor(new java.awt.Color(38, 161, 244));
+        editBtn.setColorClick(new java.awt.Color(30, 127, 193));
+        editBtn.setColorOver(new java.awt.Color(30, 127, 193));
         editBtn.setPreferredSize(new java.awt.Dimension(38, 38));
         editBtn.setRadius(16);
         editBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -213,6 +216,8 @@ public class OrderPanel extends javax.swing.JPanel {
         customButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus_24.png"))); // NOI18N
         customButton2.setBorderColor(new java.awt.Color(75, 174, 79));
         customButton2.setColor(new java.awt.Color(75, 174, 79));
+        customButton2.setColorClick(new java.awt.Color(53, 123, 55));
+        customButton2.setColorOver(new java.awt.Color(53, 123, 55));
         customButton2.setPreferredSize(new java.awt.Dimension(38, 38));
         customButton2.setRadius(16);
         customButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +230,8 @@ public class OrderPanel extends javax.swing.JPanel {
         customButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close_24.png"))); // NOI18N
         customButton3.setBorderColor(new java.awt.Color(244, 67, 54));
         customButton3.setColor(new java.awt.Color(244, 67, 54));
+        customButton3.setColorClick(new java.awt.Color(193, 52, 42));
+        customButton3.setColorOver(new java.awt.Color(193, 52, 42));
         customButton3.setPreferredSize(new java.awt.Dimension(38, 38));
         customButton3.setRadius(16);
         customButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -294,6 +301,8 @@ public class OrderPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel5.setText("Create new order.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -307,28 +316,32 @@ public class OrderPanel extends javax.swing.JPanel {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(customButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(customButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(customButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,7 +381,7 @@ public class OrderPanel extends javax.swing.JPanel {
             return;
         }
 
-        int response = JOptionPane.showConfirmDialog(MainFrame.getInstance(), "Do you want to row this row?", "Confirm", JOptionPane.YES_NO_OPTION);
+        int response = JOptionPane.showConfirmDialog(MainFrame.getInstance(), "Do you want to delete this row?", "Confirm", JOptionPane.YES_NO_OPTION);
         if (response == JOptionPane.YES_OPTION) {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             orderProductMap.remove((long) model.getValueAt(row, 1));
@@ -479,6 +492,7 @@ public class OrderPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

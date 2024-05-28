@@ -135,7 +135,7 @@
                       <Component id="customButton5" alignment="1" max="32767" attributes="0"/>
                       <Component id="customButton6" alignment="0" max="32767" attributes="0"/>
                       <Component id="customButton7" alignment="0" max="32767" attributes="0"/>
-                      <Component id="customButton9" alignment="1" max="32767" attributes="0"/>
+                      <Component id="logoutBtn" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -157,7 +157,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="customButton7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="298" max="32767" attributes="0"/>
-                  <Component id="customButton9" min="-2" max="-2" attributes="0"/>
+                  <Component id="logoutBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -355,6 +355,9 @@
             </Property>
             <Property name="radius" type="int" value="10"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customButton6ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="customButton7">
           <Properties>
@@ -395,7 +398,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customButton7ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="customButton9">
+        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="logoutBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="2c" red="7d" type="rgb"/>
@@ -432,7 +435,7 @@
             <Property name="radius" type="int" value="10"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customButton9ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutBtnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -292,7 +292,7 @@ public class AddUserPanel extends javax.swing.JPanel {
     private void chooseImgBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseImgBtnActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Image files", "jpg", "jpeg", "png", "gif");
+                "Image files", "jpg", "jpeg", "png");
         fileChooser.setFileFilter(filter);
 
         int result = fileChooser.showOpenDialog(this);

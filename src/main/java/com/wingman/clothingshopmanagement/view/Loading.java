@@ -3,10 +3,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Loading {
+    private final MainFrame mainFrame;
     private final JDialog loadingDialog;
+    private final JLabel loadingLabel;
 
-    public Loading(JFrame parentFrame) {
-        loadingDialog = new JDialog(parentFrame, true);
+    public Loading(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+        
+        loadingDialog = new JDialog(mainFrame, true);
         loadingDialog.setUndecorated(true);
         loadingDialog.setSize(100, 100);
         
@@ -22,7 +26,7 @@ public class Loading {
         };
         contentPane.setOpaque(false);
 
-        JLabel loadingLabel = new JLabel(new ImageIcon(getClass().getResource("/gifs/loading.gif")));
+        loadingLabel = new JLabel(new ImageIcon(getClass().getResource("/gifs/DualRing.gif")));
         contentPane.add(loadingLabel, BorderLayout.CENTER);
         loadingDialog.setContentPane(contentPane);
         loadingDialog.pack();
@@ -38,6 +42,12 @@ public class Loading {
                 int dialogHeight = loadingDialog.getHeight();
                 int x = parentFrame.getX() + (parentWidth - dialogWidth) / 2;
                 int y = parentFrame.getY() + (parentHeight - dialogHeight) / 2;
+                
+                if (mainFrame.isShowDashboardPanel()) {
+                    x += 261 / 2;
+                    y += 62 / 2;
+                }
+                
                 loadingDialog.setLocation(x, y);
                 loadingDialog.setVisible(true);
             }
