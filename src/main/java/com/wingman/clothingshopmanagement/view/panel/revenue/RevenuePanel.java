@@ -207,6 +207,7 @@ public class RevenuePanel extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         orderedProductLabel = new javax.swing.JLabel();
         chart = new javax.swing.JPanel();
+        customPanel3 = new com.wingman.clothingshopmanagement.view.components.CustomPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -358,6 +359,22 @@ public class RevenuePanel extends javax.swing.JPanel {
         );
 
         add(chart, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 352, 960, 320));
+
+        customPanel3.setBorderColor(new java.awt.Color(125, 44, 224));
+        customPanel3.setRadius(16);
+
+        javax.swing.GroupLayout customPanel3Layout = new javax.swing.GroupLayout(customPanel3);
+        customPanel3.setLayout(customPanel3Layout);
+        customPanel3Layout.setHorizontalGroup(
+            customPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 970, Short.MAX_VALUE)
+        );
+        customPanel3Layout.setVerticalGroup(
+            customPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 280, Short.MAX_VALUE)
+        );
+
+        add(customPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 970, 280));
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewRangeComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRangeComboboxActionPerformed
@@ -369,6 +386,7 @@ public class RevenuePanel extends javax.swing.JPanel {
     private javax.swing.JPanel chart;
     private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel1;
     private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel2;
+    private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
