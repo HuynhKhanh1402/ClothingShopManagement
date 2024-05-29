@@ -21,6 +21,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import lombok.Getter;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
@@ -393,12 +394,7 @@ public class ProductManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_selectAllCheckBoxActionPerformed
 
     private void customButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton1ActionPerformed
-        JDialog dialog = new JDialog(MainFrame.getInstance(), "Add product", true);
-        dialog.setContentPane(new AddProductPanel(dialog, this));
-        dialog.pack();
-        dialog.setLocationRelativeTo(MainFrame.getInstance());
-        dialog.setVisible(true);
-        dialog.setResizable(false);
+        GlassPanePopup.showPopup(new AddProductPanel(this), "addProduct");
     }//GEN-LAST:event_customButton1ActionPerformed
 
     private void orderByDropboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderByDropboxActionPerformed

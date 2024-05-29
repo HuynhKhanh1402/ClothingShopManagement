@@ -13,34 +13,32 @@ import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.util.BCryptUtil;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.view.MainFrame;
+import com.wingman.clothingshopmanagement.view.components.CustomPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.WarningPanel;
 import java.io.File;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import lombok.Getter;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
  * @author Administrator
  */
 @Getter
-public class AddUserPanel extends javax.swing.JPanel {
-
-    private final JDialog dialog;
+public class AddUserPanel extends CustomPanel {
     private boolean isChangedAvatar = false;
     private final UserManagementPanel panel;
 
     /**
      * Creates new form UserCreatePanel
-     * @param dialog
      * @param panel
      */
-    public AddUserPanel(JDialog dialog, UserManagementPanel panel) {
+    public AddUserPanel(UserManagementPanel panel) {
         initComponents();
-        this.dialog = dialog;
         
         imgLabel.setIcon(ImageUtil.resize(new ImageIcon(getClass().getResource("/images/user_color.png")), 166, 166));
         this.panel = panel;
@@ -70,6 +68,8 @@ public class AddUserPanel extends javax.swing.JPanel {
         passwordField = new com.wingman.clothingshopmanagement.view.components.CustomPasswordField();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setBorderColor(java.awt.Color.lightGray);
+        setRadius(16);
 
         imgLabel.setPreferredSize(new java.awt.Dimension(128, 128));
 
@@ -152,19 +152,19 @@ public class AddUserPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                .addGap(74, 74, 74)
-                .addComponent(createBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                .addGap(42, 42, 42))
+                .addGap(65, 65, 65)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
+                .addComponent(createBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(45, 45, 45))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                    .addComponent(createBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -179,25 +179,27 @@ public class AddUserPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(imgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                    .addComponent(chooseImgBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(emailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                    .addComponent(fullNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(permissionDropdown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(passwordField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(imgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(chooseImgBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(emailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                            .addComponent(fullNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(permissionDropdown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(passwordField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +266,8 @@ public class AddUserPanel extends javax.swing.JPanel {
         
         userDAO.get(email).thenAcceptAsync((t) -> {
             if (t != null) {
-                JOptionPane.showMessageDialog(this, "Email " + email + " already exists!", "Warning", JOptionPane.WARNING_MESSAGE);
+                MainFrame.getInstance().getLoading().hideLoading();
+                GlassPanePopup.showPopup(new WarningPanel("Email " + email + " already exists!"), "warning");
                 return;
             }
             
@@ -275,12 +278,14 @@ public class AddUserPanel extends javax.swing.JPanel {
             
             user.setAvatar(image);
             
+            MainFrame.getInstance().getLoading().hideLoading();
             userDAO.save(user).thenRun(() -> {
-                JOptionPane.showMessageDialog(this, "User created successfully", "Successfully", JOptionPane.INFORMATION_MESSAGE);
+                GlassPanePopup.closePopup("addUser");
+                GlassPanePopup.showPopup(new SuccessPanel("User created successfully!"), "success");
             }).join();
         }).whenComplete((t, u) -> {
             MainFrame.getInstance().getLoading().hideLoading();
-            dialog.dispose();
+            GlassPanePopup.closePopup("addUser");
             panel.refreshData();
             if (u != null) {
                 u.printStackTrace();
@@ -305,12 +310,12 @@ public class AddUserPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_chooseImgBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        dialog.dispose();
+        GlassPanePopup.closePopup("addUser");
     }//GEN-LAST:event_cancelBtnActionPerformed
     
     private boolean validdateTextField(JTextField field, String message) {
         if (field.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+            GlassPanePopup.showPopup(new WarningPanel(message), "warning");
             return false;
         }
         return true;

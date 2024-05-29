@@ -9,11 +9,11 @@ import com.wingman.clothingshopmanagement.model.dao.ProductDAO;
 import com.wingman.clothingshopmanagement.model.product.Product;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.util.NumberFormatter;
-import com.wingman.clothingshopmanagement.view.MainFrame;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
+import com.wingman.clothingshopmanagement.view.panel.message.ConfirmPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
 import javax.swing.SwingUtilities;
 import lombok.Getter;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
@@ -214,23 +214,18 @@ public class ProductPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtn1ActionPerformed
-        JDialog dialog = new JDialog(MainFrame.getInstance(), "Edit product", true);
-        dialog.setContentPane(new EditProductPanel(dialog, panel, product));
-        dialog.pack();
-        dialog.setLocationRelativeTo(MainFrame.getInstance());
-        dialog.setVisible(true);
-        dialog.setResizable(false);
+        GlassPanePopup.showPopup(new EditProductPanel(panel, product), "editProduct");
     }//GEN-LAST:event_editBtn1ActionPerformed
 
     private void deleteBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtn1ActionPerformed
-        int response = JOptionPane.showConfirmDialog(MainFrame.getInstance(), "Do you want to delete this product?", "Confirm", JOptionPane.YES_NO_OPTION);
-        if (response == JOptionPane.YES_OPTION) {
+        ConfirmPanel.show("Do you want to delete this product?", () -> {
             ProductDAO productDAO = DAOManager.getInstance().getProductDAO();
             productDAO.delete(product.getProductId()).thenAccept((t) -> {
                 panel.prepareData();
-                JOptionPane.showMessageDialog(this, "Product deleted", "Success", JOptionPane.INFORMATION_MESSAGE);
+                GlassPanePopup.closePopup("confirm");
+                SuccessPanel.show("Product deleted successfully.");
             });
-        }
+        });
     }//GEN-LAST:event_deleteBtn1ActionPerformed
 
     private void checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxActionPerformed

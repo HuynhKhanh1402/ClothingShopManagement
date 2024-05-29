@@ -12,41 +12,40 @@ import com.wingman.clothingshopmanagement.model.product.Gender;
 import com.wingman.clothingshopmanagement.model.product.Product;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.view.MainFrame;
+import com.wingman.clothingshopmanagement.view.components.CustomPanel;
 import com.wingman.clothingshopmanagement.view.components.CustomTextField;
+import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.WarningPanel;
 import java.awt.Color;
 import java.io.File;
 import java.util.Date;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import lombok.Getter;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
  * @author Administrator
  */
 @Getter
-public class AddProductPanel extends javax.swing.JPanel {
+public class AddProductPanel extends CustomPanel {
 
-    private boolean isChangedImage;
-    private final JDialog parent;
+    private boolean isChangedImage;   
     private final ProductManagementPanel panel;
 
     /**
      * Creates new form AddProductPanel
      *
-     * @param dialog
      * @param panel
      */
-    public AddProductPanel(JDialog dialog, ProductManagementPanel panel) {
+    public AddProductPanel(ProductManagementPanel panel) {
         initComponents();
 
         productImage.setIcon(ImageUtil.resize(new ImageIcon(getClass().getResource("/images/no-pictures-larger.png")), 150, 162));
         isChangedImage = false;
-        this.parent = dialog;
         this.panel = panel;
 
     }
@@ -84,6 +83,8 @@ public class AddProductPanel extends javax.swing.JPanel {
         genderDropdown = new com.wingman.clothingshopmanagement.view.components.CustomComboBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setBorderColor(java.awt.Color.lightGray);
+        setRadius(16);
 
         nameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         nameLabel.setForeground(new java.awt.Color(51, 3, 0));
@@ -366,7 +367,7 @@ public class AddProductPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_chooseImgBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        parent.dispose();
+        GlassPanePopup.closePopup("addProduct");
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
@@ -433,10 +434,10 @@ public class AddProductPanel extends javax.swing.JPanel {
                 product.setProductImage(image);
                 productDAO.update(product).join();
             }
-            JOptionPane.showMessageDialog(this, "Product created successfully", "Successfully", JOptionPane.INFORMATION_MESSAGE);
+            SuccessPanel.show("Product created successfully.");
         }).whenComplete((t, u) -> {
             MainFrame.getInstance().getLoading().hideLoading();
-            parent.dispose();
+            GlassPanePopup.closePopup("addProduct");
             panel.prepareData();
             if (u != null) {
                 u.printStackTrace();
@@ -475,7 +476,7 @@ public class AddProductPanel extends javax.swing.JPanel {
             if (field instanceof CustomTextField ctf) {
                 ctf.setBoderColor(Color.RED);
             }
-            JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show(message);
             return false;
         }
         return true;
@@ -492,7 +493,7 @@ public class AddProductPanel extends javax.swing.JPanel {
                 if (field instanceof CustomTextField ctf) {
                     ctf.setBoderColor(Color.RED);
                 }
-                JOptionPane.showMessageDialog(this, message.replace("{number}", text), "Warning", JOptionPane.WARNING_MESSAGE);
+                WarningPanel.show(message.replace("{number}", text));
                 return false;
             }
         } else {
@@ -503,7 +504,7 @@ public class AddProductPanel extends javax.swing.JPanel {
                 if (field instanceof CustomTextField ctf) {
                     ctf.setBoderColor(Color.RED);
                 }
-                JOptionPane.showMessageDialog(this, message.replace("{number}", text), "Warning", JOptionPane.WARNING_MESSAGE);
+                WarningPanel.show(message.replace("{number}", text));
                 return false;
             }
         }

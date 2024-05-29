@@ -11,9 +11,11 @@ import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.util.DateFormatter;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.view.MainFrame;
-import javax.swing.JDialog;
+import com.wingman.clothingshopmanagement.view.panel.message.ConfirmPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
 import javax.swing.JOptionPane;
 import lombok.Getter;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
@@ -185,23 +187,17 @@ public class UserPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        JDialog dialog = new JDialog(MainFrame.getInstance(), "Edit user", true);
-        dialog.setContentPane(new EditUserPanel(dialog, panel, user));
-        dialog.pack();
-        dialog.setLocationRelativeTo(MainFrame.getInstance());
-        dialog.setVisible(true);
-        dialog.setResizable(false);        
+        GlassPanePopup.showPopup(new EditUserPanel(panel, user), "editUser");
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        int response = JOptionPane.showConfirmDialog(MainFrame.getInstance(), "Do you want to delete this user?", "Confirm", JOptionPane.YES_NO_OPTION);
-        if (response == JOptionPane.YES_OPTION) {
+        ConfirmPanel.show("Do you want to delete this user?", () -> {
             UserDAO userDAO = DAOManager.getInstance().getUserDAO();
             userDAO.delete(user.getEmail()).thenAcceptAsync((t) -> {
                 panel.refreshData();
-                JOptionPane.showMessageDialog(this, "User deleted", "Success", JOptionPane.INFORMATION_MESSAGE);
+                SuccessPanel.show("User deleted successfully!");
             });
-        }
+        });
     }//GEN-LAST:event_deleteBtnActionPerformed
 
 

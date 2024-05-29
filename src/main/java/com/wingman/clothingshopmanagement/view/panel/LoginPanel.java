@@ -9,11 +9,12 @@ import com.wingman.clothingshopmanagement.model.dao.UserDAO;
 import com.wingman.clothingshopmanagement.util.BCryptUtil;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.view.MainFrame;
+import com.wingman.clothingshopmanagement.view.panel.message.WarningPanel;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -67,6 +68,11 @@ public class LoginPanel extends javax.swing.JPanel {
         passwordField.setToolTipText("");
         passwordField.setBorderColor(java.awt.Color.lightGray);
         passwordField.setRadius(16);
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyReleased(evt);
+            }
+        });
 
         jButton1.setText("Forgot password?");
         jButton1.setBorder(null);
@@ -143,6 +149,12 @@ public class LoginPanel extends javax.swing.JPanel {
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         handleLogin();
     }//GEN-LAST:event_loginBtnActionPerformed
+
+    private void passwordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            loginBtn.doClick();
+        }
+    }//GEN-LAST:event_passwordFieldKeyReleased
     
     private void handleLogin() {
         emailTextField.setBoderColor(Color.GRAY);
@@ -154,21 +166,21 @@ public class LoginPanel extends javax.swing.JPanel {
         if (email.isBlank()) {
             emailTextField.setBoderColor(Color.RED);
             SwingUtilities.updateComponentTreeUI(this);
-            JOptionPane.showMessageDialog(this, "Email is empty!", "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show("Email is empty!");
             return;
         }
         
         if (password.isBlank()) {
             passwordField.setBorderColor(Color.RED);
             SwingUtilities.updateComponentTreeUI(this);
-            JOptionPane.showMessageDialog(this, "Password is empty!", "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show("Password is empty!");
             return;
         }
         
         if (!validateEmail(emailTextField.getText())) {
             emailTextField.setBoderColor(Color.RED);
             SwingUtilities.updateComponentTreeUI(this);
-            JOptionPane.showMessageDialog(this, "Email is not valid!", "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show("Email is not valid!");
             return;
         }
         
@@ -177,12 +189,12 @@ public class LoginPanel extends javax.swing.JPanel {
         userDAO.get(emailTextField.getText()).thenAccept((user) -> {
             if (user == null) {
                 MainFrame.getInstance().getLoading().hideLoading();
-                JOptionPane.showMessageDialog(this, "User does not exist!", "Warning", JOptionPane.WARNING_MESSAGE);
+                WarningPanel.show("User does not exist!");
                 return;
             }
             if (!BCryptUtil.check(password, user.getHashedPassword())) {
                 MainFrame.getInstance().getLoading().hideLoading();
-                JOptionPane.showMessageDialog(this, "Wrong password!", "Warning", JOptionPane.WARNING_MESSAGE);
+                WarningPanel.show("Wrong password!");
                 return;
             }
             

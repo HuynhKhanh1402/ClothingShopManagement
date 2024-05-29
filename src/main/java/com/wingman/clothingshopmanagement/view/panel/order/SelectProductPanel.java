@@ -11,15 +11,13 @@ import com.wingman.clothingshopmanagement.model.product.Product;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.util.NumberFormatter;
 import com.wingman.clothingshopmanagement.view.MainFrame;
-import com.wingman.clothingshopmanagement.view.components.CustomTextField;
-import java.awt.Color;
+import com.wingman.clothingshopmanagement.view.components.CustomPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.WarningPanel;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
@@ -29,16 +27,16 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
  * @author Administrator
  */
-public class SelectProductPanel extends javax.swing.JPanel {
+public class SelectProductPanel extends CustomPanel {
 
     private final OrderPanel orderPanel;
     private final Map<Long, Product> productMap = new HashMap<>();
-    private final JDialog dialog;
     private final boolean isEditMode;
     private final OrderProduct editProduct;
 
@@ -46,21 +44,18 @@ public class SelectProductPanel extends javax.swing.JPanel {
      * Creates new form SelectProductPanel
      *
      * @param orderPanel
-     * @param dialog
      */
-    public SelectProductPanel(OrderPanel orderPanel, JDialog dialog) {
+    public SelectProductPanel(OrderPanel orderPanel) {
         initComponents();
         this.orderPanel = orderPanel;
-        this.dialog = dialog;
         this.isEditMode = false;
         this.editProduct = null;
         initTableData();
     }
 
-    public SelectProductPanel(OrderPanel orderPanel, JDialog dialog, OrderProduct orderProduct) {
+    public SelectProductPanel(OrderPanel orderPanel, OrderProduct orderProduct) {
         initComponents();
         this.orderPanel = orderPanel;
-        this.dialog = dialog;
         this.isEditMode = true;
         this.editProduct = orderProduct;
         addBtn.setText("Save");
@@ -210,6 +205,8 @@ public class SelectProductPanel extends javax.swing.JPanel {
         quantitySpinner = new com.wingman.clothingshopmanagement.view.components.CustomSpinner();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setBorderColor(java.awt.Color.lightGray);
+        setRadius(16);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Select Product");
@@ -335,7 +332,7 @@ public class SelectProductPanel extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         int rawRow = jTable1.getSelectedRow();
         if (rawRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select the product you want to add!", "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show("Please select the product you want to add!");
             return;
         }
 
@@ -350,7 +347,7 @@ public class SelectProductPanel extends javax.swing.JPanel {
         String priceText = priceTextField.getText();
 
         if (priceText.isBlank()) {
-            JOptionPane.showMessageDialog(this, "Please input price of pruduct!", "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show("Please input price of pruduct!");
             return;
         }
 
@@ -361,12 +358,12 @@ public class SelectProductPanel extends javax.swing.JPanel {
 //                if (field instanceof CustomTextField ctf) {
 //                    ctf.setBoderColor(Color.RED);
 //                }
-            JOptionPane.showMessageDialog(this, String.format("%s is invalid number for product  price", priceText), "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show(String.format("%s is invalid number for product  price", priceText));
             return;
         }
 
         if ((int) quantitySpinner.getValue() < 1) {
-            JOptionPane.showMessageDialog(this, "Please choose a product quantity greater than 0!", "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show("Please choose a product quantity greater than 0!");
             return;
         }
         
@@ -378,7 +375,7 @@ public class SelectProductPanel extends javax.swing.JPanel {
             orderPanel.addProduct(orderProduct);
         }
 
-        dialog.dispose();
+        GlassPanePopup.closePopup("selectProduct");
     }//GEN-LAST:event_addBtnActionPerformed
 
 

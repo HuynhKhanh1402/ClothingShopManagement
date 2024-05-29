@@ -12,6 +12,7 @@ import com.wingman.clothingshopmanagement.model.product.Product;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.util.NumberFormatter;
 import com.wingman.clothingshopmanagement.view.MainFrame;
+import com.wingman.clothingshopmanagement.view.components.CustomPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Administrator
  */
-public class OrderInfoPanel extends javax.swing.JPanel {
+public class OrderInfoPanel extends CustomPanel {
     private final Order order;
 
     /**
@@ -115,6 +116,8 @@ public class OrderInfoPanel extends javax.swing.JPanel {
         totalLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setBorderColor(java.awt.Color.lightGray);
+        setRadius(16);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Order Info");

@@ -14,27 +14,28 @@ import com.wingman.clothingshopmanagement.model.product.Product;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.util.NumberFormatter;
 import com.wingman.clothingshopmanagement.view.MainFrame;
-import java.util.ArrayList;
+import com.wingman.clothingshopmanagement.view.components.CustomPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.ConfirmPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.WarningPanel;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import lombok.Getter;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
  * @author Administrator
  */
 @Getter
-public class OrderPanel extends javax.swing.JPanel {
+public class OrderPanel extends CustomPanel {
 
     private final Map<Long, OrderProduct> orderProductMap = new HashMap<>();
 
@@ -149,6 +150,8 @@ public class OrderPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setBorderColor(java.awt.Color.lightGray);
+        setRadius(16);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Order");
@@ -366,34 +369,28 @@ public class OrderPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void customButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton2ActionPerformed
-        JDialog dialog = new JDialog(MainFrame.getInstance(), "Select product", true);
-        dialog.setContentPane(new SelectProductPanel(this, dialog));
-        dialog.pack();
-        dialog.setLocationRelativeTo(MainFrame.getInstance());
-        dialog.setVisible(true);
-        dialog.setResizable(false);
+        GlassPanePopup.showPopup(new SelectProductPanel(this), "selectProduct");
     }//GEN-LAST:event_customButton2ActionPerformed
 
     private void customButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton3ActionPerformed
         int row = jTable1.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Please select the product you want to delete!", "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show("Please select the product you want to delete!");
             return;
         }
 
-        int response = JOptionPane.showConfirmDialog(MainFrame.getInstance(), "Do you want to delete this row?", "Confirm", JOptionPane.YES_NO_OPTION);
-        if (response == JOptionPane.YES_OPTION) {
+        ConfirmPanel.show("Do you want to delete this row?", () -> {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             orderProductMap.remove((long) model.getValueAt(row, 1));
             model.removeRow(row);
             calculateTotalPrice();
-        }
+        });
     }//GEN-LAST:event_customButton3ActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         int row = jTable1.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Please select the product you want to edit!", "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show("Please select the product you want to edit!");
             return;
         }
 
@@ -404,12 +401,7 @@ public class OrderPanel extends javax.swing.JPanel {
             return;
         }
 
-        JDialog dialog = new JDialog(MainFrame.getInstance(), "Select product", true);
-        dialog.setContentPane(new SelectProductPanel(this, dialog, op));
-        dialog.pack();
-        dialog.setLocationRelativeTo(MainFrame.getInstance());
-        dialog.setVisible(true);
-        dialog.setResizable(false);
+        GlassPanePopup.showPopup(new SelectProductPanel(this, op), "selectProduct");
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
@@ -420,63 +412,62 @@ public class OrderPanel extends javax.swing.JPanel {
         if (!validdateTextField(customerPhoneTextField, "Customer phone is empty!")) {
             return;
         }
-        
+
         if (orderProductMap.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please add products!", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        int response = JOptionPane.showConfirmDialog(MainFrame.getInstance(), "Are you sure to order these products?", "Confirm", JOptionPane.YES_NO_OPTION);
-        if (response != JOptionPane.YES_OPTION) {
+            WarningPanel.show("Please add products!");
             return;
         }
 
-        String customerName = customerNameTextField.getText();
-        String customerPhone = customerPhoneTextField.getText();
+        ConfirmPanel.show("Are you sure to order these products?", () -> {
+            String customerName = customerNameTextField.getText();
+            String customerPhone = customerPhoneTextField.getText();
 
-        Order order = new Order();
-        order.setName(customerName);
-        order.setPhone(customerPhone);
-        order.setOrderDate(new Date());
+            Order order = new Order();
+            order.setName(customerName);
+            order.setPhone(customerPhone);
+            order.setOrderDate(new Date());
 
-        DAOManager daoManager = DAOManager.getInstance();
-        OrderDAO orderDAO = daoManager.getOrderDAO();
-        OrderDetailDAO orderDetailDAO = daoManager.getOrderDetailDAO();
+            DAOManager daoManager = DAOManager.getInstance();
+            OrderDAO orderDAO = daoManager.getOrderDAO();
+            OrderDetailDAO orderDetailDAO = daoManager.getOrderDetailDAO();
 
-        MainFrame.getInstance().getLoading().showLoading();
-        orderDAO.save(order).thenRunAsync(() -> {
-            CompletableFuture.allOf(orderProductMap.keySet()
-                    .stream()
-                    .map((id) -> {
-                        OrderProduct op = orderProductMap.get(id);
-                        OrderDetail od = new OrderDetail();
-                        od.setOrder(order);
-                        od.setProduct(op.getProduct());
-                        od.setQuantity(op.getQuantity());
-                        od.setUnitPrice(op.getUnitPrice());
-                        return orderDetailDAO.save(od);
-                    })
-                    .toArray(CompletableFuture[]::new)).join();
-        }).thenRun(() -> {
-            MainFrame.getInstance().getLoading().hideLoading();
-            JOptionPane.showMessageDialog(this, "Order created successfully.", "Successfully", JOptionPane.INFORMATION_MESSAGE);
-            
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.setRowCount(0);
-            customerNameTextField.setText("");
-            customerPhoneTextField.setText("");
-        }).whenComplete((t, u) -> {
-            MainFrame.getInstance().getLoading().hideLoading();
-            if (u != null) {
-                u.printStackTrace();
-                throw new RuntimeException(u);
-            }
+            MainFrame.getInstance().getLoading().showLoading();
+            orderDAO.save(order).thenRunAsync(() -> {
+                CompletableFuture.allOf(orderProductMap.keySet()
+                        .stream()
+                        .map((id) -> {
+                            OrderProduct op = orderProductMap.get(id);
+                            OrderDetail od = new OrderDetail();
+                            od.setOrder(order);
+                            od.setProduct(op.getProduct());
+                            od.setQuantity(op.getQuantity());
+                            od.setUnitPrice(op.getUnitPrice());
+                            return orderDetailDAO.save(od);
+                        })
+                        .toArray(CompletableFuture[]::new)).join();
+            }).thenRun(() -> {
+                MainFrame.getInstance().getLoading().hideLoading();
+                SuccessPanel.show("Order created successfully.");
+
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.setRowCount(0);
+                customerNameTextField.setText("");
+                customerPhoneTextField.setText("");
+            }).whenComplete((t, u) -> {
+                MainFrame.getInstance().getLoading().hideLoading();
+                if (u != null) {
+                    u.printStackTrace();
+                    throw new RuntimeException(u);
+                }
+            });
         });
+
+
     }//GEN-LAST:event_orderBtnActionPerformed
 
     private boolean validdateTextField(JTextField field, String message) {
         if (field.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show(message);
             return false;
         }
         return true;

@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import lombok.Getter;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
@@ -264,12 +265,13 @@ public class UserManagementPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBtnActionPerformed
-        JDialog dialog = new JDialog(MainFrame.getInstance(), "Add user", true);
-        dialog.setContentPane(new AddUserPanel(dialog, this));
-        dialog.pack();
-        dialog.setLocationRelativeTo(MainFrame.getInstance());
-        dialog.setVisible(true);
-        dialog.setResizable(false);
+//        JDialog dialog = new JDialog(MainFrame.getInstance(), "Add user", true);
+//        dialog.setContentPane(new AddUserPanel(dialog, this));
+//        dialog.pack();
+//        dialog.setLocationRelativeTo(MainFrame.getInstance());
+//        dialog.setVisible(true);
+//        dialog.setResizable(false);
+        GlassPanePopup.showPopup(new AddUserPanel(this), "addUser");
     }//GEN-LAST:event_addUserBtnActionPerformed
 
     private void userNameLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameLabelActionPerformed

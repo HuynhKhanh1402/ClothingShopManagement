@@ -10,6 +10,7 @@ import com.wingman.clothingshopmanagement.view.panel.LoginPanel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import lombok.Getter;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
@@ -34,6 +35,8 @@ public class MainFrame extends JFrame {
     
     private MainFrame() {
         loading = new Loading(this);
+        
+        GlassPanePopup.install(this);
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         

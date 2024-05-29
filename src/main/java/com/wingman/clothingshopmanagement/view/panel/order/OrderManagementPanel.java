@@ -13,15 +13,16 @@ import com.wingman.clothingshopmanagement.model.order.OrderDetailId;
 import com.wingman.clothingshopmanagement.util.DateFormatter;
 import com.wingman.clothingshopmanagement.util.NumberFormatter;
 import com.wingman.clothingshopmanagement.view.MainFrame;
+import com.wingman.clothingshopmanagement.view.panel.message.ConfirmPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.WarningPanel;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
@@ -32,6 +33,7 @@ import javax.swing.table.TableRowSorter;
 import lombok.Getter;
 import raven.datetime.component.date.DateEvent;
 import raven.datetime.component.date.DatePicker;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
@@ -319,7 +321,7 @@ public class OrderManagementPanel extends javax.swing.JPanel {
     private void infoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoBtnActionPerformed
         int rawRow = jTable1.getSelectedRow();
         if (rawRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select the order you want to view!", "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show("Please select the order you want to view!");
             return;
         }
         int row = jTable1.getRowSorter().convertRowIndexToModel(rawRow);
@@ -330,25 +332,20 @@ public class OrderManagementPanel extends javax.swing.JPanel {
             System.out.println("Order is null");
             return;
         }
-        JDialog dialog = new JDialog(MainFrame.getInstance(), "Order info", true);
-        dialog.setContentPane(new OrderInfoPanel(order));
-        dialog.pack();
-        dialog.setLocationRelativeTo(MainFrame.getInstance());
-        dialog.setVisible(true);
-        dialog.setResizable(false);
+        
+        GlassPanePopup.showPopup(new OrderInfoPanel(order), "orderInfo");
     }//GEN-LAST:event_infoBtnActionPerformed
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
         int rawRow = jTable1.getSelectedRow();
         if (rawRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select the order you want to delete!", "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show("Please select the order you want to delete!");
             return;
         }
         
         int row = jTable1.getRowSorter().convertRowIndexToModel(rawRow);
-
-        int response = JOptionPane.showConfirmDialog(MainFrame.getInstance(), "Do you want to delete this order?", "Confirm", JOptionPane.YES_NO_OPTION);
-        if (response == JOptionPane.YES_OPTION) {
+        
+        ConfirmPanel.show("Do you want to delete this order?", () -> {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             Order order = orderMap.get((long) model.getValueAt(row, 0));
             if (order == null) {
@@ -365,7 +362,7 @@ public class OrderManagementPanel extends javax.swing.JPanel {
                 }
                 orderDAO.delete(order.getOrderId()).join();
                 MainFrame.getInstance().getLoading().hideLoading();
-                JOptionPane.showMessageDialog(this, "Order deleted", "Success", JOptionPane.INFORMATION_MESSAGE);
+                SuccessPanel.show("Order deleted successfully.");
                 prepareData();
             }).whenComplete((t, u) -> {
                 MainFrame.getInstance().getLoading().hideLoading();
@@ -374,7 +371,7 @@ public class OrderManagementPanel extends javax.swing.JPanel {
                     throw new RuntimeException(u);
                 }
             });
-        }
+        });
     }//GEN-LAST:event_removeButtonActionPerformed
 
 

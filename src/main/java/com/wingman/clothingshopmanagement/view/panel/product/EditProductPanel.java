@@ -13,33 +13,34 @@ import com.wingman.clothingshopmanagement.model.product.Product;
 import com.wingman.clothingshopmanagement.util.DateFormatter;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.view.MainFrame;
+import com.wingman.clothingshopmanagement.view.components.CustomPanel;
 import com.wingman.clothingshopmanagement.view.components.CustomTextField;
+import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.WarningPanel;
 import java.awt.Color;
+import java.io.File;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import raven.glasspanepopup.GlassPanePopup;
 
 /**
  *
  * @author Administrator
  */
-public class EditProductPanel extends javax.swing.JPanel {
-
-    private final JDialog parent;
+public class EditProductPanel extends CustomPanel {
     private final ProductManagementPanel panel;
     private final Product product;
     private boolean isChangedImage;
 
     /**
      * Creates new form EditProductPanel
-     * @param dialog
      * @param panel
      * @param product
      */
-    public EditProductPanel(JDialog dialog, ProductManagementPanel panel, Product product) {
+    public EditProductPanel(ProductManagementPanel panel, Product product) {
         initComponents();
-        this.parent = dialog;
         this.panel = panel;
         this.product = product;
         
@@ -101,6 +102,9 @@ public class EditProductPanel extends javax.swing.JPanel {
         genderDropdown = new com.wingman.clothingshopmanagement.view.components.CustomComboBox();
         addedByLabel = new javax.swing.JLabel();
         addedDateLabel = new javax.swing.JLabel();
+
+        setBorderColor(java.awt.Color.lightGray);
+        setRadius(16);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -288,8 +292,8 @@ public class EditProductPanel extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(productImage, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(chooseImgBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(chooseImgBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                    .addComponent(productImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(brandLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,7 +321,7 @@ public class EditProductPanel extends javax.swing.JPanel {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(colorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(42, 42, 42)
-                                        .addComponent(genderDropdown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addComponent(genderDropdown, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(descriptionLabel)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -331,7 +335,7 @@ public class EditProductPanel extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(nameLabel)
@@ -384,39 +388,37 @@ public class EditProductPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 492, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 441, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void chooseImgBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseImgBtnActionPerformed
-        //        JFileChooser fileChooser = new JFileChooser();
-        //        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            //            "Image files", "jpg", "jpeg", "png", "gif");
-        //        fileChooser.setFileFilter(filter);
-        //
-        //        int result = fileChooser.showOpenDialog(this);
-        //        if (result == JFileChooser.APPROVE_OPTION) {
-            //            File selectedFile = fileChooser.getSelectedFile();
-            //            ImageIcon imageIcon = new ImageIcon(selectedFile.getAbsolutePath());
-            //            imgLabel.setIcon(ImageUtil.resize(imageIcon, 166, 166));
-            //            isChangedAvatar = true;
-            //        }
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Image files", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            ImageIcon imageIcon = new ImageIcon(selectedFile.getAbsolutePath());
+            productImage.setIcon(ImageUtil.resize(imageIcon, 150, 162));
+            isChangedImage = true;
+        }
     }//GEN-LAST:event_chooseImgBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        //        parent.dispose();
+        GlassPanePopup.closePopup("editProduct");
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
@@ -488,10 +490,10 @@ public class EditProductPanel extends javax.swing.JPanel {
                 }
                 productDAO.update(product).join();
             }
-            JOptionPane.showMessageDialog(this, "Product saved successfully", "Successfully", JOptionPane.INFORMATION_MESSAGE);
+            SuccessPanel.show("Product saved successfully.");
         }).whenComplete((t, u) -> {
             MainFrame.getInstance().getLoading().hideLoading();
-            parent.dispose();
+            GlassPanePopup.closePopup("editProduct");
             panel.prepareData();
             if (u != null) {
                 u.printStackTrace();
@@ -531,7 +533,7 @@ public class EditProductPanel extends javax.swing.JPanel {
             if (field instanceof CustomTextField ctf) {
                 ctf.setBoderColor(Color.RED);
             }
-            JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+            WarningPanel.show(message);
             return false;
         }
         return true;
@@ -548,7 +550,7 @@ public class EditProductPanel extends javax.swing.JPanel {
                 if (field instanceof CustomTextField ctf) {
                     ctf.setBoderColor(Color.RED);
                 }
-                JOptionPane.showMessageDialog(this, message.replace("{number}", text), "Warning", JOptionPane.WARNING_MESSAGE);
+                WarningPanel.show(message.replace("{number}", text));
                 return false;
             }
         } else {
@@ -559,7 +561,7 @@ public class EditProductPanel extends javax.swing.JPanel {
                 if (field instanceof CustomTextField ctf) {
                     ctf.setBoderColor(Color.RED);
                 }
-                JOptionPane.showMessageDialog(this, message.replace("{number}", text), "Warning", JOptionPane.WARNING_MESSAGE);
+                WarningPanel.show(message.replace("{number}", text));
                 return false;
             }
         }
