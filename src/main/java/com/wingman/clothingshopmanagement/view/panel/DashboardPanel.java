@@ -10,6 +10,7 @@ import com.wingman.clothingshopmanagement.view.MainFrame;
 import com.wingman.clothingshopmanagement.view.panel.order.OrderManagementPanel;
 import com.wingman.clothingshopmanagement.view.panel.order.OrderPanel;
 import com.wingman.clothingshopmanagement.view.panel.product.ProductManagementPanel;
+import com.wingman.clothingshopmanagement.view.panel.revenue.RevenuePanel;
 import com.wingman.clothingshopmanagement.view.panel.user.UserManagementPanel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -290,7 +291,7 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
     }//GEN-LAST:event_customButton2ActionPerformed
 
     private void customButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton7ActionPerformed
-        
+        setConentPanel(new RevenuePanel());
     }//GEN-LAST:event_customButton7ActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
