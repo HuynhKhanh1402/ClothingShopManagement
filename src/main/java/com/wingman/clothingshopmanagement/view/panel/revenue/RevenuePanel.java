@@ -33,13 +33,14 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.TextAnchor;
+import raven.datetime.component.date.DatePicker;
 
 /**
  *
  * @author Administrator
  */
 public class RevenuePanel extends javax.swing.JPanel {
-
+    private final DatePicker datePicker;
     /**
      * Creates new form RevenuePanel
      */
@@ -47,16 +48,26 @@ public class RevenuePanel extends javax.swing.JPanel {
         initComponents();
         updateData();
         setupChart();
+        
+        datePicker = new DatePicker();
+        datePicker.setEditor(datePickerEditor);
+        datePicker.setDateSelectionMode(DatePicker.DateSelectionMode.BETWEEN_DATE_SELECTED);
+        datePicker.setUsePanelOption(true);
+        datePicker.addDateSelectionListener((de) -> {
+            updateData();
+        });
+        datePickerEditor.setVisible(false);
     }
     
     private void updateData() {
         OrderDAO orderDAO = DAOManager.getInstance().getOrderDAO();
         
-        Date fromDate = getFromDate();
+        Date fromDate = getFromDate()[0];
+        Date toDate = getFromDate()[1];
         
-        viewRangeDateLabel.setText(DateFormatter.formatDate(fromDate) + " - " + DateFormatter.formatDate(new Date()));
+        viewRangeDateLabel.setText(DateFormatter.formatDate(fromDate) + " - " + DateFormatter.formatDate(toDate));
         
-        orderDAO.getRevenue(fromDate, new Date()).thenAccept((t) -> {
+        orderDAO.getRevenue(fromDate, toDate).thenAccept((t) -> {
             totalRevenueLabel.setText(NumberFormatter.format(t == null ? 0 : t));
         }).whenComplete((t, u) -> {
             if (u != null) {
@@ -65,7 +76,7 @@ public class RevenuePanel extends javax.swing.JPanel {
             }
         });
         
-        orderDAO.getOrderedProducts(fromDate, new Date()).thenAccept((t) -> {
+        orderDAO.getOrderedProducts(fromDate, toDate).thenAccept((t) -> {
             orderedProductLabel.setText(NumberFormatter.format(t == null ? 0 : t));
         }).whenComplete((t, u) -> {
             if (u != null) {
@@ -87,7 +98,7 @@ public class RevenuePanel extends javax.swing.JPanel {
         });
     }
     
-    private Date getFromDate() {
+    private Date[] getFromDate() {
         Optional<ViewRange> optionalVR = ViewRange.parse((String) viewRangeCombobox.getSelectedItem());
         if (optionalVR.isEmpty()) {
             throw new IllegalArgumentException("Invalid ViewRange");
@@ -99,17 +110,17 @@ public class RevenuePanel extends javax.swing.JPanel {
         switch (vr) {
             case TODAY -> {
                 LocalDateTime todayMidnight = LocalDateTime.of(today, LocalTime.MIDNIGHT);
-                return Date.from(todayMidnight.atZone(ZoneId.systemDefault()).toInstant());
+                return new Date[]{Date.from(todayMidnight.atZone(ZoneId.systemDefault()).toInstant()), new Date()};
             }
             case WEEK -> {
                 LocalDate monday = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
                 LocalDateTime mondayMidnight = LocalDateTime.of(monday, LocalTime.MIDNIGHT);
-                return Date.from(mondayMidnight.atZone(ZoneId.systemDefault()).toInstant());
+                return new Date[]{Date.from(mondayMidnight.atZone(ZoneId.systemDefault()).toInstant()), new Date()};
             }
             case MONTH -> {
                 LocalDate firstDayOfMonth = today.withDayOfMonth(1);
                 LocalDateTime firstDayOfMonthMidnight = LocalDateTime.of(firstDayOfMonth, LocalTime.MIDNIGHT);
-                return Date.from(firstDayOfMonthMidnight.atZone(ZoneId.systemDefault()).toInstant());
+                return new Date[]{Date.from(firstDayOfMonthMidnight.atZone(ZoneId.systemDefault()).toInstant()), new Date()};
             }
             case THREE_MONTHS -> {
                 LocalDate firstDay = LocalDate.now();
@@ -118,15 +129,27 @@ public class RevenuePanel extends javax.swing.JPanel {
                 }
                 LocalDateTime firstDayMidnight = LocalDateTime.of(firstDay, LocalTime.MIDNIGHT);
                 System.out.println(firstDayMidnight);
-                return Date.from(firstDayMidnight.atZone(ZoneId.systemDefault()).toInstant());
+                return new Date[]{Date.from(firstDayMidnight.atZone(ZoneId.systemDefault()).toInstant()), new Date()};
             }
             case YEAR -> {
                 LocalDate firstDayOfYear = today.withDayOfYear(1);
                 LocalDateTime firstDayOfYearMidnight = LocalDateTime.of(firstDayOfYear, LocalTime.MIDNIGHT);
-                return Date.from(firstDayOfYearMidnight.atZone(ZoneId.systemDefault()).toInstant());
+                return new Date[]{Date.from(firstDayOfYearMidnight.atZone(ZoneId.systemDefault()).toInstant()), new Date()};
             }
             case TOTAL -> {
-                return new Date(0);
+                return new Date[]{new Date(0), new Date()};
+            }
+            case CUSTOM -> {
+                LocalDate[] dates = datePicker.getSelectedDateRange();
+                if (dates == null) {
+                    LocalDateTime todayMidnight = LocalDateTime.of(today, LocalTime.MIDNIGHT);
+                    return new Date[]{Date.from(todayMidnight.atZone(ZoneId.systemDefault()).toInstant()), new Date()};
+                }
+                
+                Date from = Date.from(dates[0].atStartOfDay(ZoneId.systemDefault()).toInstant());
+                Date to = Date.from(dates[1].plusDays(1).atStartOfDay(ZoneId.systemDefault()).minusSeconds(1).toInstant());
+                return new Date[]{from, to};
+                
             }
             default -> throw new AssertionError();
         }
@@ -208,6 +231,7 @@ public class RevenuePanel extends javax.swing.JPanel {
         orderedProductLabel = new javax.swing.JLabel();
         chart = new javax.swing.JPanel();
         customPanel3 = new com.wingman.clothingshopmanagement.view.components.CustomPanel();
+        datePickerEditor = new com.wingman.clothingshopmanagement.view.components.CustomFormattedField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -222,7 +246,7 @@ public class RevenuePanel extends javax.swing.JPanel {
 
         viewRangeCombobox.setBackground(new java.awt.Color(207, 177, 242));
         viewRangeCombobox.setForeground(new java.awt.Color(107, 46, 182));
-        viewRangeCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Today", "Week", "Month", "3 Months", "Year", "Total" }));
+        viewRangeCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Today", "Week", "Month", "3 Months", "Year", "Total", "Custom" }));
         viewRangeCombobox.setBorderColor(new java.awt.Color(207, 177, 242));
         viewRangeCombobox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         viewRangeCombobox.setRadius(16);
@@ -363,23 +387,48 @@ public class RevenuePanel extends javax.swing.JPanel {
         customPanel3.setBorderColor(new java.awt.Color(125, 44, 224));
         customPanel3.setRadius(16);
 
+        datePickerEditor.setBorderColor(new java.awt.Color(125, 44, 224));
+        datePickerEditor.setRadius(16);
+        datePickerEditor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datePickerEditorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout customPanel3Layout = new javax.swing.GroupLayout(customPanel3);
         customPanel3.setLayout(customPanel3Layout);
         customPanel3Layout.setHorizontalGroup(
             customPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 970, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, customPanel3Layout.createSequentialGroup()
+                .addContainerGap(764, Short.MAX_VALUE)
+                .addComponent(datePickerEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         customPanel3Layout.setVerticalGroup(
             customPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
+            .addGroup(customPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(datePickerEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         add(customPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 970, 280));
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewRangeComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRangeComboboxActionPerformed
+        if (((String) viewRangeCombobox.getSelectedItem()).equals("Custom")) {
+            datePickerEditor.setVisible(true);
+            SwingUtilities.updateComponentTreeUI(this);
+        } else {
+            datePickerEditor.setVisible(false);
+            SwingUtilities.updateComponentTreeUI(this);
+        }
         updateData();
     }//GEN-LAST:event_viewRangeComboboxActionPerformed
+
+    private void datePickerEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePickerEditorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_datePickerEditorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -387,6 +436,7 @@ public class RevenuePanel extends javax.swing.JPanel {
     private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel1;
     private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel2;
     private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel3;
+    private com.wingman.clothingshopmanagement.view.components.CustomFormattedField datePickerEditor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

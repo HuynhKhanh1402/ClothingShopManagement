@@ -17,7 +17,9 @@ public enum ViewRange {
     MONTH("Month"),
     THREE_MONTHS("3 Months"),
     YEAR("Year"),
-    TOTAL("Total");
+    TOTAL("Total"),
+    CUSTOM("Custom");
+    
     @Getter
     private final String value;
     
