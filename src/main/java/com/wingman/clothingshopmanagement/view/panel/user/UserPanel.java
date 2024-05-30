@@ -10,10 +10,8 @@ import com.wingman.clothingshopmanagement.model.image.Image;
 import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.util.DateFormatter;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
-import com.wingman.clothingshopmanagement.view.MainFrame;
 import com.wingman.clothingshopmanagement.view.panel.message.ConfirmPanel;
 import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
-import javax.swing.JOptionPane;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 

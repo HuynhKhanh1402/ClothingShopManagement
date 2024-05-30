@@ -8,6 +8,8 @@ import com.wingman.clothingshopmanagement.model.dao.DAOManager;
 import com.wingman.clothingshopmanagement.model.dao.ProductDAO;
 import com.wingman.clothingshopmanagement.model.product.Product;
 import com.wingman.clothingshopmanagement.view.MainFrame;
+import com.wingman.clothingshopmanagement.view.panel.message.ConfirmPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -15,7 +17,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
@@ -406,8 +407,7 @@ public class ProductManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_customToggleButton1ActionPerformed
 
     private void deleteAllBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAllBtnActionPerformed
-        int response = JOptionPane.showConfirmDialog(MainFrame.getInstance(), "Do you want to delete this product?", "Confirm", JOptionPane.YES_NO_OPTION);
-        if (response == JOptionPane.YES_OPTION) {
+        ConfirmPanel.show("Do you want to delete this product?", () -> {
             ProductDAO productDAO = DAOManager.getInstance().getProductDAO();
 
             List<CompletableFuture<Void>> tasks = new ArrayList<>();
@@ -422,7 +422,7 @@ public class ProductManagementPanel extends javax.swing.JPanel {
             CompletableFuture.allOf(tasks.toArray(CompletableFuture[]::new)).thenAccept((t) -> {
                 prepareData();
                 MainFrame.getInstance().getLoading().hideLoading();
-                JOptionPane.showMessageDialog(this, "Deleted all selected products!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                SuccessPanel.show("Deleted all selected products.");
             }).whenComplete((t, u) -> {
                 MainFrame.getInstance().getLoading().hideLoading();
                 if (u != null) {
@@ -430,8 +430,7 @@ public class ProductManagementPanel extends javax.swing.JPanel {
                     throw new RuntimeException(u);
                 }
             });
-        }
-
+        });
     }//GEN-LAST:event_deleteAllBtnActionPerformed
 
     private void addProductPanel(JPanel panel) {
