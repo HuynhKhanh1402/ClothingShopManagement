@@ -4,16 +4,16 @@
  */
 package com.wingman.clothingshopmanagement.view.panel;
 
-import com.formdev.flatlaf.FlatLightLaf;
 import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.view.MainFrame;
+import com.wingman.clothingshopmanagement.view.components.CustomButton;
 import com.wingman.clothingshopmanagement.view.panel.home.HomePanel;
 import com.wingman.clothingshopmanagement.view.panel.order.OrderManagementPanel;
 import com.wingman.clothingshopmanagement.view.panel.order.OrderPanel;
 import com.wingman.clothingshopmanagement.view.panel.product.ProductManagementPanel;
 import com.wingman.clothingshopmanagement.view.panel.revenue.RevenuePanel;
 import com.wingman.clothingshopmanagement.view.panel.user.UserManagementPanel;
-import javax.swing.JFrame;
+import java.awt.Color;
 import javax.swing.JPanel;
 import lombok.Getter;
 
@@ -32,7 +32,8 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
     public DashboardPanel(User user) {
         initComponents();
         this.user = user;
-    }
+        homeBtn.doClick();
+    }   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,12 +48,12 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         jLabel1 = new javax.swing.JLabel();
         customButton2 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         customPanel1 = new com.wingman.clothingshopmanagement.view.components.CustomPanel();
-        customButton1 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
-        customButton3 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
-        customButton4 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
-        customButton5 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
-        customButton6 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
-        customButton7 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        homeBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        manageUserBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        manageProductBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        orderBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        manageOrderBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        revenueBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         logoutBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -107,123 +108,123 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         customPanel1.setPreferredSize(new java.awt.Dimension(249, 686));
         customPanel1.setRadius(16);
 
-        customButton1.setBackground(new java.awt.Color(125, 44, 224));
-        customButton1.setForeground(new java.awt.Color(255, 255, 255));
-        customButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
-        customButton1.setText("Home");
-        customButton1.setActionCommand("  Home");
-        customButton1.setBorderColor(new java.awt.Color(125, 44, 224));
-        customButton1.setColor(new java.awt.Color(125, 44, 224));
-        customButton1.setColorClick(new java.awt.Color(75, 3, 163));
-        customButton1.setColorOver(new java.awt.Color(96, 33, 173));
-        customButton1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        customButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        customButton1.setIconTextGap(12);
-        customButton1.setPreferredSize(new java.awt.Dimension(112, 44));
-        customButton1.setRadius(10);
-        customButton1.addActionListener(new java.awt.event.ActionListener() {
+        homeBtn.setBackground(new java.awt.Color(125, 44, 224));
+        homeBtn.setForeground(new java.awt.Color(255, 255, 255));
+        homeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
+        homeBtn.setText("Home");
+        homeBtn.setActionCommand("  Home");
+        homeBtn.setBorderColor(new java.awt.Color(125, 44, 224));
+        homeBtn.setColor(new java.awt.Color(125, 44, 224));
+        homeBtn.setColorClick(new java.awt.Color(75, 3, 163));
+        homeBtn.setColorOver(new java.awt.Color(96, 33, 173));
+        homeBtn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        homeBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        homeBtn.setIconTextGap(12);
+        homeBtn.setPreferredSize(new java.awt.Dimension(112, 44));
+        homeBtn.setRadius(10);
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customButton1ActionPerformed(evt);
+                homeBtnActionPerformed(evt);
             }
         });
 
-        customButton3.setBackground(new java.awt.Color(125, 44, 224));
-        customButton3.setForeground(new java.awt.Color(255, 255, 255));
-        customButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
-        customButton3.setText("Manage Users");
-        customButton3.setActionCommand("  Home");
-        customButton3.setBorderColor(new java.awt.Color(125, 44, 224));
-        customButton3.setColor(new java.awt.Color(125, 44, 224));
-        customButton3.setColorClick(new java.awt.Color(75, 3, 163));
-        customButton3.setColorOver(new java.awt.Color(96, 33, 173));
-        customButton3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        customButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        customButton3.setIconTextGap(12);
-        customButton3.setPreferredSize(new java.awt.Dimension(112, 44));
-        customButton3.setRadius(10);
-        customButton3.addActionListener(new java.awt.event.ActionListener() {
+        manageUserBtn.setBackground(new java.awt.Color(125, 44, 224));
+        manageUserBtn.setForeground(new java.awt.Color(255, 255, 255));
+        manageUserBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
+        manageUserBtn.setText("Manage Users");
+        manageUserBtn.setActionCommand("  Home");
+        manageUserBtn.setBorderColor(new java.awt.Color(125, 44, 224));
+        manageUserBtn.setColor(new java.awt.Color(125, 44, 224));
+        manageUserBtn.setColorClick(new java.awt.Color(75, 3, 163));
+        manageUserBtn.setColorOver(new java.awt.Color(96, 33, 173));
+        manageUserBtn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        manageUserBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        manageUserBtn.setIconTextGap(12);
+        manageUserBtn.setPreferredSize(new java.awt.Dimension(112, 44));
+        manageUserBtn.setRadius(10);
+        manageUserBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customButton3ActionPerformed(evt);
+                manageUserBtnActionPerformed(evt);
             }
         });
 
-        customButton4.setBackground(new java.awt.Color(125, 44, 224));
-        customButton4.setForeground(new java.awt.Color(255, 255, 255));
-        customButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clothes-hanger.png"))); // NOI18N
-        customButton4.setText("Manage Products");
-        customButton4.setActionCommand("  Home");
-        customButton4.setBorderColor(new java.awt.Color(125, 44, 224));
-        customButton4.setColor(new java.awt.Color(125, 44, 224));
-        customButton4.setColorClick(new java.awt.Color(75, 3, 163));
-        customButton4.setColorOver(new java.awt.Color(96, 33, 173));
-        customButton4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        customButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        customButton4.setIconTextGap(12);
-        customButton4.setPreferredSize(new java.awt.Dimension(112, 44));
-        customButton4.setRadius(10);
-        customButton4.addActionListener(new java.awt.event.ActionListener() {
+        manageProductBtn.setBackground(new java.awt.Color(125, 44, 224));
+        manageProductBtn.setForeground(new java.awt.Color(255, 255, 255));
+        manageProductBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clothes-hanger.png"))); // NOI18N
+        manageProductBtn.setText("Manage Products");
+        manageProductBtn.setActionCommand("  Home");
+        manageProductBtn.setBorderColor(new java.awt.Color(125, 44, 224));
+        manageProductBtn.setColor(new java.awt.Color(125, 44, 224));
+        manageProductBtn.setColorClick(new java.awt.Color(75, 3, 163));
+        manageProductBtn.setColorOver(new java.awt.Color(96, 33, 173));
+        manageProductBtn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        manageProductBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        manageProductBtn.setIconTextGap(12);
+        manageProductBtn.setPreferredSize(new java.awt.Dimension(112, 44));
+        manageProductBtn.setRadius(10);
+        manageProductBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customButton4ActionPerformed(evt);
+                manageProductBtnActionPerformed(evt);
             }
         });
 
-        customButton5.setBackground(new java.awt.Color(125, 44, 224));
-        customButton5.setForeground(new java.awt.Color(255, 255, 255));
-        customButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/shopping-cart.png"))); // NOI18N
-        customButton5.setText("Order");
-        customButton5.setActionCommand("  Home");
-        customButton5.setBorderColor(new java.awt.Color(125, 44, 224));
-        customButton5.setColor(new java.awt.Color(125, 44, 224));
-        customButton5.setColorClick(new java.awt.Color(75, 3, 163));
-        customButton5.setColorOver(new java.awt.Color(96, 33, 173));
-        customButton5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        customButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        customButton5.setIconTextGap(12);
-        customButton5.setPreferredSize(new java.awt.Dimension(112, 44));
-        customButton5.setRadius(10);
-        customButton5.addActionListener(new java.awt.event.ActionListener() {
+        orderBtn.setBackground(new java.awt.Color(125, 44, 224));
+        orderBtn.setForeground(new java.awt.Color(255, 255, 255));
+        orderBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/shopping-cart.png"))); // NOI18N
+        orderBtn.setText("Order");
+        orderBtn.setActionCommand("  Home");
+        orderBtn.setBorderColor(new java.awt.Color(125, 44, 224));
+        orderBtn.setColor(new java.awt.Color(125, 44, 224));
+        orderBtn.setColorClick(new java.awt.Color(75, 3, 163));
+        orderBtn.setColorOver(new java.awt.Color(96, 33, 173));
+        orderBtn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        orderBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        orderBtn.setIconTextGap(12);
+        orderBtn.setPreferredSize(new java.awt.Dimension(112, 44));
+        orderBtn.setRadius(10);
+        orderBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customButton5ActionPerformed(evt);
+                orderBtnActionPerformed(evt);
             }
         });
 
-        customButton6.setBackground(new java.awt.Color(125, 44, 224));
-        customButton6.setForeground(new java.awt.Color(255, 255, 255));
-        customButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clipboard.png"))); // NOI18N
-        customButton6.setText("Manage Orders");
-        customButton6.setActionCommand("  Home");
-        customButton6.setBorderColor(new java.awt.Color(125, 44, 224));
-        customButton6.setColor(new java.awt.Color(125, 44, 224));
-        customButton6.setColorClick(new java.awt.Color(75, 3, 163));
-        customButton6.setColorOver(new java.awt.Color(96, 33, 173));
-        customButton6.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        customButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        customButton6.setIconTextGap(12);
-        customButton6.setPreferredSize(new java.awt.Dimension(112, 44));
-        customButton6.setRadius(10);
-        customButton6.addActionListener(new java.awt.event.ActionListener() {
+        manageOrderBtn.setBackground(new java.awt.Color(125, 44, 224));
+        manageOrderBtn.setForeground(new java.awt.Color(255, 255, 255));
+        manageOrderBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clipboard.png"))); // NOI18N
+        manageOrderBtn.setText("Manage Orders");
+        manageOrderBtn.setActionCommand("  Home");
+        manageOrderBtn.setBorderColor(new java.awt.Color(125, 44, 224));
+        manageOrderBtn.setColor(new java.awt.Color(125, 44, 224));
+        manageOrderBtn.setColorClick(new java.awt.Color(75, 3, 163));
+        manageOrderBtn.setColorOver(new java.awt.Color(96, 33, 173));
+        manageOrderBtn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        manageOrderBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        manageOrderBtn.setIconTextGap(12);
+        manageOrderBtn.setPreferredSize(new java.awt.Dimension(112, 44));
+        manageOrderBtn.setRadius(10);
+        manageOrderBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customButton6ActionPerformed(evt);
+                manageOrderBtnActionPerformed(evt);
             }
         });
 
-        customButton7.setBackground(new java.awt.Color(125, 44, 224));
-        customButton7.setForeground(new java.awt.Color(255, 255, 255));
-        customButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money-tag.png"))); // NOI18N
-        customButton7.setText("Revenue");
-        customButton7.setActionCommand("  Home");
-        customButton7.setBorderColor(new java.awt.Color(125, 44, 224));
-        customButton7.setColor(new java.awt.Color(125, 44, 224));
-        customButton7.setColorClick(new java.awt.Color(75, 3, 163));
-        customButton7.setColorOver(new java.awt.Color(96, 33, 173));
-        customButton7.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        customButton7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        customButton7.setIconTextGap(12);
-        customButton7.setPreferredSize(new java.awt.Dimension(112, 44));
-        customButton7.setRadius(10);
-        customButton7.addActionListener(new java.awt.event.ActionListener() {
+        revenueBtn.setBackground(new java.awt.Color(125, 44, 224));
+        revenueBtn.setForeground(new java.awt.Color(255, 255, 255));
+        revenueBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money-tag.png"))); // NOI18N
+        revenueBtn.setText("Revenue");
+        revenueBtn.setActionCommand("  Home");
+        revenueBtn.setBorderColor(new java.awt.Color(125, 44, 224));
+        revenueBtn.setColor(new java.awt.Color(125, 44, 224));
+        revenueBtn.setColorClick(new java.awt.Color(75, 3, 163));
+        revenueBtn.setColorOver(new java.awt.Color(96, 33, 173));
+        revenueBtn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        revenueBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        revenueBtn.setIconTextGap(12);
+        revenueBtn.setPreferredSize(new java.awt.Dimension(112, 44));
+        revenueBtn.setRadius(10);
+        revenueBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customButton7ActionPerformed(evt);
+                revenueBtnActionPerformed(evt);
             }
         });
 
@@ -255,12 +256,12 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
             .addGroup(customPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(customPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(customButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(customButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                    .addComponent(customButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(customButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(customButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(customButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(homeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manageUserBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                    .addComponent(manageProductBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(orderBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manageOrderBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(revenueBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(logoutBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -268,17 +269,17 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
             customPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(customPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addComponent(customButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(manageUserBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(manageProductBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(orderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(manageOrderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(revenueBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -291,33 +292,45 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         // TODO add your handling code here:
     }//GEN-LAST:event_customButton2ActionPerformed
 
-    private void customButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton7ActionPerformed
+    private void revenueBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_revenueBtnActionPerformed
+        resetButtonBackgroundColor();
+        setButtonBackgroundColor(revenueBtn, new Color(96, 33, 173));
         setConentPanel(new RevenuePanel());
-    }//GEN-LAST:event_customButton7ActionPerformed
+    }//GEN-LAST:event_revenueBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         MainFrame.getInstance().showLoginPanel();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
-    private void customButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton1ActionPerformed
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
+        resetButtonBackgroundColor();
+        setButtonBackgroundColor(homeBtn, new Color(96, 33, 173));
         setConentPanel(new HomePanel());
-    }//GEN-LAST:event_customButton1ActionPerformed
+    }//GEN-LAST:event_homeBtnActionPerformed
 
-    private void customButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton3ActionPerformed
+    private void manageUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageUserBtnActionPerformed
+        resetButtonBackgroundColor();
+        setButtonBackgroundColor(manageUserBtn, new Color(96, 33, 173));
         setConentPanel(new UserManagementPanel());
-    }//GEN-LAST:event_customButton3ActionPerformed
+    }//GEN-LAST:event_manageUserBtnActionPerformed
 
-    private void customButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton4ActionPerformed
+    private void manageProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageProductBtnActionPerformed
+        resetButtonBackgroundColor();
+        setButtonBackgroundColor(manageProductBtn, new Color(96, 33, 173));
         setConentPanel(new ProductManagementPanel());
-    }//GEN-LAST:event_customButton4ActionPerformed
+    }//GEN-LAST:event_manageProductBtnActionPerformed
 
-    private void customButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton5ActionPerformed
+    private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
+        resetButtonBackgroundColor();
+        setButtonBackgroundColor(orderBtn, new Color(96, 33, 173));
         setConentPanel(new OrderPanel());
-    }//GEN-LAST:event_customButton5ActionPerformed
+    }//GEN-LAST:event_orderBtnActionPerformed
 
-    private void customButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton6ActionPerformed
+    private void manageOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrderBtnActionPerformed
+        resetButtonBackgroundColor();
+        setButtonBackgroundColor(manageOrderBtn, new Color(96, 33, 173));
         setConentPanel(new OrderManagementPanel());
-    }//GEN-LAST:event_customButton6ActionPerformed
+    }//GEN-LAST:event_manageOrderBtnActionPerformed
     
     public void setConentPanel(JPanel panel) {
         if (contentPanel != null) {
@@ -328,18 +341,31 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         revalidate();
     }
     
+    private void resetButtonBackgroundColor() {
+        setButtonBackgroundColor(homeBtn, new Color(125, 44, 224));
+        setButtonBackgroundColor(manageUserBtn, new Color(125, 44, 224));
+        setButtonBackgroundColor(manageProductBtn, new Color(125, 44, 224));
+        setButtonBackgroundColor(orderBtn, new Color(125, 44, 224));
+        setButtonBackgroundColor(manageOrderBtn, new Color(125, 44, 224));
+        setButtonBackgroundColor(revenueBtn, new Color(125, 44, 224));
+    }
+    private void setButtonBackgroundColor(CustomButton button, Color color) {
+        button.setBackground(color);
+        button.setColor(color);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.wingman.clothingshopmanagement.view.components.CustomButton customButton1;
     private com.wingman.clothingshopmanagement.view.components.CustomButton customButton2;
-    private com.wingman.clothingshopmanagement.view.components.CustomButton customButton3;
-    private com.wingman.clothingshopmanagement.view.components.CustomButton customButton4;
-    private com.wingman.clothingshopmanagement.view.components.CustomButton customButton5;
-    private com.wingman.clothingshopmanagement.view.components.CustomButton customButton6;
-    private com.wingman.clothingshopmanagement.view.components.CustomButton customButton7;
     private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel1;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton homeBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private com.wingman.clothingshopmanagement.view.components.CustomButton logoutBtn;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton manageOrderBtn;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton manageProductBtn;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton manageUserBtn;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton orderBtn;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton revenueBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,7 @@ package com.wingman.clothingshopmanagement.view.panel.order;
 import com.wingman.clothingshopmanagement.model.dao.DAOManager;
 import com.wingman.clothingshopmanagement.model.dao.OrderDAO;
 import com.wingman.clothingshopmanagement.model.dao.OrderDetailDAO;
+import com.wingman.clothingshopmanagement.model.dao.ProductDAO;
 import com.wingman.clothingshopmanagement.model.order.Order;
 import com.wingman.clothingshopmanagement.model.order.OrderDetail;
 import com.wingman.clothingshopmanagement.model.order.OrderProduct;
@@ -431,6 +432,7 @@ public class OrderPanel extends CustomPanel {
             DAOManager daoManager = DAOManager.getInstance();
             OrderDAO orderDAO = daoManager.getOrderDAO();
             OrderDetailDAO orderDetailDAO = daoManager.getOrderDetailDAO();
+            ProductDAO productDAO = daoManager.getProductDAO();
 
             MainFrame.getInstance().getLoading().showLoading();
             orderDAO.save(order).thenRunAsync(() -> {
@@ -446,8 +448,19 @@ public class OrderPanel extends CustomPanel {
                             return orderDetailDAO.save(od);
                         })
                         .toArray(CompletableFuture[]::new)).join();
+                CompletableFuture.allOf(orderProductMap.keySet()
+                        .stream()
+                        .map((t) -> {
+                            OrderProduct op = orderProductMap.get(t);
+                            Product product = op.getProduct();
+                            product.setStock(product.getStock() - op.getQuantity());
+                            return productDAO.update(product);
+                        })
+                        .toArray(CompletableFuture[]::new))
+                        .join();
             }).thenRun(() -> {
                 MainFrame.getInstance().getLoading().hideLoading();
+                orderProductMap.clear();
                 SuccessPanel.show("Order created successfully.");
 
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();

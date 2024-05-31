@@ -129,12 +129,12 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="customButton1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="customButton3" alignment="0" pref="237" max="32767" attributes="0"/>
-                      <Component id="customButton4" alignment="0" max="32767" attributes="0"/>
-                      <Component id="customButton5" alignment="1" max="32767" attributes="0"/>
-                      <Component id="customButton6" alignment="0" max="32767" attributes="0"/>
-                      <Component id="customButton7" alignment="0" max="32767" attributes="0"/>
+                      <Component id="homeBtn" alignment="0" max="32767" attributes="0"/>
+                      <Component id="manageUserBtn" alignment="0" pref="237" max="32767" attributes="0"/>
+                      <Component id="manageProductBtn" alignment="0" max="32767" attributes="0"/>
+                      <Component id="orderBtn" alignment="1" max="32767" attributes="0"/>
+                      <Component id="manageOrderBtn" alignment="0" max="32767" attributes="0"/>
+                      <Component id="revenueBtn" alignment="0" max="32767" attributes="0"/>
                       <Component id="logoutBtn" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -145,17 +145,17 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                  <Component id="customButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="homeBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="customButton3" min="-2" max="-2" attributes="0"/>
+                  <Component id="manageUserBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="customButton4" min="-2" max="-2" attributes="0"/>
+                  <Component id="manageProductBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="customButton5" min="-2" max="-2" attributes="0"/>
+                  <Component id="orderBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="customButton6" min="-2" max="-2" attributes="0"/>
+                  <Component id="manageOrderBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="customButton7" min="-2" max="-2" attributes="0"/>
+                  <Component id="revenueBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="298" max="32767" attributes="0"/>
                   <Component id="logoutBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -164,7 +164,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="customButton1">
+        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="homeBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="2c" red="7d" type="rgb"/>
@@ -200,10 +200,10 @@
             <Property name="radius" type="int" value="10"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="homeBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="customButton3">
+        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="manageUserBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="2c" red="7d" type="rgb"/>
@@ -239,10 +239,10 @@
             <Property name="radius" type="int" value="10"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageUserBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="customButton4">
+        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="manageProductBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="2c" red="7d" type="rgb"/>
@@ -278,10 +278,10 @@
             <Property name="radius" type="int" value="10"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customButton4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageProductBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="customButton5">
+        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="orderBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="2c" red="7d" type="rgb"/>
@@ -317,10 +317,10 @@
             <Property name="radius" type="int" value="10"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customButton5ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="orderBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="customButton6">
+        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="manageOrderBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="2c" red="7d" type="rgb"/>
@@ -356,10 +356,10 @@
             <Property name="radius" type="int" value="10"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customButton6ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageOrderBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="customButton7">
+        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="revenueBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="2c" red="7d" type="rgb"/>
@@ -395,7 +395,7 @@
             <Property name="radius" type="int" value="10"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customButton7ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="revenueBtnActionPerformed"/>
           </Events>
         </Component>
         <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="logoutBtn">

@@ -102,6 +102,9 @@ public class SelectProductPanel extends CustomPanel {
 
         productDAO.getAll().thenAccept((t) -> {
             for (Product product : t) {
+                if (product.getStock() <= 0) {
+                    continue;
+                }
                 if (!orderPanel.getOrderProductMap().containsKey(product.getProductId())
                         || (editProduct != null && (long) editProduct.getProduct().getProductId() == product.getProductId())) {
                     ImageIcon rawImage = product.getProductImage() != null
@@ -361,9 +364,16 @@ public class SelectProductPanel extends CustomPanel {
             WarningPanel.show(String.format("%s is invalid number for product  price", priceText));
             return;
         }
+        
+        int quantity = (int) quantitySpinner.getValue();
 
-        if ((int) quantitySpinner.getValue() < 1) {
+        if (quantity < 1) {
             WarningPanel.show("Please choose a product quantity greater than 0!");
+            return;
+        }
+        
+        if (quantity > product.getStock()) {
+            WarningPanel.show("Out of stock!");
             return;
         }
         

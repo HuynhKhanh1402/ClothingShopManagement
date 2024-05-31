@@ -10,12 +10,11 @@ import com.wingman.clothingshopmanagement.model.product.ProductQuantity;
 import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.model.user.UserSaleData;
 import com.wingman.clothingshopmanagement.util.NumberFormatter;
-import com.wingman.clothingshopmanagement.util.Pair;
 import com.wingman.clothingshopmanagement.view.MainFrame;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -190,6 +189,7 @@ public class HomePanel extends javax.swing.JPanel {
             }
         }).whenComplete((t, u) -> {
             MainFrame.getInstance().getLoading().hideLoading();
+            SwingUtilities.updateComponentTreeUI(this);
             if (u != null) {
                 u.printStackTrace();
                 throw new RuntimeException(u);
@@ -494,8 +494,9 @@ public class HomePanel extends javax.swing.JPanel {
 
         customPanel5.add(productImage3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 279, -1, -1));
 
-        nameLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nameLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         nameLabel1.setText("Name");
+        nameLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         customPanel5.add(nameLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 43, 290, 40));
 
         brandLabel1.setText("Brand:");
@@ -510,8 +511,9 @@ public class HomePanel extends javax.swing.JPanel {
         soldLabel1.setText("Sold");
         customPanel5.add(soldLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 160, -1));
 
-        nameLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nameLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         nameLabel2.setText("Name");
+        nameLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         customPanel5.add(nameLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 290, 40));
 
         brandLabel2.setText("Brand:");
@@ -526,8 +528,9 @@ public class HomePanel extends javax.swing.JPanel {
         colorLabel2.setText("Color: ");
         customPanel5.add(colorLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 120, -1));
 
-        nameLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nameLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         nameLabel3.setText("Name");
+        nameLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         customPanel5.add(nameLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 290, 40));
 
         brandLabel3.setText("Brand:");

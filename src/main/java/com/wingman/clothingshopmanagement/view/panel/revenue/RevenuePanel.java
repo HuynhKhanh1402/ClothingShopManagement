@@ -8,6 +8,7 @@ import com.wingman.clothingshopmanagement.model.dao.DAOManager;
 import com.wingman.clothingshopmanagement.model.dao.OrderDAO;
 import com.wingman.clothingshopmanagement.util.DateFormatter;
 import com.wingman.clothingshopmanagement.util.NumberFormatter;
+import com.wingman.clothingshopmanagement.view.MainFrame;
 import java.awt.Dimension;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import javax.swing.SwingUtilities;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -40,52 +42,52 @@ import raven.datetime.component.date.DatePicker;
  * @author Administrator
  */
 public class RevenuePanel extends javax.swing.JPanel {
+
     private final DatePicker datePicker;
+
     /**
      * Creates new form RevenuePanel
      */
     public RevenuePanel() {
         initComponents();
-        updateData();
+        fetchData();
         setupChart();
-        
+
         datePicker = new DatePicker();
         datePicker.setEditor(datePickerEditor);
         datePicker.setDateSelectionMode(DatePicker.DateSelectionMode.BETWEEN_DATE_SELECTED);
         datePicker.setUsePanelOption(true);
         datePicker.addDateSelectionListener((de) -> {
-            updateData();
+            fetchData();
         });
         datePickerEditor.setVisible(false);
     }
-    
-    private void updateData() {
+
+    private void fetchData() {
         OrderDAO orderDAO = DAOManager.getInstance().getOrderDAO();
         
-        Date fromDate = getFromDate()[0];
-        Date toDate = getFromDate()[1];
-        
-        viewRangeDateLabel.setText(DateFormatter.formatDate(fromDate) + " - " + DateFormatter.formatDate(toDate));
-        
-        orderDAO.getRevenue(fromDate, toDate).thenAccept((t) -> {
-            totalRevenueLabel.setText(NumberFormatter.format(t == null ? 0 : t));
+        MainFrame.getInstance().getLoading().showLoading();
+
+        CompletableFuture.runAsync(() -> {
+            Date fromDate = getFromDate()[0];
+            Date toDate = getFromDate()[1];
+
+            viewRangeDateLabel.setText(DateFormatter.formatDate(fromDate) + " - " + DateFormatter.formatDate(toDate));
+            
+            Double revenue = orderDAO.getRevenue(fromDate, toDate).join();
+            totalRevenueLabel.setText(NumberFormatter.format(revenue == null ? 0 : revenue));
+            
+            Long orderedProduct = orderDAO.getOrderedProducts(fromDate, toDate).join();
+            orderedProductLabel.setText(NumberFormatter.format(orderedProduct == null ? 0 : orderedProduct));
         }).whenComplete((t, u) -> {
-            if (u != null) {
-                u.printStackTrace();
-                throw new RuntimeException(u);
-            }
-        });
-        
-        orderDAO.getOrderedProducts(fromDate, toDate).thenAccept((t) -> {
-            orderedProductLabel.setText(NumberFormatter.format(t == null ? 0 : t));
-        }).whenComplete((t, u) -> {
+            MainFrame.getInstance().getLoading().hideLoading();
             if (u != null) {
                 u.printStackTrace();
                 throw new RuntimeException(u);
             }
         });
     }
-    
+
     private void setupChart() {
         OrderDAO orderDAO = DAOManager.getInstance().getOrderDAO();
         orderDAO.getRevenueChartData().thenAccept((t) -> {
@@ -97,16 +99,16 @@ public class RevenuePanel extends javax.swing.JPanel {
             }
         });
     }
-    
+
     private Date[] getFromDate() {
         Optional<ViewRange> optionalVR = ViewRange.parse((String) viewRangeCombobox.getSelectedItem());
         if (optionalVR.isEmpty()) {
             throw new IllegalArgumentException("Invalid ViewRange");
         }
-        
+
         ViewRange vr = optionalVR.get();
         LocalDate today = LocalDate.now();
-        
+
         switch (vr) {
             case TODAY -> {
                 LocalDateTime todayMidnight = LocalDateTime.of(today, LocalTime.MIDNIGHT);
@@ -145,16 +147,17 @@ public class RevenuePanel extends javax.swing.JPanel {
                     LocalDateTime todayMidnight = LocalDateTime.of(today, LocalTime.MIDNIGHT);
                     return new Date[]{Date.from(todayMidnight.atZone(ZoneId.systemDefault()).toInstant()), new Date()};
                 }
-                
+
                 Date from = Date.from(dates[0].atStartOfDay(ZoneId.systemDefault()).toInstant());
                 Date to = Date.from(dates[1].plusDays(1).atStartOfDay(ZoneId.systemDefault()).minusSeconds(1).toInstant());
                 return new Date[]{from, to};
-                
+
             }
-            default -> throw new AssertionError();
+            default ->
+                throw new AssertionError();
         }
     }
-    
+
     private void showChart(RevenueChartData data) {
         CategoryDataset dataset = createDataset(data);
         JFreeChart lineChart = ChartFactory.createLineChart(
@@ -423,7 +426,7 @@ public class RevenuePanel extends javax.swing.JPanel {
             datePickerEditor.setVisible(false);
             SwingUtilities.updateComponentTreeUI(this);
         }
-        updateData();
+        fetchData();
     }//GEN-LAST:event_viewRangeComboboxActionPerformed
 
     private void datePickerEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePickerEditorActionPerformed
