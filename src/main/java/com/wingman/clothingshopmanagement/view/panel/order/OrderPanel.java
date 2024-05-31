@@ -426,6 +426,7 @@ public class OrderPanel extends CustomPanel {
             order.setName(customerName);
             order.setPhone(customerPhone);
             order.setOrderDate(new Date());
+            order.setOrderBy(MainFrame.getInstance().getDashboardPanel().getUser());
 
             DAOManager daoManager = DAOManager.getInstance();
             OrderDAO orderDAO = daoManager.getOrderDAO();

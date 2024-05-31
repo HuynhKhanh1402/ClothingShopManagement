@@ -74,14 +74,6 @@ public class OrderDetailDAO implements IDAO<OrderDetail, OrderDetailId>{
                     session.close();
                 }
             }
-//            Transaction transaction = null;
-//            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-//                transaction = session.beginTransaction();
-//                
-//            } catch (Exception e) {
-//                HibernateUtil.roolbackTransaction(transaction);
-//                throw new RuntimeException(e);
-//            }
         });
     }
 
@@ -118,4 +110,12 @@ public class OrderDetailDAO implements IDAO<OrderDetail, OrderDetailId>{
         });
     }
     
+    public CompletableFuture<Long> getTotalOrderedProduct() {
+        return CompletableFuture.supplyAsync(() -> {
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                String hql = "SELECT COUNT(OD.quantity) FROM OrderDetail OD";
+                return session.createQuery(hql, Long.class).getSingleResult();
+            }
+        });
+    }
 }

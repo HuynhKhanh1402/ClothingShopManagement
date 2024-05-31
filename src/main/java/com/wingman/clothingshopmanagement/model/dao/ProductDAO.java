@@ -5,6 +5,7 @@
 package com.wingman.clothingshopmanagement.model.dao;
 
 import com.wingman.clothingshopmanagement.model.product.Product;
+import com.wingman.clothingshopmanagement.model.product.ProductQuantity;
 import com.wingman.clothingshopmanagement.util.HibernateUtil;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -17,7 +18,7 @@ import org.hibernate.Transaction;
  *
  * @author Administrator
  */
-public class ProductDAO implements IDAO<Product, Long>{
+public class ProductDAO implements IDAO<Product, Long> {
 
     @Override
     public CompletableFuture<Product> get(Long key) {
@@ -84,5 +85,18 @@ public class ProductDAO implements IDAO<Product, Long>{
             }
         });
     }
-    
+
+    public CompletableFuture<List<ProductQuantity>> getTopSellingProducts(int maxResults) {
+        return CompletableFuture.supplyAsync(() -> {
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                String hql = "SELECT new com.wingman.clothingshopmanagement.model.product.ProductQuantity(P, COALESCE(SUM(OD.quantity), 0)) "
+                        + "FROM Product P "
+                        + "LEFT JOIN OrderDetail OD ON OD.product.productId = P.productId "
+                        + "GROUP BY P "
+                        + "ORDER BY COALESCE(SUM(OD.quantity), 0) DESC";
+                return session.createQuery(hql, ProductQuantity.class).setMaxResults(maxResults).list();
+            }
+        });
+    }
+
 }

@@ -7,6 +7,7 @@ package com.wingman.clothingshopmanagement.view.panel;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.view.MainFrame;
+import com.wingman.clothingshopmanagement.view.panel.home.HomePanel;
 import com.wingman.clothingshopmanagement.view.panel.order.OrderManagementPanel;
 import com.wingman.clothingshopmanagement.view.panel.order.OrderPanel;
 import com.wingman.clothingshopmanagement.view.panel.product.ProductManagementPanel;
@@ -299,7 +300,7 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void customButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton1ActionPerformed
-        // TODO add your handling code here:
+        setConentPanel(new HomePanel());
     }//GEN-LAST:event_customButton1ActionPerformed
 
     private void customButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton3ActionPerformed
