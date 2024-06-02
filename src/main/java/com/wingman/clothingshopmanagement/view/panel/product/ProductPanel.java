@@ -15,10 +15,7 @@ import javax.swing.SwingUtilities;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 public class ProductPanel extends javax.swing.JPanel {
 

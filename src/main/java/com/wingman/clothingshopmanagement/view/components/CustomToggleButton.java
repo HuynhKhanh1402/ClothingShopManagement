@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.wingman.clothingshopmanagement.view.components;
 
 import java.awt.BasicStroke;
@@ -14,10 +10,7 @@ import java.awt.Stroke;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JToggleButton;
 
-/**
- *
- * @author Administrator
- */
+
 public class CustomToggleButton extends JToggleButton {
     private int radius = 0;
     private int borderSize = 1;

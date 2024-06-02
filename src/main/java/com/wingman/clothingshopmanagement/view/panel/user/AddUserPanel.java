@@ -25,10 +25,7 @@ import jnafilechooser.api.JnaFileChooser;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 public class AddUserPanel extends CustomPanel {
     private boolean isChangedAvatar = false;

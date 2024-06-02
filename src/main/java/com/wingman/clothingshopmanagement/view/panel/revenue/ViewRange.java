@@ -7,10 +7,7 @@ package com.wingman.clothingshopmanagement.view.panel.revenue;
 import java.util.Optional;
 import lombok.Getter;
 
-/**
- *
- * @author Administrator
- */
+
 public enum ViewRange {
     TODAY("Today"),
     WEEK("Week"),

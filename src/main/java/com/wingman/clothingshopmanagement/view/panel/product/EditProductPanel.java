@@ -20,16 +20,12 @@ import com.wingman.clothingshopmanagement.view.panel.message.WarningPanel;
 import java.awt.Color;
 import java.io.File;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
+
 import jnafilechooser.api.JnaFileChooser;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 public class EditProductPanel extends CustomPanel {
     private final ProductManagementPanel panel;
     private final Product product;
@@ -64,7 +60,7 @@ public class EditProductPanel extends CustomPanel {
         sizeTextField.setText(product.getSize());
         colorTextField.setText(product.getColor());
         genderDropdown.setSelectedItem(product.getGender().getValue());
-        description.setText(product.getDesciption());
+        description.setText(product.getDescription());
         addedByLabel.setText("Added by: " + (product.getAddedBy() != null ? product.getAddedBy().getEmail() : "No data"));
         addedDateLabel.setText("Added date: " + DateFormatter.formatDateAndTime(product.getAddedDate()));
     }
@@ -465,7 +461,7 @@ public class EditProductPanel extends CustomPanel {
         product.setSize(sizeTextField.getText());
         product.setColor(colorTextField.getText());
         product.setGender(Gender.valueOf(((String) genderDropdown.getSelectedItem()).toUpperCase()));
-        product.setDesciption(description.getText());
+        product.setDescription(description.getText());
         
         ProductDAO productDAO = DAOManager.getInstance().getProductDAO();
         ImageDAO imageDAO = DAOManager.getInstance().getImageDAO();

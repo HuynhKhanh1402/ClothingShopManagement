@@ -7,10 +7,7 @@ package com.wingman.clothingshopmanagement.view.panel.message;
 import com.wingman.clothingshopmanagement.view.components.CustomPanel;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 public class SuccessPanel extends CustomPanel {
 
     /**

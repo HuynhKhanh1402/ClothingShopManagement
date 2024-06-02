@@ -16,10 +16,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
-/**
- *
- * @author Administrator
- */
+
 public class HomePanel extends javax.swing.JPanel {
 
     /**

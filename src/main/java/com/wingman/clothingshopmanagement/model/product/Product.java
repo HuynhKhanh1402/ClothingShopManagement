@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.wingman.clothingshopmanagement.model.product;
 
 import com.wingman.clothingshopmanagement.model.image.Image;
@@ -22,10 +18,7 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- *
- * @author Administrator
- */
+
 @Entity
 @Table(name = "Product")
 @Getter
@@ -45,7 +38,7 @@ public class Product {
     private User addedBy;
     
     @Column(name = "Description")
-    private String desciption;
+    private String description;
     
     @Column(name = "Price")
     private double price;
@@ -73,5 +66,4 @@ public class Product {
     @JoinColumn(name = "ProductImage", nullable = true, 
         foreignKey = @ForeignKey(name = "ProductImage"))
     private Image productImage;
-    
 }

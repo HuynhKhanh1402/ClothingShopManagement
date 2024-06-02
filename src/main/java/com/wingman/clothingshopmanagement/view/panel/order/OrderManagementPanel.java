@@ -35,10 +35,7 @@ import raven.datetime.component.date.DateEvent;
 import raven.datetime.component.date.DatePicker;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 public class OrderManagementPanel extends javax.swing.JPanel {
 

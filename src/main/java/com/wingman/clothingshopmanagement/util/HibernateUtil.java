@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.wingman.clothingshopmanagement.util;
 
 import com.wingman.clothingshopmanagement.model.order.Order;
@@ -13,10 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-/**
- *
- * @author Administrator
- */
+
 public class HibernateUtil {
 
     private static final SessionFactory sessionFactory = buildSessionFactory();

@@ -20,17 +20,13 @@ import java.awt.Color;
 import java.io.File;
 import java.util.Date;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
+
 import jnafilechooser.api.JnaFileChooser;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 public class AddProductPanel extends CustomPanel {
 
@@ -415,7 +411,7 @@ public class AddProductPanel extends CustomPanel {
         product.setSize(sizeTextField.getText());
         product.setColor(colorTextField.getText());
         product.setGender(Gender.valueOf(((String) genderDropdown.getSelectedItem()).toUpperCase()));
-        product.setDesciption(description.getText());
+        product.setDescription(description.getText());
         product.setAddedDate(new Date());
         product.setAddedBy(MainFrame.getInstance().getDashboardPanel().getUser());
 

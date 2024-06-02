@@ -37,10 +37,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.TextAnchor;
 import raven.datetime.component.date.DatePicker;
 
-/**
- *
- * @author Administrator
- */
+
 public class RevenuePanel extends javax.swing.JPanel {
 
     private final DatePicker datePicker;

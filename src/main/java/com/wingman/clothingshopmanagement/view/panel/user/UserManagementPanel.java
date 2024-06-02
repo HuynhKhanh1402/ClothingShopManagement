@@ -19,10 +19,7 @@ import javax.swing.event.DocumentListener;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 public class UserManagementPanel extends javax.swing.JPanel {
 

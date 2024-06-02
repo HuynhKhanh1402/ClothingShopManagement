@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.wingman.clothingshopmanagement.view;
 
 import com.wingman.clothingshopmanagement.model.user.User;
@@ -12,10 +8,7 @@ import javax.swing.JLabel;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 public class MainFrame extends JFrame {
     private static MainFrame instance;

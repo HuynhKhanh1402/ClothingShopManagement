@@ -18,10 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Administrator
- */
+
 public class OrderInfoPanel extends CustomPanel {
     private final Order order;
 

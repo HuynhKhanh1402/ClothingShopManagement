@@ -24,10 +24,7 @@ import javax.swing.event.DocumentListener;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 public class ProductManagementPanel extends javax.swing.JPanel {
 

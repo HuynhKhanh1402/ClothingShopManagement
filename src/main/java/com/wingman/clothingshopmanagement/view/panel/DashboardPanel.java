@@ -17,10 +17,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import lombok.Getter;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 public class DashboardPanel extends javax.swing.JLayeredPane {
     private JPanel contentPanel;

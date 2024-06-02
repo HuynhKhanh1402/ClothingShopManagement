@@ -10,10 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-/**
- *
- * @author Administrator
- */
+
 public class Bootstrap {
 
     public static void main(String[] args) {

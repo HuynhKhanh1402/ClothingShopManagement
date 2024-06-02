@@ -29,10 +29,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 public class SelectProductPanel extends CustomPanel {
 
     private final OrderPanel orderPanel;

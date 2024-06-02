@@ -26,10 +26,7 @@ import jnafilechooser.api.JnaFileChooser;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 public class EditUserPanel extends CustomPanel {
     private final UserManagementPanel panel;
@@ -296,17 +293,19 @@ public class EditUserPanel extends CustomPanel {
 
         MainFrame.getInstance().getLoading().showLoading();
         userDAO.update(user).thenAcceptAsync((t) -> {
-            if (!isChangedAvatar) {
-                return;
-            }
-            if (user.getAvatar() == null) {
-                Image image = new Image();
-                image.setImage((ImageIcon) imgLabel.getIcon());
-                imageDAO.save(image).join();
-            } else {
-                Image image = user.getAvatar();
-                image.setImage((ImageIcon) imgLabel.getIcon());
-                imageDAO.update(image).join();
+            if (isChangedAvatar) {
+                Image image;
+                if (user.getAvatar() == null) {
+                    image = new Image();
+                    image.setImage((ImageIcon) imgLabel.getIcon());
+                    imageDAO.save(image).join();
+                } else {
+                    image = user.getAvatar();
+                    image.setImage((ImageIcon) imgLabel.getIcon());
+                    imageDAO.update(image).join();
+                }
+                user.setAvatar(image);
+                userDAO.update(user).join();
             }
             SuccessPanel.show("User saved successfully.");
         }).whenComplete((t, u) -> {

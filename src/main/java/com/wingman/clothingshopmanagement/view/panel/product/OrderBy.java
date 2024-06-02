@@ -4,10 +4,7 @@
  */
 package com.wingman.clothingshopmanagement.view.panel.product;
 
-/**
- *
- * @author Administrator
- */
+
 public enum OrderBy {
     ID,
     NAME,

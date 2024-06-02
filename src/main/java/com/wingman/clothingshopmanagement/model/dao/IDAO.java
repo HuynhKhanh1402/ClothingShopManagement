@@ -7,10 +7,7 @@ package com.wingman.clothingshopmanagement.model.dao;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-/**
- *
- * @author Administrator
- */
+
 public interface IDAO<T, K> {
     public CompletableFuture<T> get(K key);
     

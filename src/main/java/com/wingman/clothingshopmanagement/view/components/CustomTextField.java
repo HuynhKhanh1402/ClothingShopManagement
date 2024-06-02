@@ -1,8 +1,4 @@
 package com.wingman.clothingshopmanagement.view.components;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
 
 import java.awt.Color;
@@ -22,10 +18,7 @@ import javax.swing.border.LineBorder;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 @Setter
 public class CustomTextField extends JTextField{

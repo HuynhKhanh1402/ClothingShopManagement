@@ -15,10 +15,7 @@ import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 public class UserPanel extends javax.swing.JPanel {
 

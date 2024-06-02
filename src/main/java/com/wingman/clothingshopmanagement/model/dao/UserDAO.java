@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.wingman.clothingshopmanagement.model.dao;
 
 import com.wingman.clothingshopmanagement.model.product.ProductQuantity;
@@ -15,10 +11,7 @@ import java.util.stream.Collectors;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-/**
- *
- * @author Administrator
- */
+
 public class UserDAO implements IDAO<User, String> {
 
     @Override
@@ -91,7 +84,8 @@ public class UserDAO implements IDAO<User, String> {
     public CompletableFuture<List<UserSaleData>> getTopSeller(int maxResults) {
         return CompletableFuture.supplyAsync(() -> {
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-                String hql = "SELECT new com.wingman.clothingshopmanagement.model.user.UserSaleData(U, COALESCE(SUM(OD.quantity), 0), COALESCE(SUM(OD.quantity * OD.unitPrice), 0)) "
+                String hql = "SELECT new com.wingman.clothingshopmanagement.model.user.UserSaleData(U, COALESCE(SUM(OD.quantity), 0), "
+                        + "COALESCE(SUM(OD.quantity * OD.unitPrice), 0)) "
                         + "FROM User U "
                         + "LEFT JOIN Order O ON O.orderBy.email = U.email "
                         + "LEFT JOIN OrderDetail OD ON OD.order.orderId = O.orderId "

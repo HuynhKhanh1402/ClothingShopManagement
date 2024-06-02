@@ -31,10 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
-/**
- *
- * @author Administrator
- */
+
 @Getter
 public class OrderPanel extends CustomPanel {
 
