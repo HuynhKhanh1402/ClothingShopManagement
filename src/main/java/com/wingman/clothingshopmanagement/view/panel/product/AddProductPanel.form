@@ -376,7 +376,9 @@
     <Component class="com.wingman.clothingshopmanagement.view.components.CustomTextField" name="nameTextField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="4" left="4" right="1" top="1"/>
+          </Border>
         </Property>
         <Property name="boderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
@@ -393,7 +395,9 @@
     <Component class="com.wingman.clothingshopmanagement.view.components.CustomTextField" name="stockTextField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="4" left="4" right="1" top="1"/>
+          </Border>
         </Property>
         <Property name="boderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
@@ -413,7 +417,9 @@
     <Component class="com.wingman.clothingshopmanagement.view.components.CustomTextField" name="brandTextField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="4" left="4" right="1" top="1"/>
+          </Border>
         </Property>
         <Property name="boderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
@@ -433,7 +439,9 @@
     <Component class="com.wingman.clothingshopmanagement.view.components.CustomTextField" name="sizeTextField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="4" left="4" right="1" top="1"/>
+          </Border>
         </Property>
         <Property name="boderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
@@ -453,7 +461,9 @@
     <Component class="com.wingman.clothingshopmanagement.view.components.CustomTextField" name="colorTextField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="4" left="4" right="1" top="1"/>
+          </Border>
         </Property>
         <Property name="boderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
@@ -473,7 +483,9 @@
     <Component class="com.wingman.clothingshopmanagement.view.components.CustomTextField" name="priceTextField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="4" left="4" right="1" top="1"/>
+          </Border>
         </Property>
         <Property name="boderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>

@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import jnafilechooser.api.JnaFileChooser;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
@@ -188,13 +189,13 @@ public class AddProductPanel extends CustomPanel {
                 .addContainerGap())
         );
 
-        nameTextField.setBorder(null);
+        nameTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 4, 1));
         nameTextField.setBoderColor(java.awt.Color.lightGray);
         nameTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         nameTextField.setPreferredSize(new java.awt.Dimension(320, 28));
         nameTextField.setRadius(12);
 
-        stockTextField.setBorder(null);
+        stockTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 4, 1));
         stockTextField.setBoderColor(java.awt.Color.lightGray);
         stockTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         stockTextField.setPreferredSize(new java.awt.Dimension(320, 22));
@@ -205,7 +206,7 @@ public class AddProductPanel extends CustomPanel {
             }
         });
 
-        brandTextField.setBorder(null);
+        brandTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 4, 1));
         brandTextField.setBoderColor(java.awt.Color.lightGray);
         brandTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         brandTextField.setPreferredSize(new java.awt.Dimension(320, 22));
@@ -216,7 +217,7 @@ public class AddProductPanel extends CustomPanel {
             }
         });
 
-        sizeTextField.setBorder(null);
+        sizeTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 4, 1));
         sizeTextField.setBoderColor(java.awt.Color.lightGray);
         sizeTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         sizeTextField.setPreferredSize(new java.awt.Dimension(320, 22));
@@ -227,7 +228,7 @@ public class AddProductPanel extends CustomPanel {
             }
         });
 
-        colorTextField.setBorder(null);
+        colorTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 4, 1));
         colorTextField.setBoderColor(java.awt.Color.lightGray);
         colorTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         colorTextField.setPreferredSize(new java.awt.Dimension(320, 22));
@@ -238,7 +239,7 @@ public class AddProductPanel extends CustomPanel {
             }
         });
 
-        priceTextField.setBorder(null);
+        priceTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 4, 4, 1));
         priceTextField.setBoderColor(java.awt.Color.lightGray);
         priceTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         priceTextField.setPreferredSize(new java.awt.Dimension(320, 22));
@@ -352,13 +353,9 @@ public class AddProductPanel extends CustomPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void chooseImgBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseImgBtnActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Image files", "jpg", "jpeg", "png", "gif");
-        fileChooser.setFileFilter(filter);
-
-        int result = fileChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
+        JnaFileChooser fileChooser = new JnaFileChooser();
+        fileChooser.addFilter("Image files", "jpg", "jpeg", "png", "gif");
+        if (fileChooser.showOpenDialog(MainFrame.getInstance())) {
             File selectedFile = fileChooser.getSelectedFile();
             ImageIcon imageIcon = new ImageIcon(selectedFile.getAbsolutePath());
             productImage.setIcon(ImageUtil.resize(imageIcon, 150, 162));
@@ -420,6 +417,7 @@ public class AddProductPanel extends CustomPanel {
         product.setGender(Gender.valueOf(((String) genderDropdown.getSelectedItem()).toUpperCase()));
         product.setDesciption(description.getText());
         product.setAddedDate(new Date());
+        product.setAddedBy(MainFrame.getInstance().getDashboardPanel().getUser());
 
         ProductDAO productDAO = DAOManager.getInstance().getProductDAO();
         ImageDAO imageDAO = DAOManager.getInstance().getImageDAO();
@@ -438,7 +436,7 @@ public class AddProductPanel extends CustomPanel {
         }).whenComplete((t, u) -> {
             MainFrame.getInstance().getLoading().hideLoading();
             GlassPanePopup.closePopup("addProduct");
-            panel.prepareData();
+            panel.fetchData();
             if (u != null) {
                 u.printStackTrace();
                 throw new RuntimeException(u);

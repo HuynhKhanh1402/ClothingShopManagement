@@ -78,8 +78,8 @@ public class CustomPasswordField extends JPasswordField{
     private String hint = "";
     
     private void createShowHide(Graphics2D g2) {
-        int x = getWidth() - 40 + 5;
-        int y = (getHeight() - 30)/2;
+        int x = getWidth() - 32 + 5;
+        int y = (getHeight() - 22)/2;
         g2.drawImage(hide?eye_hide:eye, x, y, null);
     }
 

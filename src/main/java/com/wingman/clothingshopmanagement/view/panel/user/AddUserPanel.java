@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import jnafilechooser.api.JnaFileChooser;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
@@ -295,13 +296,9 @@ public class AddUserPanel extends CustomPanel {
     }//GEN-LAST:event_createBtnActionPerformed
 
     private void chooseImgBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseImgBtnActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Image files", "jpg", "jpeg", "png");
-        fileChooser.setFileFilter(filter);
-
-        int result = fileChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
+        JnaFileChooser fileChooser = new JnaFileChooser();
+        fileChooser.addFilter("Image files", "jpg", "jpeg", "png", "gif");
+        if (fileChooser.showOpenDialog(MainFrame.getInstance())) {
             File selectedFile = fileChooser.getSelectedFile();
             ImageIcon imageIcon = new ImageIcon(selectedFile.getAbsolutePath());
             imgLabel.setIcon(ImageUtil.resize(imageIcon, 166, 166));

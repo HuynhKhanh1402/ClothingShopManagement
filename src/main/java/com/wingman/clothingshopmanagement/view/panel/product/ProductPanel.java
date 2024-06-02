@@ -42,11 +42,11 @@ public class ProductPanel extends javax.swing.JPanel {
 
         idLabel.setText(String.valueOf(product.getProductId()));
         nameLabel.setText(String.format("<html><p width=\"150px\">%s</p></html>", product.getName()));
-        colorAndSizeLabel.setText(String.format("%s | %s", product.getColor(), product.getSize()));
+        colorAndSizeLabel.setText(String.format("Color: %s | Size: %s", product.getColor(), product.getSize()));
         brandLabel.setText(String.format("<html><p width=\"80px\">%s</p></html>", product.getBrand()));
         genderLabel.setText(product.getGender().getValue());
         priceLabel.setText(NumberFormatter.format(product.getPrice()));
-        priceLabel.setText(NumberFormatter.format(product.getStock()));
+        stockLabel.setText(NumberFormatter.format(product.getStock()));
     }
 
     /**
@@ -221,7 +221,7 @@ public class ProductPanel extends javax.swing.JPanel {
         ConfirmPanel.show("Do you want to delete this product?", () -> {
             ProductDAO productDAO = DAOManager.getInstance().getProductDAO();
             productDAO.delete(product.getProductId()).thenAccept((t) -> {
-                panel.prepareData();
+                panel.fetchData();
                 GlassPanePopup.closePopup("confirm");
                 SuccessPanel.show("Product deleted successfully.");
             });

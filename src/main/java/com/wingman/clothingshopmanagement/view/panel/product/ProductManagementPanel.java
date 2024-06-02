@@ -39,7 +39,7 @@ public class ProductManagementPanel extends javax.swing.JPanel {
      */
     public ProductManagementPanel() {
         initComponents();
-        prepareData();
+        fetchData();
 
         searchBox.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -67,7 +67,7 @@ public class ProductManagementPanel extends javax.swing.JPanel {
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(speed);
     }
 
-    public final void prepareData() {
+    public final void fetchData() {
         jPanel2.removeAll();
         cachedProducts.clear();
         
@@ -420,7 +420,7 @@ public class ProductManagementPanel extends javax.swing.JPanel {
             MainFrame.getInstance().getLoading().showLoading();
 
             CompletableFuture.allOf(tasks.toArray(CompletableFuture[]::new)).thenAccept((t) -> {
-                prepareData();
+                fetchData();
                 MainFrame.getInstance().getLoading().hideLoading();
                 SuccessPanel.show("Deleted all selected products.");
             }).whenComplete((t, u) -> {

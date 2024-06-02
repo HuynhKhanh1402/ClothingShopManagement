@@ -89,5 +89,15 @@
             <artifactId>timingframework</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.sun</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>raven</groupId>
+            <artifactId>swing-jnafilechooser</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>

@@ -70,7 +70,7 @@ public class Product {
     private Date addedDate;
     
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "ImageID", nullable = true, 
+    @JoinColumn(name = "ProductImage", nullable = true, 
         foreignKey = @ForeignKey(name = "ProductImage"))
     private Image productImage;
     

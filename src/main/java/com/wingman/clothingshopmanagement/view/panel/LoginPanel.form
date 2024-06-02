@@ -37,7 +37,7 @@
                                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="passwordField" alignment="0" pref="350" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jButton1" min="-2" pref="141" max="-2" attributes="0"/>
+                                  <Component id="forgotPasswordBtn" min="-2" pref="141" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -66,7 +66,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="passwordField" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="forgotPasswordBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Component id="loginBtn" min="-2" pref="46" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="233" max="32767" attributes="0"/>
@@ -102,6 +102,7 @@
         <Property name="boderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
         </Property>
+        <Property name="hint" type="java.lang.String" value="Enter email"/>
         <Property name="radius" type="int" value="16"/>
       </Properties>
     </Component>
@@ -119,13 +120,17 @@
         <Property name="borderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
         </Property>
+        <Property name="hint" type="java.lang.String" value="Enter password"/>
+        <Property name="hintColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="80" green="80" red="80" type="rgb"/>
+        </Property>
         <Property name="radius" type="int" value="16"/>
       </Properties>
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="passwordFieldKeyReleased"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="forgotPasswordBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Forgot password?"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

@@ -11,10 +11,10 @@ import java.text.DecimalFormat;
  * @author Administrator
  */
 public class NumberFormatter {
-    private static DecimalFormat FORMAT = new DecimalFormat("#,##0.##");
+    private static final DecimalFormat FORMAT = new DecimalFormat("#,##0.##");
     
     public static String format(double num) {
-        return FORMAT.format(num);
+        return FORMAT.format(num).replace(".", " ");
     }
     
     public static String formatWithoutComma(double num) {

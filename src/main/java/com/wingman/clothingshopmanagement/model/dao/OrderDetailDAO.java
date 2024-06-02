@@ -113,7 +113,7 @@ public class OrderDetailDAO implements IDAO<OrderDetail, OrderDetailId>{
     public CompletableFuture<Long> getTotalOrderedProduct() {
         return CompletableFuture.supplyAsync(() -> {
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-                String hql = "SELECT COUNT(OD.quantity) FROM OrderDetail OD";
+                String hql = "SELECT SUM(OD.quantity) FROM OrderDetail OD";
                 return session.createQuery(hql, Long.class).getSingleResult();
             }
         });

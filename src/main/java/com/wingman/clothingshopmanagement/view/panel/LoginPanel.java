@@ -28,6 +28,7 @@ public class LoginPanel extends javax.swing.JPanel {
      */
     public LoginPanel() {
         initComponents();
+        forgotPasswordBtn.setVisible(false);
         shopImageLabel.setIcon(ImageUtil.resize(new ImageIcon(getClass().getResource("/images/shop.png")), 565, 756));
     }
 
@@ -46,7 +47,7 @@ public class LoginPanel extends javax.swing.JPanel {
         emailTextField = new com.wingman.clothingshopmanagement.view.components.CustomTextField();
         jLabel3 = new javax.swing.JLabel();
         passwordField = new com.wingman.clothingshopmanagement.view.components.CustomPasswordField();
-        jButton1 = new javax.swing.JButton();
+        forgotPasswordBtn = new javax.swing.JButton();
         loginBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -60,6 +61,7 @@ public class LoginPanel extends javax.swing.JPanel {
         jLabel2.setText("Email");
 
         emailTextField.setBoderColor(java.awt.Color.lightGray);
+        emailTextField.setHint("Enter email");
         emailTextField.setRadius(16);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -67,6 +69,8 @@ public class LoginPanel extends javax.swing.JPanel {
 
         passwordField.setToolTipText("");
         passwordField.setBorderColor(java.awt.Color.lightGray);
+        passwordField.setHint("Enter password");
+        passwordField.setHintColor(new java.awt.Color(128, 128, 128));
         passwordField.setRadius(16);
         passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -74,13 +78,13 @@ public class LoginPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Forgot password?");
-        jButton1.setBorder(null);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton1.setIconTextGap(0);
+        forgotPasswordBtn.setText("Forgot password?");
+        forgotPasswordBtn.setBorder(null);
+        forgotPasswordBtn.setContentAreaFilled(false);
+        forgotPasswordBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        forgotPasswordBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        forgotPasswordBtn.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        forgotPasswordBtn.setIconTextGap(0);
 
         loginBtn.setBackground(new java.awt.Color(125, 44, 224));
         loginBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -118,7 +122,7 @@ public class LoginPanel extends javax.swing.JPanel {
                                         .addComponent(emailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel3)
                                         .addComponent(passwordField, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(forgotPasswordBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 321, Short.MAX_VALUE)
@@ -139,7 +143,7 @@ public class LoginPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(forgotPasswordBtn)
                 .addGap(43, 43, 43)
                 .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 233, Short.MAX_VALUE))
@@ -217,7 +221,7 @@ public class LoginPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.wingman.clothingshopmanagement.view.components.CustomTextField emailTextField;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton forgotPasswordBtn;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private com.wingman.clothingshopmanagement.view.components.CustomButton loginBtn;

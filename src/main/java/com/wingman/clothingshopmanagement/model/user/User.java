@@ -46,7 +46,7 @@ public class User {
     @Column(name = "AddedDate")
     private Date addedDate;
     
-    @JoinColumn(name = "ImageID", nullable = true)
+    @JoinColumn(name = "UserAvatar", nullable = true)
     @ManyToOne(targetEntity=Image.class, fetch=FetchType.EAGER)
     private Image avatar;
 }
