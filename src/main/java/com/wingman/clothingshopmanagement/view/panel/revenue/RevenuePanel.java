@@ -9,32 +9,21 @@ import com.wingman.clothingshopmanagement.model.dao.OrderDAO;
 import com.wingman.clothingshopmanagement.util.DateFormatter;
 import com.wingman.clothingshopmanagement.util.NumberFormatter;
 import com.wingman.clothingshopmanagement.view.MainFrame;
-import java.awt.Dimension;
+import java.awt.Color;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import javax.swing.SwingUtilities;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.CategoryLabelPositions;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.labels.CategoryItemLabelGenerator;
-import org.jfree.chart.labels.ItemLabelAnchor;
-import org.jfree.chart.labels.ItemLabelPosition;
-import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.TextAnchor;
+import raven.chart.ModelChart;
 import raven.datetime.component.date.DatePicker;
 
 
@@ -48,6 +37,10 @@ public class RevenuePanel extends javax.swing.JPanel {
     public RevenuePanel() {
         initComponents();
         fetchData();
+        
+        curveLineChart.setTitle("Revenue over the past 12 months");
+        curveLineChart.addLegend("Revenue", Color.decode("#0099F7"), Color.decode("#F11712"));
+        
         setupChart();
 
         datePicker = new DatePicker();
@@ -66,8 +59,8 @@ public class RevenuePanel extends javax.swing.JPanel {
         MainFrame.getInstance().getLoading().showLoading();
 
         CompletableFuture.runAsync(() -> {
-            Date fromDate = getFromDate()[0];
-            Date toDate = getFromDate()[1];
+            Date fromDate = getViewRange()[0];
+            Date toDate = getViewRange()[1];
 
             viewRangeDateLabel.setText(DateFormatter.formatDate(fromDate) + " - " + DateFormatter.formatDate(toDate));
             
@@ -97,7 +90,7 @@ public class RevenuePanel extends javax.swing.JPanel {
         });
     }
 
-    private Date[] getFromDate() {
+    private Date[] getViewRange() {
         Optional<ViewRange> optionalVR = ViewRange.parse((String) viewRangeCombobox.getSelectedItem());
         if (optionalVR.isEmpty()) {
             throw new IllegalArgumentException("Invalid ViewRange");
@@ -156,53 +149,13 @@ public class RevenuePanel extends javax.swing.JPanel {
     }
 
     private void showChart(RevenueChartData data) {
-        CategoryDataset dataset = createDataset(data);
-        JFreeChart lineChart = ChartFactory.createLineChart(
-                "Revenue over the past 12 months",
-                "",
-                "Revenue(M₫)",
-                dataset,
-                PlotOrientation.VERTICAL,
-                false,
-                false,
-                false
-        );
-        CategoryPlot plot = (CategoryPlot) lineChart.getPlot();
-
-        CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setAutoRange(true);
-        rangeAxis.setAutoRangeIncludesZero(false);
-
-        CategoryItemLabelGenerator generator = new StandardCategoryItemLabelGenerator();
-        plot.getRenderer().setBaseItemLabelGenerator(generator);
-        plot.getRenderer().setBaseItemLabelsVisible(true);
-        plot.getRenderer().setBasePositiveItemLabelPosition(new ItemLabelPosition(
-                ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER
-        ));
-        ChartPanel chartPanel = new ChartPanel(lineChart);
-        chartPanel.setMouseWheelEnabled(true);
-        chartPanel.setPreferredSize(new Dimension(960, 320));
-
-        try {
-            remove(chart);
-            add(chartPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 352, 960, 320));
-            SwingUtilities.invokeLater(() -> {
-                SwingUtilities.updateComponentTreeUI(this);
-            });
-        } catch (Exception e) {
+        Collections.reverse(data.getData());
+        for (RevenueMonthy monthy: data.getData()) {
+            curveLineChart.addData(new ModelChart(
+                    monthy.getMonthOfYear() + "/" + monthy.getYear(),
+                    new double[]{monthy.getRevenue()}));
         }
-
-    }
-
-    private CategoryDataset createDataset(RevenueChartData data) {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        for (int i = data.getData().size() - 1; i >= 0; i--) {
-            RevenueMonthy monthy = data.getData().get(i);
-            dataset.addValue(monthy.getRevenue() / 1000000, "Data", monthy.getMonthOfYear() + "/" + monthy.getYear());
-        }
-        return dataset;
+        curveLineChart.start();
     }
 
     /**
@@ -230,6 +183,7 @@ public class RevenuePanel extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         orderedProductLabel = new javax.swing.JLabel();
         chart = new javax.swing.JPanel();
+        curveLineChart = new raven.chart.CurveLineChart();
         customPanel3 = new com.wingman.clothingshopmanagement.view.components.CustomPanel();
         datePickerEditor = new com.wingman.clothingshopmanagement.view.components.CustomFormattedField();
 
@@ -371,15 +325,18 @@ public class RevenuePanel extends javax.swing.JPanel {
 
         add(customPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(579, 159, -1, -1));
 
+        curveLineChart.setBackground(new java.awt.Color(255, 255, 255));
+        curveLineChart.setForeground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout chartLayout = new javax.swing.GroupLayout(chart);
         chart.setLayout(chartLayout);
         chartLayout.setHorizontalGroup(
             chartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
+            .addComponent(curveLineChart, javax.swing.GroupLayout.DEFAULT_SIZE, 960, Short.MAX_VALUE)
         );
         chartLayout.setVerticalGroup(
             chartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addComponent(curveLineChart, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
         );
 
         add(chart, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 352, 960, 320));
@@ -424,6 +381,7 @@ public class RevenuePanel extends javax.swing.JPanel {
             SwingUtilities.updateComponentTreeUI(this);
         }
         fetchData();
+        
     }//GEN-LAST:event_viewRangeComboboxActionPerformed
 
     private void datePickerEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePickerEditorActionPerformed
@@ -433,6 +391,7 @@ public class RevenuePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel chart;
+    private raven.chart.CurveLineChart curveLineChart;
     private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel1;
     private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel2;
     private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel3;

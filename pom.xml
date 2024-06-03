@@ -99,5 +99,10 @@
             <artifactId>swing-jnafilechooser</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>raven.chart</groupId>
+            <artifactId>curve-line-chart</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>
