@@ -10,6 +10,8 @@ import com.wingman.clothingshopmanagement.model.dao.OrderDetailDAO;
 import com.wingman.clothingshopmanagement.model.order.Order;
 import com.wingman.clothingshopmanagement.model.order.OrderDetail;
 import com.wingman.clothingshopmanagement.model.order.OrderDetailId;
+import com.wingman.clothingshopmanagement.model.user.Permission;
+import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.util.DateFormatter;
 import com.wingman.clothingshopmanagement.util.NumberFormatter;
 import com.wingman.clothingshopmanagement.view.MainFrame;
@@ -55,6 +57,11 @@ public class OrderManagementPanel extends javax.swing.JPanel {
         setupDateChooser();
         
         prepareData();
+        
+        User user = MainFrame.getInstance().getDashboardPanel().getUser();
+        if (!(user != null && user.getPermission().equals(Permission.ADMINISTRATOR))) {
+            removeButton.setEnabled(false);
+        }
     }
     
     private void setupTableProperties() {

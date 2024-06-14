@@ -4,6 +4,7 @@
  */
 package com.wingman.clothingshopmanagement.view.panel;
 
+import com.wingman.clothingshopmanagement.model.user.Permission;
 import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.view.MainFrame;
 import com.wingman.clothingshopmanagement.view.components.CustomButton;
@@ -12,6 +13,7 @@ import com.wingman.clothingshopmanagement.view.panel.order.OrderManagementPanel;
 import com.wingman.clothingshopmanagement.view.panel.order.OrderPanel;
 import com.wingman.clothingshopmanagement.view.panel.product.ProductManagementPanel;
 import com.wingman.clothingshopmanagement.view.panel.revenue.RevenuePanel;
+import com.wingman.clothingshopmanagement.view.panel.user.UserInfoPanel;
 import com.wingman.clothingshopmanagement.view.panel.user.UserManagementPanel;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -30,6 +32,10 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         initComponents();
         this.user = user;
         homeBtn.doClick();
+        
+        if (!user.getPermission().equals(Permission.ADMINISTRATOR)) {
+            manageUserBtn.setEnabled(false);
+        }
     }   
 
     /**
@@ -43,7 +49,7 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        customButton2 = new com.wingman.clothingshopmanagement.view.components.CustomButton();
+        userInfoBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         customPanel1 = new com.wingman.clothingshopmanagement.view.components.CustomPanel();
         homeBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         manageUserBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
@@ -61,18 +67,18 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         jLabel1.setForeground(new java.awt.Color(125, 44, 224));
         jLabel1.setText("Clothing Shop Management");
 
-        customButton2.setBackground(new java.awt.Color(125, 44, 224));
-        customButton2.setBorder(null);
-        customButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
-        customButton2.setBorderColor(new java.awt.Color(125, 44, 224));
-        customButton2.setColor(new java.awt.Color(125, 44, 224));
-        customButton2.setColorClick(new java.awt.Color(125, 44, 224));
-        customButton2.setColorOver(new java.awt.Color(125, 44, 224));
-        customButton2.setPreferredSize(new java.awt.Dimension(36, 36));
-        customButton2.setRadius(100);
-        customButton2.addActionListener(new java.awt.event.ActionListener() {
+        userInfoBtn.setBackground(new java.awt.Color(125, 44, 224));
+        userInfoBtn.setBorder(null);
+        userInfoBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
+        userInfoBtn.setBorderColor(new java.awt.Color(125, 44, 224));
+        userInfoBtn.setColor(new java.awt.Color(125, 44, 224));
+        userInfoBtn.setColorClick(new java.awt.Color(125, 44, 224));
+        userInfoBtn.setColorOver(new java.awt.Color(125, 44, 224));
+        userInfoBtn.setPreferredSize(new java.awt.Dimension(36, 36));
+        userInfoBtn.setRadius(100);
+        userInfoBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customButton2ActionPerformed(evt);
+                userInfoBtnActionPerformed(evt);
             }
         });
 
@@ -84,7 +90,7 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
                 .addGap(6, 6, 6)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 956, Short.MAX_VALUE)
-                .addComponent(customButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userInfoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -92,7 +98,7 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(customButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userInfoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -285,9 +291,10 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
         add(customPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 54, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void customButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_customButton2ActionPerformed
+    private void userInfoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userInfoBtnActionPerformed
+        UserInfoPanel panel = new UserInfoPanel(user);
+        panel.display();
+    }//GEN-LAST:event_userInfoBtnActionPerformed
 
     private void revenueBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_revenueBtnActionPerformed
         resetButtonBackgroundColor();
@@ -353,7 +360,6 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.wingman.clothingshopmanagement.view.components.CustomButton customButton2;
     private com.wingman.clothingshopmanagement.view.components.CustomPanel customPanel1;
     private com.wingman.clothingshopmanagement.view.components.CustomButton homeBtn;
     private javax.swing.JLabel jLabel1;
@@ -364,5 +370,6 @@ public class DashboardPanel extends javax.swing.JLayeredPane {
     private com.wingman.clothingshopmanagement.view.components.CustomButton manageUserBtn;
     private com.wingman.clothingshopmanagement.view.components.CustomButton orderBtn;
     private com.wingman.clothingshopmanagement.view.components.CustomButton revenueBtn;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton userInfoBtn;
     // End of variables declaration//GEN-END:variables
 }

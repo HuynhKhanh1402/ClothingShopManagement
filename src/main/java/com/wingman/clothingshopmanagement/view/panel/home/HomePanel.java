@@ -555,7 +555,6 @@ public class HomePanel extends javax.swing.JPanel {
         customPanel6.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 406, -1));
 
         avatar1.setBackground(new java.awt.Color(230, 230, 230));
-        avatar1.setRadius(100);
 
         javax.swing.GroupLayout avatar1Layout = new javax.swing.GroupLayout(avatar1);
         avatar1.setLayout(avatar1Layout);
@@ -570,8 +569,6 @@ public class HomePanel extends javax.swing.JPanel {
 
         customPanel6.add(avatar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 43, 100, 100));
 
-        avatar2.setRadius(100);
-
         javax.swing.GroupLayout avatar2Layout = new javax.swing.GroupLayout(avatar2);
         avatar2.setLayout(avatar2Layout);
         avatar2Layout.setHorizontalGroup(
@@ -584,8 +581,6 @@ public class HomePanel extends javax.swing.JPanel {
         );
 
         customPanel6.add(avatar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 161, -1, -1));
-
-        avatar3.setRadius(100);
 
         javax.swing.GroupLayout avatar3Layout = new javax.swing.GroupLayout(avatar3);
         avatar3.setLayout(avatar3Layout);

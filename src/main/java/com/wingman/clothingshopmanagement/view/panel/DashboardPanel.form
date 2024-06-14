@@ -37,7 +37,7 @@
                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="264" max="-2" attributes="0"/>
                   <EmptySpace pref="956" max="32767" attributes="0"/>
-                  <Component id="customButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="userInfoBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -47,7 +47,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="customButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="userInfoBtn" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -67,7 +67,7 @@
             <Property name="text" type="java.lang.String" value="Clothing Shop Management"/>
           </Properties>
         </Component>
-        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="customButton2">
+        <Component class="com.wingman.clothingshopmanagement.view.components.CustomButton" name="userInfoBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="2c" red="7d" type="rgb"/>
@@ -96,7 +96,7 @@
             <Property name="radius" type="int" value="100"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userInfoBtnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

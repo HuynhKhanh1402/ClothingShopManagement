@@ -15,9 +15,12 @@ import com.wingman.clothingshopmanagement.util.BCryptUtil;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.view.MainFrame;
 import com.wingman.clothingshopmanagement.view.components.CustomPanel;
+import com.wingman.clothingshopmanagement.view.components.CustomTextField;
 import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
 import com.wingman.clothingshopmanagement.view.panel.message.WarningPanel;
+import java.awt.Color;
 import java.io.File;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
@@ -32,6 +35,8 @@ public class EditUserPanel extends CustomPanel {
     private final UserManagementPanel panel;
     private final User user;
     private boolean isChangedAvatar = false;
+    
+    private final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$");
 
     /**
      * Creates new form UserCreatePanel
@@ -265,6 +270,10 @@ public class EditUserPanel extends CustomPanel {
     }//GEN-LAST:event_fullNameTextFieldActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+        resetBorder(emailTextField);
+        resetBorder(fullNameTextField);
+        resetBorder(passwordField);
+        
         if (!validdateTextField(emailTextField, "Email is empty!")) {
             return;
         }
@@ -274,6 +283,10 @@ public class EditUserPanel extends CustomPanel {
         }
 
         if (!validdateTextField(passwordField, "Password is empty!")) {
+            return;
+        }
+        
+        if (jCheckBox1.isSelected() && !validPasswordField()) {
             return;
         }
 
@@ -317,10 +330,14 @@ public class EditUserPanel extends CustomPanel {
                 throw new RuntimeException(u);
             }
         });
-
-
     }//GEN-LAST:event_saveBtnActionPerformed
 
+    private void resetBorder(JTextField textField) {
+        if (textField instanceof CustomTextField ctf) {
+            ctf.setBoderColor(Color.LIGHT_GRAY);
+        }
+    }
+    
     private void chooseImgBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseImgBtnActionPerformed
         JnaFileChooser fileChooser = new JnaFileChooser();
         fileChooser.addFilter("Image files", "jpg", "jpeg", "png", "gif");
@@ -349,10 +366,23 @@ public class EditUserPanel extends CustomPanel {
 
     private boolean validdateTextField(JTextField field, String message) {
         if (field.getText().isBlank()) {
+            if (field instanceof CustomTextField ctf) {
+                ctf.setBoderColor(Color.RED);
+            }
             WarningPanel.show(message);
             return false;
         }
         return true;
+    }
+    
+    private boolean validPasswordField() {
+        if (PASSWORD_PATTERN.matcher(new String(passwordField.getPassword())).matches()) {
+            return true;
+        }
+
+        passwordField.setBorderColor(Color.RED);
+        WarningPanel.show("The password requirement is that it be at least 8 characters long, include at least 1 uppercase letter, 1 lowercase letter, and contain at least 1 number.");
+        return false;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -12,6 +12,7 @@ import com.wingman.clothingshopmanagement.view.MainFrame;
 import com.wingman.clothingshopmanagement.view.panel.message.WarningPanel;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
@@ -198,6 +199,9 @@ public class LoginPanel extends javax.swing.JPanel {
                 WarningPanel.show("Wrong password!");
                 return;
             }
+            
+            user.setLastActive(new Date());
+            userDAO.update(user).join();
             
             MainFrame.getInstance().getLoading().hideLoading();
             MainFrame.getInstance().showDashboardPanel(user);

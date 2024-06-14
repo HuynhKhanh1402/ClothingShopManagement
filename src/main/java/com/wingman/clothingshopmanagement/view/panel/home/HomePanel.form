@@ -649,7 +649,6 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e6" green="e6" red="e6" type="rgb"/>
             </Property>
-            <Property name="radius" type="int" value="100"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -671,9 +670,6 @@
           </Layout>
         </Container>
         <Container class="com.wingman.clothingshopmanagement.view.components.ImagePanel" name="avatar2">
-          <Properties>
-            <Property name="radius" type="int" value="100"/>
-          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="12" y="161" width="-1" height="-1"/>
@@ -694,9 +690,6 @@
           </Layout>
         </Container>
         <Container class="com.wingman.clothingshopmanagement.view.components.ImagePanel" name="avatar3">
-          <Properties>
-            <Property name="radius" type="int" value="100"/>
-          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="12" y="279" width="-1" height="-1"/>

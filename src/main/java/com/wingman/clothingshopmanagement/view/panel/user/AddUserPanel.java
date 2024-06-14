@@ -14,30 +14,36 @@ import com.wingman.clothingshopmanagement.util.BCryptUtil;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.view.MainFrame;
 import com.wingman.clothingshopmanagement.view.components.CustomPanel;
+import com.wingman.clothingshopmanagement.view.components.CustomTextField;
 import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
 import com.wingman.clothingshopmanagement.view.panel.message.WarningPanel;
+import java.awt.Color;
 import java.io.File;
+import java.util.Date;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import jnafilechooser.api.JnaFileChooser;
 import lombok.Getter;
 import raven.glasspanepopup.GlassPanePopup;
 
-
 @Getter
 public class AddUserPanel extends CustomPanel {
+
     private boolean isChangedAvatar = false;
     private final UserManagementPanel panel;
 
+    private final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$");
+    private final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+
     /**
      * Creates new form UserCreatePanel
+     *
      * @param panel
      */
     public AddUserPanel(UserManagementPanel panel) {
         initComponents();
-        
+
         imgLabel.setIcon(ImageUtil.resize(new ImageIcon(getClass().getResource("/images/user_color.png")), 166, 166));
         this.panel = panel;
     }
@@ -234,48 +240,61 @@ public class AddUserPanel extends CustomPanel {
     }//GEN-LAST:event_fullNameTextFieldActionPerformed
 
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
+        resetBorder(emailTextField);
+        resetBorder(fullNameTextField);
+        resetBorder(passwordField);
+        
         if (!validdateTextField(emailTextField, "Email is empty!")) {
             return;
         }
-        
+
         if (!validdateTextField(fullNameTextField, "Full name is empty!")) {
             return;
         }
-        
+
         if (!validdateTextField(passwordField, "Password is empty!")) {
             return;
         }
         
+        if (!validEmailField()) {
+            return;
+        }
+        
+        if (!validPasswordField()) {
+            return;
+        }
+
         String email = emailTextField.getText();
         String fullName = fullNameTextField.getText();
         String password = new String(passwordField.getPassword());
         Permission permission = Permission.valueOf(((String) permissionDropdown.getSelectedItem()).toUpperCase());
-        
+
         User user = new User();
         user.setEmail(email);
         user.setFullName(fullName);
         user.setHashedPassword(BCryptUtil.hash(password));
         user.setPermission(permission);
-                
+        user.setAddedDate(new Date());
+
         UserDAO userDAO = DAOManager.getInstance().getUserDAO();
         ImageDAO imageDAO = DAOManager.getInstance().getImageDAO();
-        
+
         MainFrame.getInstance().getLoading().showLoading();
-        
+
         userDAO.get(email).thenAcceptAsync((t) -> {
             if (t != null) {
                 MainFrame.getInstance().getLoading().hideLoading();
                 GlassPanePopup.showPopup(new WarningPanel("Email " + email + " already exists!"), "warning");
                 return;
             }
-            
+
             Image image = new Image();
             image.setImage((ImageIcon) imgLabel.getIcon());
-            
+
             imageDAO.save(image).join();
-            
+
             user.setAvatar(image);
-            
+
             MainFrame.getInstance().getLoading().hideLoading();
             userDAO.save(user).thenRun(() -> {
                 GlassPanePopup.closePopup("addUser");
@@ -306,15 +325,43 @@ public class AddUserPanel extends CustomPanel {
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         GlassPanePopup.closePopup("addUser");
     }//GEN-LAST:event_cancelBtnActionPerformed
-    
+
     private boolean validdateTextField(JTextField field, String message) {
         if (field.getText().isBlank()) {
+            if (field instanceof CustomTextField ctf) {
+                ctf.setBoderColor(Color.RED);
+            }
             GlassPanePopup.showPopup(new WarningPanel(message), "warning");
             return false;
         }
         return true;
     }
+
+    private void resetBorder(JTextField textField) {
+        if (textField instanceof CustomTextField ctf) {
+            ctf.setBoderColor(Color.LIGHT_GRAY);
+        }
+    }
     
+    private boolean validEmailField() {
+        if (EMAIL_PATTERN.matcher(emailTextField.getText()).matches()) {
+            return true;
+        }
+        WarningPanel.show("Invalid email!");
+        emailTextField.setBoderColor(Color.RED);
+        return false;
+    }
+
+    private boolean validPasswordField() {
+        if (PASSWORD_PATTERN.matcher(new String(passwordField.getPassword())).matches()) {
+            return true;
+        }
+
+        passwordField.setBorderColor(Color.RED);
+        WarningPanel.show("The password requirement is that it be at least 8 characters long, include at least 1 uppercase letter, 1 lowercase letter, and contain at least 1 number.");
+        return false;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.wingman.clothingshopmanagement.view.components.CustomButton cancelBtn;
     private com.wingman.clothingshopmanagement.view.components.CustomButton chooseImgBtn;

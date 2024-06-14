@@ -10,6 +10,7 @@ import com.wingman.clothingshopmanagement.model.image.Image;
 import com.wingman.clothingshopmanagement.model.user.User;
 import com.wingman.clothingshopmanagement.util.DateFormatter;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
+import com.wingman.clothingshopmanagement.view.MainFrame;
 import com.wingman.clothingshopmanagement.view.panel.message.ConfirmPanel;
 import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
 import lombok.Getter;
@@ -39,15 +40,20 @@ public class UserPanel extends javax.swing.JPanel {
         permissionLabel.setText(user.getPermission().getText());
         
         if (user.getLastActive() != null) {
-            lastActiveLabel.setText(DateFormatter.formatDate(user.getLastActive()));
+            User currentUser = MainFrame.getInstance().getDashboardPanel().getUser();
+            if (currentUser != null && currentUser.getEmail().equalsIgnoreCase(user.getEmail())) {
+                lastActiveLabel.setText("Now");
+            } else {
+                lastActiveLabel.setText(DateFormatter.formatDate(user.getLastActive()));
+            }
         } else {
             lastActiveLabel.setText("No data");
         }
         
         if (user.getAddedDate()!= null) {
-            lastActiveLabel.setText(DateFormatter.formatDate(user.getAddedDate()));
+            addedDateLabel.setText(DateFormatter.formatDate(user.getAddedDate()));
         } else {
-            lastActiveLabel.setText("No data");
+            addedDateLabel.setText("No data");
         }
     }
 
