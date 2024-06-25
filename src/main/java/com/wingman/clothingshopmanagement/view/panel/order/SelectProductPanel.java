@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -76,6 +77,8 @@ public class SelectProductPanel extends CustomPanel {
         });
 
         addSearchBoxListener();
+        
+        quantitySpinner.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
 
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
             if (i == 0 || i == 2) {

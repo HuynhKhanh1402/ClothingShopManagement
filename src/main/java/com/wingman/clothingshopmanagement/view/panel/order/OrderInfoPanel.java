@@ -9,30 +9,44 @@ import com.wingman.clothingshopmanagement.model.dao.OrderDetailDAO;
 import com.wingman.clothingshopmanagement.model.order.Order;
 import com.wingman.clothingshopmanagement.model.order.OrderDetail;
 import com.wingman.clothingshopmanagement.model.product.Product;
+import com.wingman.clothingshopmanagement.util.ExcelUtil;
 import com.wingman.clothingshopmanagement.util.ImageUtil;
 import com.wingman.clothingshopmanagement.util.NumberFormatter;
 import com.wingman.clothingshopmanagement.view.MainFrame;
 import com.wingman.clothingshopmanagement.view.components.CustomPanel;
+import com.wingman.clothingshopmanagement.view.panel.message.SuccessPanel;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
+import org.apache.poi.ss.usermodel.Workbook;
 
 public class OrderInfoPanel extends CustomPanel {
+
     private final Order order;
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
     /**
      * Creates new form OrderInfo
+     *
      * @param order
      */
     public OrderInfoPanel(Order order) {
         initComponents();
         this.order = order;
-        
+
         customerNameTextField.setText(order.getName());
         customerPhoneTextField.setText(order.getPhone());
-        
+
         jTable1.setRowHeight(64);
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
             if (i == 0 || i == 2) {
@@ -42,44 +56,46 @@ public class OrderInfoPanel extends CustomPanel {
             centerRenderer.setHorizontalAlignment(JLabel.CENTER);
             jTable1.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-        
+
         loadData();
     }
-    
+
     private void loadData() {
         OrderDetailDAO orderDetailDAO = DAOManager.getInstance().getOrderDetailDAO();
         MainFrame.getInstance().getLoading().showLoading();
         orderDetailDAO.getAll(order).thenAccept((t) -> {
+            orderDetails = t;
+
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             double billTotal = 0;
-            for (OrderDetail od: t) {
+            for (OrderDetail od : t) {
                 // "", "ID", "Name", "Size", "Color", "Price", "Quantity", "Total"
                 Product product = od.getProduct();
                 ImageIcon rawImage = product.getProductImage() != null
-                            ? product.getProductImage().getImage()
-                            : new ImageIcon(getClass().getResource("/images/no-pictures.png"));
-                    ImageIcon image = ImageUtil.resize(rawImage, 64, 64);
+                        ? product.getProductImage().getImage()
+                        : new ImageIcon(getClass().getResource("/images/no-pictures.png"));
+                ImageIcon image = ImageUtil.resize(rawImage, 64, 64);
 
-                    long id = product.getProductId();
-                    String name = product.getName();
-                    String size = product.getSize();
-                    String color = product.getColor();
-                    double price = od.getUnitPrice();
-                    int quantity = od.getQuantity();
-                    double total = price * quantity;
+                long id = product.getProductId();
+                String name = product.getName();
+                String size = product.getSize();
+                String color = product.getColor();
+                double price = od.getUnitPrice();
+                int quantity = od.getQuantity();
+                double total = price * quantity;
 
-                    model.addRow(new Object[]{
-                        image, 
-                        id, 
-                        name, 
-                        size, 
-                        color, 
-                        NumberFormatter.format(price),
-                        quantity,
-                        NumberFormatter.format(total)
-                    });
-                    
-                    billTotal += total;
+                model.addRow(new Object[]{
+                    image,
+                    id,
+                    name,
+                    size,
+                    color,
+                    NumberFormatter.format(price),
+                    quantity,
+                    NumberFormatter.format(total)
+                });
+
+                billTotal += total;
             }
             totalLabel.setText(NumberFormatter.format(billTotal) + "đ");
             MainFrame.getInstance().getLoading().hideLoading();
@@ -107,6 +123,7 @@ public class OrderInfoPanel extends CustomPanel {
         jLabel3 = new javax.swing.JLabel();
         customerNameTextField = new com.wingman.clothingshopmanagement.view.components.CustomTextField();
         customerPhoneTextField = new com.wingman.clothingshopmanagement.view.components.CustomTextField();
+        exportBtn = new com.wingman.clothingshopmanagement.view.components.CustomButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
@@ -137,6 +154,23 @@ public class OrderInfoPanel extends CustomPanel {
         customerPhoneTextField.setBoderColor(new java.awt.Color(125, 44, 224));
         customerPhoneTextField.setRadius(16);
 
+        exportBtn.setBackground(new java.awt.Color(125, 44, 224));
+        exportBtn.setForeground(new java.awt.Color(255, 255, 255));
+        exportBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/export.png"))); // NOI18N
+        exportBtn.setText("Export");
+        exportBtn.setBorderColor(new java.awt.Color(125, 44, 224));
+        exportBtn.setColor(new java.awt.Color(125, 44, 224));
+        exportBtn.setColorClick(new java.awt.Color(75, 3, 163));
+        exportBtn.setColorOver(new java.awt.Color(96, 33, 173));
+        exportBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        exportBtn.setIconTextGap(8);
+        exportBtn.setRadius(16);
+        exportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -148,9 +182,14 @@ public class OrderInfoPanel extends CustomPanel {
                     .addComponent(customerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(145, 145, 145)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(customerPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(170, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addContainerGap(316, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(customerPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,10 +199,13 @@ public class OrderInfoPanel extends CustomPanel {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(customerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(customerPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(customerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(customerPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(exportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -239,10 +281,39 @@ public class OrderInfoPanel extends CustomPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", "xlsx");
+        fileChooser.setFileFilter(filter);
+        
+        int returnValue = fileChooser.showSaveDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String filePath = selectedFile.getAbsolutePath();
+            
+            if (!filePath.toLowerCase().endsWith(".xlsx")) {
+                selectedFile = new File(filePath + ".xlsx");
+            }
+            
+
+            try (Workbook workbook = ExcelUtil.convertOrderToExcel(order, orderDetails); FileOutputStream outputStream = new FileOutputStream(selectedFile)) {
+                workbook.write(outputStream);
+                
+                SuccessPanel.show("The data has been exported to Excel file successfully.");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+        }
+    }//GEN-LAST:event_exportBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.wingman.clothingshopmanagement.view.components.CustomTextField customerNameTextField;
     private com.wingman.clothingshopmanagement.view.components.CustomTextField customerPhoneTextField;
+    private com.wingman.clothingshopmanagement.view.components.CustomButton exportBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

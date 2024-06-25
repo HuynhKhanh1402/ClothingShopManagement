@@ -107,7 +107,8 @@ public class OrderDetailDAO implements IDAO<OrderDetail, OrderDetailId>{
         return CompletableFuture.supplyAsync(() -> {
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 String hql = "SELECT SUM(OD.quantity) FROM OrderDetail OD";
-                return session.createQuery(hql, Long.class).getSingleResult();
+                Long result = session.createQuery(hql, Long.class).getSingleResult();
+                return result != null ? result : 0L;
             }
         });
     }

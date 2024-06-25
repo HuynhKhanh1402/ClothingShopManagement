@@ -21,13 +21,13 @@ import lombok.Setter;
 @Setter
 public class OrderDetail {
     @Id
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "OrderID", nullable = false, foreignKey = @ForeignKey(name = "fk_order_id"))
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "OrderID", nullable = true, foreignKey = @ForeignKey(name = "fk_order_id"))
     private Order order;
 
     @Id
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "ProductID", nullable = false, foreignKey = @ForeignKey(name = "fk_product_id"))
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "ProductID", nullable = true, foreignKey = @ForeignKey(name = "fk_product_id"), updatable=false, insertable=false)
     private Product product;
 
     @Column(name = "Quantity", nullable = false)
