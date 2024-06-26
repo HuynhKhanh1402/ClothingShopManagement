@@ -174,7 +174,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 addUserBtnActionPerformed(evt);
             }
         });
-        add(addUserBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(878, 93, -1, 41));
+        add(addUserBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 90, 120, 41));
 
         searchBox.setBoderColor(new java.awt.Color(125, 44, 224));
         searchBox.setHint("Search");
@@ -182,7 +182,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         searchBox.setPrefixIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search-interface-symbol.png"))); // NOI18N
         searchBox.setRadius(16);
         searchBox.setSelectionColor(new java.awt.Color(155, 50, 255));
-        add(searchBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(591, 94, 281, 41));
+        add(searchBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 281, 41));
 
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));
 
